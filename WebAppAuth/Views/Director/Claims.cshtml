@@ -1,0 +1,61 @@
+﻿@model IEnumerable<OhDataManager.Entities.Main.PersonalAccountAccrual>
+    @{
+        Layout = "~/Views/Director/_Layout.cshtml";
+        ViewBag.Title = "Заявки";
+    }
+
+<div class="box">
+
+  <div class="box-header with-border">
+
+    <div class="row">
+      <div class="col-md-3">
+        <select class="form-control select2" name="service">
+          <option value="default">Все услуги</option>
+          <option value="service1">Услуга 1</option>
+          <option value="service2">Услуга 2</option>
+          <option value="service3">Услуга 3</option>
+          <option value="service4">Услуга 4</option>
+          <option value="service5">Услуга 5</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <select class="form-control select2" name="year">
+          <option value="default">2017</option>
+          <option value="service1">2016</option>
+          <option value="service2">2015</option>
+          <option value="service3">2014</option>
+          <option value="service4">2013</option>
+          <option value="service5">2012</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <select class="form-control select2" name="address">
+          <option value="default">Все адреса</option>
+          <option value="service1">Адрес 1</option>
+          <option value="service1">Адрес 2</option>
+          <option value="service1">Адрес 3</option>
+          <option value="service1">Адрес 4</option>
+          <option value="service1">Адрес 5</option>
+        </select>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="box-body">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="chart-wrapper">
+          <p>Количественная диаграмма по типам заявок</p>
+          <canvas class="chart-claims-type" height="100px"></canvas>
+        </div>
+        <div class="chart-wrapper">
+          <p>Количественная диаграмма за период</p>
+          <canvas class="chart-claims-period" height="100px"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

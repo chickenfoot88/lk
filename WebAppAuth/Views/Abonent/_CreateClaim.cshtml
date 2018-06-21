@@ -1,0 +1,80 @@
+﻿<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel"></h4>
+    </div>
+    <div class="modal-body">
+
+        <div class="col-xs-12">
+
+            <div class="box box-info">
+
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-2 control-label">Тип заявки:</div>
+                        <div id="rtype" class="col-md-10">
+
+                            <div class="col-md-4">
+                                @Html.DropDownList("ClaimTypes",
+                                    ViewData["ClaimTypes"] as SelectList,
+                                    "Выберите тип",
+                                    new
+                                    {
+                                        id = "ddlClaimType",
+                                        @class = "form-control"
+                                    })
+                            </div>
+
+                            <div class="col-md-4">
+                                @Html.DropDownList("ClaimKinds",
+                                    ViewData["ClaimKinds"] as SelectList,
+                                    "Выберите вид",
+                                    new
+                                    {
+                                        id = "ddlClaimKind",
+                                        @class = "form-control"
+                                    })
+
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-md-2 control-label">Текст запроса:</div>
+                        <div class="col-md-10">
+                            <input id="rtext" type="text" class="form-control input-sm" value="">
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <input id="closeModal" type="button" class="col-md-2 btn uk-button-color rect secondary pull-right" data-dismiss="modal" value="Закрыть">
+        <input id="save" type="button" style="margin-right: 10px" class="col-md-2 btn uk-button-color rect secondary pull-right" data-dismiss="modal" onclick="sendForm('1')" value="Сохранить">
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+    $(function () {
+     
+    $('#ddlClaimType').change(function ()
+        {
+            // получаем выбранный id
+            var id = $(this).val();
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("CreateClaim")/' + id,
+                success: function (data) {
+                     
+                    // заменяем содержимое присланным частичным представлением
+    $('#ddlClaimKind').replaceWith(data);
+                }
+            });
+        });
+    })
+    </script>
+}

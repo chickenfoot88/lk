@@ -1,0 +1,105 @@
+﻿@model IEnumerable<OhDataManager.Entities.Abonent.Sends>
+    @{
+        Layout = "~/Views/Abonent/_Layout.cshtml";
+    }
+
+    @{
+        ViewBag.Title = "Сообщения";
+        var grid = new WebGrid(Model, canPage: false);
+    }
+    <body class="hold-transition layout-top-nav">
+        <section class="content">
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Сообщения</h3>
+
+                        <div class="box-tools pull-right">
+                            <div class="has-feedback">
+                                <input type="text" class="form-control input-sm" placeholder="Поиск">
+                                <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                            </div>
+                        </div>
+                        <!-- /.box-tools -->
+                    </div>
+                    <!-- /.box-header -->
+
+                    <div class="box-body">
+                        @grid.GetHtml(
+                    fillEmptyRows: false,
+                    htmlAttributes: new { id = "example1" },
+                    tableStyle: "webgrid-table table table-striped table-condensed table-hover",
+                    headerStyle: "webgrid-header",
+                    footerStyle: "webgrid-footer",
+                    alternatingRowStyle: "webgrid-alternating-row",
+                    rowStyle: "webgrid-row-style",
+                    selectedRowStyle: "webgrid-selected-row",
+                    mode: WebGridPagerModes.All, //paging to grid
+
+                    firstText: "<< Первая",
+                    previousText: "< Предыдущая",
+                    nextText: "Следующая >",
+                    lastText: "Последняя >>",
+                    columns: new[]
+
+                    {
+                        grid.Column("SendSms", "Текст сообщения", format: @<text>
+                            <div style="text-align: left">@item.GetSelectLink(@item.SendSms)</div></text>),
+                        grid.Column("DateCreate", "Дата создания", format: @<text>
+                            <div style="text-align: center">@item.DateCreate.ToString("d MMM yyyy")</div></text>),
+                        grid.Column("DateSend", "Дата отправления", format: @<text>
+                            <div style="text-align: center">@Html.Raw((@item.DateSend == null) ? "" : @item.DateSend.ToString("dd.MM.yyyy"))</div></text>),
+                    }
+                                                            )
+                        @if (grid.HasSelection)
+                        {
+                            <div class="col-xs-12">
+                            <b class="box-title">Подробнее о сообщении</b>
+                
+                            <div class="box own-box-info">
+                                <div class="box-body ">
+                                    <input type="hidden" id="SelId" value="@Model.ToArray()[grid.SelectedIndex].Id" />
+                                    @if (@Model.ToArray()[grid.SelectedIndex].IsRead == false)
+{
+ 
+    <img height="150" src="@Url.Action("ReadMessage", "Abonent", new { @Model.ToArray()[grid.SelectedIndex].Id })" hidden="true"/>                                       
+
+} 
+                                    <div class="row">
+                                        <div class="col-md-2 control-label">Дата создания:</div>
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control input-sm" value="@Model.ToArray()[grid.SelectedIndex].DateCreate" readonly>
+                                        </div>
+                                        <div class="col-md-2 control-label">Инициатор:</div>
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control input-sm" value="@Model.ToArray()[grid.SelectedIndex].EmployeeCreator.UserIdentityId" readonly>
+                                        </div>
+                                    </div>
+                                    <br />
+
+                                    <div class="row">
+                                        <div class="col-md-2 control-label">Текст сообщения:</div>
+                                        <div class="col-md-10">
+                                            <textarea type="textarea" class="form-control input-sm" rows="3" readonly>@Model.ToArray()[grid.SelectedIndex].SendSms</textarea>
+                                        </div>
+                                    </div>
+
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-md-2 control-label">Сообщение об ошибке:</div>
+                                        <div class="col-md-10">
+                                            <textarea type="textarea" class="form-control input-sm" rows="3" readonly>@Model.ToArray()[grid.SelectedIndex].ErrorTxt</textarea>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        }
+                    </div>
+
+                </div>
+            </div>
+        </section>
+       
+    </body>

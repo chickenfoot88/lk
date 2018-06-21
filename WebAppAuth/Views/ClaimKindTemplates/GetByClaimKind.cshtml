@@ -1,0 +1,5 @@
+﻿
+@Html.DropDownList("ClaimKindTemplates",
+           ViewBag.EmployeeId as IEnumerable<SelectListItem>,
+           optionLabel: "Выберите шаблон...",
+           htmlAttributes: new { id = "claim-template", @class = "form-control select2"})

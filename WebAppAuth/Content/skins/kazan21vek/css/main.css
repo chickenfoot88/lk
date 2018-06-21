@@ -1,0 +1,423 @@
+/*
+ * Skin: adminlte
+ * -----------
+ */
+
+@import url('_top-line.css');
+
+html, body {
+  height: 100% !important;
+}
+
+body {
+  min-width: 320px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+ul.horizontal {
+  word-spacing: -.36em;
+}
+
+ul.horizontal li {
+    word-spacing: normal;
+}
+
+input[type='number'] {
+    -moz-appearance:textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  margin: 0;
+}
+
+.wrapper {
+  padding-top: 98px;
+}
+
+.close-btn {
+  width: 30px;
+  height: 30px;
+  background: url('../img/close-btn.png');
+  -webkit-background-size: cover;
+  background-size: cover;
+  border: none;
+  outline: 0;
+  display: block;
+}
+
+.full-width {
+  margin-left: -10px;
+  margin-right: -10px;
+}
+
+.profile-photo {
+  position: relative;
+  padding: 10px 0 30px;
+}
+
+.del-avatar {
+  position: absolute;
+  opacity: 0;
+  right: 10%;
+  top: 0;
+  transition: opacity .1s ease;
+}
+
+.add-photo-btn {
+  margin: 0 auto;
+  display: block;
+}
+
+.profile-user-img {
+  width: 150px;
+  height: 150px;
+}
+
+.profile-photo.abonent-photo:hover .del-avatar {
+  opacity: 1;
+}
+
+.claim-description-cell {
+  white-space: nowrap;
+  overflow: hidden;
+  padding: 5px;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+
+.table > tbody > tr > td,
+.table > tbody > tr > th,
+.table > tfoot > tr > td,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > thead > tr > th {
+  vertical-align: middle;
+}
+
+th.sorting-off::after {
+  display: none !important;
+}
+
+.edit-claim-btn {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+.claim-details th,
+.claim-details td {
+  padding: 10px 20px !important;
+}
+
+.claim-details-save-btn {
+  float: right;
+  margin: 50px 30px 30px;
+}
+
+.claims-wrapper .active {
+  color: red;
+}
+
+.claims-tab-item {
+  display: none;
+}
+
+.claims-tab-item:first-child {
+  display: block;
+}
+
+.select2-container {
+  width: 100% !important;
+}
+
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:focus,
+.nav-pills > li.active > a:hover {
+  background: transparent;
+  color: #444;
+}
+
+.uk-navbar-nav > li > a,
+.uk-navbar-nav > li > form > li > a {
+  font-family: 'Source Sans Pro',sans-serif;
+  font-size: 20px;
+}
+
+/*Modal Form*/
+
+.preloader {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  content: '';
+  background-color: #fff;
+  background-image: url('../img/loader.gif');
+  background-position: center;
+  -webkit-background-size: 50%;
+  background-size: 50%;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.preloader-white {
+  background-image: none;
+}
+
+.modal-content {
+  min-height: 472px;
+}
+
+.modal-header .close {
+  margin-top: -7px;
+  margin-right: 3px;
+  font-size: 44px
+}
+
+.modal-content .select2-container,
+.modal-content #ContactPhoneNumber {
+  max-width: 300px !important;
+}
+
+.modal-body #logoutForm {
+  display: none;
+}
+
+.modal-body textarea {
+  resize: none;
+  font-size: 16px;
+}
+
+.navbar {
+  position: absolute;
+  width: 100%;
+}
+
+.navbar .hamburger {
+  margin-top: 10px;
+}
+.navbar .hamburger-inner,
+.navbar .hamburger-inner::before,
+.navbar .hamburger-inner::after {
+
+  background-color: #f39c12;
+}
+
+.box-title b {
+  font-size: 20px;
+}
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+  color: #909090;
+}
+
+.notification-check {
+  padding-bottom: 6px;
+}
+
+.notification-check li {
+  list-style-type: none;
+  padding-left: 30px;
+}
+
+.notification-check label {
+  font-weight: normal;
+}
+
+div[class*="icheckbox_minimal"] {
+  margin-right: 10px;
+}
+
+.notification-check div[class*="icheckbox_minimal"] {
+  position: absolute;
+  left: 11px;
+}
+
+.no-padding .list-group-unbordered {
+  margin-bottom: 0;
+}
+
+.no-padding .list-group-unbordered > .list-group-item,
+.no-padding tr {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.no-padding .list-group-unbordered > .list-group-item:first-child {
+  border: none;
+}
+
+.no-padding .list-group-unbordered > .list-group-item:last-child {
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-bottom: none;
+}
+
+.pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
+  background-color: #00A65A;
+  border-color: #00A65A;
+}
+
+.btn-primary a {
+  color: #fff;
+}
+
+.login-logo a img,
+.register-logo a img {
+  width: 150px;
+}
+
+.min1200 {
+  min-width: 1200px;
+}
+
+.min968 {
+  min-width: 968px;
+}
+
+.mm-page {
+  height: 100%;
+
+}
+
+.inputfile-btn + label {
+  cursor: pointer;
+}
+
+.btn:focus {
+	outline: 1px dotted #000;
+	outline: -webkit-focus-ring-color auto 5px;
+}
+
+.box-footer {
+  text-align: center;
+}
+
+.claims-content {
+  min-height: 271px;
+  display: none;
+  transition: opacity .3s ease
+}
+
+.login-box-msg {
+  font-size: 18px;
+}
+
+.login-box-links {
+  border-top: 1px solid #eee;
+}
+
+.login-box-links  a {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.login-box-links  a .fa {
+  margin-right: 10px;
+}
+
+.has-feedback label ~ .form-control-feedback {
+  top: 0;
+}
+
+.login-page, .register-page, .tm-isblog {
+  background-image: url("../img/crossword.png");
+}
+
+.form-group input.valid {
+  border-color: #00A65A;
+}
+
+.form-group input.error {
+  border-color: #dd0000;
+}
+
+.form-group label.error {
+  font-weight: 400;
+  color: #dd0000;
+  padding-top: 7px;
+  padding-left: 13px;
+}
+
+.file-load-btn {
+  margin-right: 20px;
+}
+
+.direct-chat textarea {
+  resize: none;
+}
+
+.input-group {
+  width: 100%;
+}
+
+.input-group-btn {
+  padding-top: 10px;
+}
+
+.modal-backdrop {
+  z-index: auto;
+}
+
+/*File Upload*/
+
+.file_upload {
+  display: block;
+  overflow: hidden;
+  position: relative;
+  width: 250px;
+}
+
+.file_upload .btn, .file_upload > mark{
+  cursor: pointer;
+  display: block;
+}
+
+.file_upload .btn {
+  float: right;
+  margin-right: 10px;
+}
+
+.file_upload > mark {
+  background: transparent;
+  font-size: 14px;
+  height: 100%;
+  padding: 7px 0;
+}
+
+.file_upload input[type=file]{
+  opacity: 0;
+  position: absolute;
+  top: 0;
+}
+
+.modal-backdrop {
+  display: none;
+}
+
+.chart-wrapper {
+  padding-bottom: 40px;
+}
+
+.select2-container--open .select2-selection,
+.select2-container:hover .select2-selection {
+  box-shadow: 0 0 2px 3px yellow
+}
+
+.form-control:hover,
+.form-control:focus {
+  box-shadow: 0 0 2px 3px yellow
+}

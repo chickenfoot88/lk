@@ -1,0 +1,8 @@
+﻿@{
+    Layout = "~/Views/Employee/_Layout.cshtml";
+
+    Html.RenderAction("SetReportListOfODPUVals", "Report", new { Houses = ViewData["Houses"], reservation = ViewBag.Reservation, allvals = ViewBag.Allvals });
+    
+    <!-- page script -->
+    <script src="~/Scripts/report.js"></script> 
+}

@@ -1,0 +1,118 @@
+﻿@model IEnumerable<OhDataManager.Entities.Main.PersonalAccountMeterReading>
+@{
+    Layout = "~/Views/Employee/_LayoutAbonent.cshtml";
+    ViewBag.Title = "Приборы учета";
+    var grid = new WebGrid(Model, canPage: false);
+}
+
+<body class="hold-transition layout-top-nav">
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+
+            <div class="box">
+                <div class="box-header">
+
+                    <div class="box-header">
+                        <h3 class="box-title">Список приборов учета</h3>
+                    </div>
+
+                    <div style="margin-right: 0; margin-top: 0" class="col-xs-3 control-label pull-right">
+                        @using (Html.BeginForm("AbonentCounters", "Employee", new {@ViewBag.PaymentCode}))
+                        {
+                            <div class="col-md-7 pull-right">
+                                @Html.DropDownList("CalculationDateSelectList", ViewData["CalculationDateSelectList"] as SelectList, new {@class = "form-control", @onchange = "this.form.submit();"})
+                            </div>
+                        }
+
+                    </div>
+                    <br>
+
+
+                    @grid.GetHtml(
+                        fillEmptyRows: false,
+                        htmlAttributes: new {id = "example1"},
+                        tableStyle: "webgrid-table table table-striped table-condensed table-hover",
+                        headerStyle: "webgrid-header",
+                        footerStyle: "webgrid-footer",
+                        alternatingRowStyle: "webgrid-alternating-row",
+                        rowStyle: "webgrid-row-style",
+                        selectedRowStyle: "webgrid-selected-row",
+                        columns: new[]
+                        {
+                            grid.Column("Service", "Услуга", format: @<text>
+                                                                         <div style="text-align: left">@item.ServiceName</div></text>),
+                            grid.Column("NumCnt", "Заводской номер", format: @<text>
+                                                                                 <div style="text-align: center">@item.MeterDeviceNumber</div></text>),
+                            grid.Column("DatProvNext", "Дата следующей поверки", format: @<text>
+                                                                                             <div style="text-align: center">
+
+                                                                                                 @if (item.VerificationDateNext == null)
+                                                                                                 {
+                                                                                                 }
+                                                                                                 else
+                                                                                                 {
+                                                                                                     @item.VerificationDateNext.ToString("d MMM yyyy")
+                                                                                                 }
+
+                                                                                             </div></text>),
+                            grid.Column("DatUchetPred", "Дата снятия пред. показания", format: @<text>
+                                                                                                   <div style="text-align: center">@item.CalculationApplyingDate.ToString("d MMM yyyy")</div></text>),
+                            grid.Column("ValCntPred", "Пред. показания", format: @<text>
+                                                                                     <div style="text-align: right">@item.Indication.ToString("0.0000")</div></text>),
+                            grid.Column("EnteredDate", "Дата снятия текущ. показания", format: @<text>
+
+                                                                                                   <div style="text-align: center">
+                                                                                                       @if (item.EnteredDate == null)
+                                                                                                       {
+                                                                                                       }
+                                                                                                       else
+                                                                                                       {
+                                                                                                           @item.EnteredDate.ToString("d MMM yyyy")
+                                                                                                       }
+                                                                                                   </div>
+
+                                                                                                </text>),
+                            grid.Column("EnteredValue", "Текущее показание", format: @<text>
+                                                                                         <input style="text-align: right" name="InputValCnt" required type="number" step="0.02" class="form-control input-sm control-label" value="@(@item.EnteredValue == null ? "" : @item.EnteredValue.ToString("0.0000"))" readonly>
+                                                                                         <input type="hidden" name="MeterReadingId" value="@item.Id"/>
+                                                                                      </text>),
+                            grid.Column("Расход", format: @<text>
+                                                              <div style="text-align: right">
+                                                                  @if (@item.EnteredValue != null)
+                                                                  {
+                                                                      @Html.Raw((item.EnteredValue - item.Indication) > 0 ? (item.EnteredValue - item.Indication).ToString("0.0000") : 0)
+                                                                  }
+                                                              </div></text>)
+
+                        })
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+
+
+<!--TODO: 1. необходимо перенести немного правее-->
+<!--TODO: 2. необходимо рендерить даты поверки, равные 1 янв 0001-->
+@if (ViewBag.NotificationsList.Count > 0)
+{
+    <div class="row">
+        <div class="col-md-5">
+            <div class="box box-default">
+                <div class="alert alert-warning alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <h4><i class="icon fa fa-warning"></i> У следующих приборов учета заканчивается дата поверки:</h4>
+                    <ul class="list-unstyled">
+                        @foreach (var notification in ViewBag.NotificationsList)
+                        {
+                            <li>@notification</li>
+                        }
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+}

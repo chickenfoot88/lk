@@ -1,0 +1,60 @@
+﻿@model IEnumerable<OhDataManager.Entities.Main.PersonalAccountPayment>
+    @{
+        Layout = "~/Views/Employee/_LayoutAbonent.cshtml";
+        ViewBag.Title = "Платежи";
+        var grid = new WebGrid(Model);
+    }
+
+<body class="hold-transition layout-top-nav">
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    
+                    <div class="box-header">
+                        <h3 class="box-title">Список платежей</h3>
+                    </div>
+
+                    @grid.GetHtml(fillEmptyRows: false,
+                        htmlAttributes: new {id = "examplepayment"},
+                        tableStyle: "webgrid-table table table-striped table-condensed table-hover",
+                        headerStyle: "webgrid-header",
+                        footerStyle: "webgrid-footer",
+                        alternatingRowStyle: "webgrid-alternating-row",
+                        rowStyle: "webgrid-row-style",
+                        selectedRowStyle: "webgrid-selected-row",
+                        mode: WebGridPagerModes.All, //paging to grid
+
+                        firstText: "<< Первая",
+                        previousText: "< Предыдущая",
+                        nextText: "Следующая >",
+                        lastText: "Последняя >>",
+
+                        columns: new[]
+                        {
+                            grid.Column("CalculationDate", "Расчетный месяц", format: @<text>
+                                                                                          <div style="text-align: center">@item.CalculationDate.ToString("d MMM yyyy")</div></text>),
+                            grid.Column("DateTimeVvod", "Дата платежа", format: @<text>
+                                                                                    <div style="text-align: center">@Html.Raw((@item.PaymentDate.ToString("dd.MM.yyyy") == "01.01.0001") ? "" : @item.PaymentDate.ToString("d MMM yyyy"))</div>
+                                                                                 </text>),
+                            grid.Column("DateTimeUchet", "Дата учёта", format: @<text>
+                                                                                   <div style="text-align: center">@Html.Raw((@item.CalculationApplyingDate.ToString("dd.MM.yyyy") == "01.01.0001") ? "" : @item.CalculationApplyingDate.ToString("d MMM yyyy"))</div>
+                                                                                </text>),
+                            grid.Column("DateTimeEpd", "За какой месяц оплачено", format: @<text>
+                                                                                              <div style="text-align: center">@Html.Raw((@item.PaydCalculationMonth.ToString("dd.MM.yyyy") == "01.01.0001") ? "" : @item.PaydCalculationMonth.ToString("d MMM yyyy"))</div>
+                                                                                           </text>),
+                            grid.Column("PlatPlace", "Место платежа", format: @<text>
+                                                                                  <div style="text-align: left">@item.PaymentPlacement.ToString()</div></text>),
+                            grid.Column("SumPay", "Сумма платежа", format: @<text>
+                                                                               <div style="text-align: right">@item.SumPayment.ToString("C")</div></text>)
+                        }
+                        )
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+</body>

@@ -1,0 +1,66 @@
+﻿
+@model IEnumerable<OhDataManager.Entities.Main.PersonalAccountSocialPayment>
+    @{
+        Layout = "~/Views/Abonent/_Layout.cshtml";
+    }
+
+    @{
+        ViewBag.Title = "Льготы";
+
+        var grid = new WebGrid(Model, canSort: false, canPage: false);
+    }
+
+<div class="wrapper min968">
+
+  <section class="content-header">
+    <div class="content-title">
+      <h1>@ViewBag.Title</h1>
+    </div>
+  </section>
+
+  <section class="content min968">
+
+    <div class="box box-primary">
+
+      <div class="box-header with-border">
+        <h3 class="box-title">Социальные выплаты</h3>
+      </div>
+
+      <div class="box-body">
+
+        @grid.GetHtml(fillEmptyRows: false,
+        htmlAttributes: new { id = "examplesocialpayment" },
+        tableStyle: "webgrid-table table table-condensed table-hover table-bordered dataTable",
+        headerStyle: "webgrid-header",
+        footerStyle: "webgrid-footer",
+        alternatingRowStyle: "webgrid-alternating-row",
+        rowStyle: "webgrid-row-style",
+        selectedRowStyle: "webgrid-selected-row",
+        mode: WebGridPagerModes.All, //paging to grid
+
+        firstText: "<< Первая",
+        previousText: "< Предыдущая",
+        nextText: "Следующая >",
+        lastText: "Последняя >>",
+
+        columns: new[]
+        {
+            grid.Column("CalculationDate", "Расчетный месяц", format: @<text>@item.CalculationDate.ToString("d MMM yyyy")</text>),
+
+            grid.Column("PersonFullName", "Получатель", format: @<text>@item.RecipientName</text>),
+
+            grid.Column("ExpenceName", "Льгота", format: @<text>@item.ArticleName</text>),
+
+            grid.Column("ExpenceGroupName", "Группа льгот", format: @<text>@item.ArticleGroupName</text>),
+
+            grid.Column("PaymentPlacement", "Место выплаты", format: @<text>@item.PaymentPlacement</text>),
+
+            grid.Column("SumAccrued", "Начисленная сумма", format: @<text>@item.SumPayoff.ToString("C")</text>)
+        }
+        )
+
+      </div>
+    </div>
+  </section>
+
+</div>

@@ -1,0 +1,90 @@
+﻿<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Создание опроса</h4>
+    </div>
+    <div class="modal-body">
+
+        <div class="col-md-12">
+
+            <div class="box">
+
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-3 control-label">Тема опроса:</div>
+                        <div class="col-md-9">
+                            <input id="rname" type="text" class="form-control input-sm" value="">
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-3 control-label">Комментарий:</div>
+                        <div class="col-md-9">
+                            <textarea id="rcomment" type="textarea" class="form-control input-sm" rows="4"></textarea>
+                        </div>
+                    </div>
+                    
+                    <br />
+                    <div class="row">
+                       
+                        <div class="col-md-3 control-label">Варианты ответа:</div>
+                        <div class="col-md-2">
+                            <button type="button" class="btn uk-button-color pull-left" onclick="inline(true)">+</button>
+                            <button type="button" class="btn uk-button-color pull-left" onclick="inline(false)">-</button>
+                        </div>
+                        <div class="col-md-4 control-label">Дата завершения голосования:</div>
+                            <div class="col-md-3">
+                                <input id="rdate" type="date" class="form-control input-sm" value="">
+                            </div>
+                        </div>
+                    <br />
+                    <div class="row">
+
+                        <div class="col-md-offset-3 col-md-9">
+                            <input name="rval" class="form-control input-sm" type="text" style="display: inline-block;">
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        
+                        <div class="col-md-offset-3 col-md-9">
+                            <input name="rval" class="form-control input-sm" type="text" style="display: none;">
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-9">
+                            <input name="rval" class="form-control input-sm" type="text" style="display: none;">
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        
+                        <div class="col-md-offset-3 col-md-9">
+                            <input name="rval" class="form-control input-sm" type="text" style="display: none;">
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                       
+                        <div class="col-md-offset-3 col-md-9">
+                            <input name="rval" class="form-control input-sm" type="text" style="display: none;">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+        <button type="button" class="btn uk-button-color" data-dismiss="modal" onclick="CreateOrEditPool(1)">Сохранить</button>
+    </div>
+</div>
+
+
+
+

@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@ViewBag.Title</title>
+  <!--[if IE]>
+  <link rel="shortcut icon" href="~/Content/skins/@(AppConstants.UiStyleName)/logo.png" type="image/vnd.microsoft.icon" />
+  <![endif]-->
+
+  <!-- Libs Styles -->
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="~/libs/bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="~/libs/fontawesome/css/font-awesome.min.css">
+  <!-- Select lib Styles-->
+  <link rel="stylesheet" href="~/libs/select/css/select2.min.css">
+  <!-- Mmenu lib Styles-->
+  <link rel="stylesheet" href="~/libs/mmenu/css/jquery.mmenu.all.css">
+  <!-- AdminLTE Styles-->
+  <link rel="stylesheet" href="~/libs/adminlte/css/adminlte.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="~/libs/datatables/dataTables.bootstrap.css">
+  <!-- Data Range Picker -->
+  <link rel="stylesheet" href="~/libs/daterangepicker/daterangepicker.css">
+  <!-- iCheck for checkboxes and radio inputs -->
+  <link rel="stylesheet" href="~/libs/iCheck/all.css">
+  <!--Hamburger styles-->
+  <link rel="stylesheet" href="~/libs/hamburger/css/hamburgers.min.css">
+
+  <!-- Custom Style -->
+  <!-- Fonts -->
+  <link rel="stylesheet" href="~/Content/css/fonts.css">
+  <!--Custom styles-->
+  <link rel="stylesheet" href="~/Content/skins/@(AppConstants.UiStyleName)/css/main.css">
+  <!--Media styles-->
+  <link rel="stylesheet" href="~/Content/skins/@(AppConstants.UiStyleName)/css/media.css">
+  <!--Custom Menu styles-->
+  <link rel="stylesheet" href="~/Content/skins/@(AppConstants.UiStyleName)/css/_mmenu.css">
+
+  <link rel="icon" type="image/png" href="~/Content/skins/@(AppConstants.UiStyleName)/logo.png" />
+  <link rel="shortcut icon" href="~/Content/skins/@(AppConstants.UiStyleName)/logo.png">
+
+</head>
+<body class="login-page">
+  @RenderBody()
+
+  @RenderSection("scripts", required: false)
+
+  <!-- Libs Scripts -->
+  <!-- Jquery -->
+  <script src="~/libs/jquery/jquery-3.2.1.min.js"></script>
+  <!-- Bootstrap -->
+  <script src="~/libs/bootstrap/js/bootstrap.min.js"></script>
+  <!-- DataTables -->
+  <script src="~/libs/datatables/jquery.dataTables.js"></script>
+  <script src="~/libs/datatables/dataTables.bootstrap.js"></script>
+  <!-- Data Range Picker -->
+  <script src="~/libs/daterangepicker/daterangepicker.js"></script>
+  <!-- SlimScroll -->
+  <script src="~/libs/slimScroll/jquery.slimscroll.js"></script>
+  <!-- FastClick -->
+  <script src="~/libs/fastclick/fastclick.js"></script>
+  <!-- iCheck 1.0.1 -->
+  <script src="~/libs/iCheck/icheck.min.js"></script>
+  <!-- Mmenu -->
+  <script src="~/libs/mmenu/js/jquery.mmenu.all.js"></script>
+  <!-- Select script -->
+  <script src="~/libs/select/js/select2.full.min.js"></script>
+  <script src="~/libs/select/js/ru.js"></script>
+  <!-- Input Mask -->
+  <script src="~/libs/inputmask/js/jquery.inputmask.bundle.min.js"></script>
+  <!-- Jquery Validation-->
+  <script src="~/libs/jquery.validation/js/jquery.validate.min.js"></script>
+  <script src="~/libs/jquery.validation/js/messages_ru.min.js"></script>
+  <script src="~/libs/jquery.validation/js/additional-methods.min.js"></script>
+  <!-- Admin LTE -->
+  <script src="~/libs/adminlte/js/adminlte.min.js"></script>
+
+  <!-- Custom Scripts -->
+  <!-- Reports -->
+  <script src="~/Scripts/report.js"></script>
+  <!-- Page Script -->
+  <script src="~/Scripts/abonent.js"></script>
+  <!-- Custom JS -->
+  <script src="~/Scripts/custom.js"></script>
+  <script src="~/Scripts/auth.js"></script>
+
+</body>
+
+</html>

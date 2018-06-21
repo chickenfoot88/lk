@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" TextQuality="Regular" ReportInfo.Name="Simple List" ReportInfo.Author="Fast Reports Inc" ReportInfo.Description="Demonstrates simple list report. To create it:&#13;&#10;- go to &quot;Data&quot; menu and select &quot;Choose Report Data...&quot; item to select datasource;&#13;&#10;- go to &quot;Report|Configure Bands...&quot; menu to create the band structure;&#13;&#10;- return to the report page, doubleclick the data band to show its editor;&#13;&#10;- choose the datasource;&#13;&#10;- drag data from the Data Dictionary window to the band." ReportInfo.Created="01/17/2008 03:05:57" ReportInfo.Modified="04/08/2017 13:18:29" ReportInfo.CreatorVersion="2013.3.5.0">
+  <Dictionary>
+    <TableDataSource Name="Users" ReferenceName="NorthWind.Users" DataType="System.Int32" Enabled="true">
+      <Column Name="id_user" DataType="System.Int32"/>
+      <Column Name="payment_code" DataType="System.String"/>
+      <Column Name="user_identity_id" DataType="System.String"/>
+      <Column Name="fam" DataType="System.String"/>
+      <Column Name="ima" DataType="System.String"/>
+      <Column Name="otch" DataType="System.String"/>
+      <Column Name="email" DataType="System.String"/>
+      <Column Name="tel_num" Enabled="false" DataType="System.String"/>
+      <Column Name="create_time" DataType="System.DateTime"/>
+    </TableDataSource>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" RawPaperSize="9" FirstPageSource="15" OtherPagesSource="15">
+    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="56.7" CanGrow="true">
+      <TextObject Name="Text1" Top="9.45" Width="1048.95" Height="28.35" Text="Список зарегистрированных пользователей" HorzAlign="Center" VertAlign="Center" Font="Tahoma, 16pt, style=Bold"/>
+      <ChildBand Name="Child2" Top="60.7" Width="1047.06" Height="19" Guides="9.45">
+        <TextObject Name="Text17" Width="37.8" Height="18.9" Border.Lines="All" Fill.Color="Silver" Text="№" VertAlign="Center" Font="Tahoma, 9pt, style=Bold"/>
+        <TextObject Name="Text3" Left="37.8" Width="132.3" Height="18.9" Border.Lines="Right, Top, Bottom" Fill.Color="Silver" Text="Платежный номер" HorzAlign="Center" VertAlign="Center" Font="Tahoma, 9pt, style=Bold"/>
+        <TextObject Name="Text18" Left="170.1" Width="177.66" Height="18.9" Border.Lines="Right, Top, Bottom" Fill.Color="Silver" Text="Фамилия" HorzAlign="Center" VertAlign="Center" Font="Tahoma, 9pt, style=Bold"/>
+        <TextObject Name="Text20" Left="347.85" Width="177.66" Height="18.9" Border.Lines="Right, Top, Bottom" Fill.Color="Silver" Text="Имя" HorzAlign="Center" VertAlign="Center" Font="Tahoma, 9pt, style=Bold"/>
+        <TextObject Name="Text22" Left="525.42" Width="177.66" Height="18.9" Border.Lines="Right, Top, Bottom" Fill.Color="Silver" Text="Отчество" HorzAlign="Center" VertAlign="Center" Font="Tahoma, 9pt, style=Bold"/>
+        <TextObject Name="Text27" Left="910.98" Width="136.08" Height="18.9" Border.Lines="Right, Top, Bottom" Fill.Color="Silver" Text="Дата регистрации" HorzAlign="Center" VertAlign="Center" Font="Tahoma, 9pt, style=Bold"/>
+        <TextObject Name="Text26" Left="703.08" Top="0.1" Width="207.9" Height="18.9" Border.Lines="Right, Top, Bottom" Fill.Color="Silver" Text="Email" HorzAlign="Center" VertAlign="Center" Font="Tahoma, 9pt, style=Bold"/>
+      </ChildBand>
+    </ReportTitleBand>
+    <DataBand Name="Data1" Top="83.7" Width="1047.06" Height="18.9" Border.Lines="Left, Right, Bottom" Border.Width="0.5" CanGrow="true" DataSource="Users">
+      <TextObject Name="Text4" Left="37.8" Width="132.3" Height="18.9" Border.Lines="Right, Bottom" Text="[Users.PaymentCode]" Format="Date" Format.Format="D" HorzAlign="Center" VertAlign="Center" Font="Tahoma, 9pt"/>
+      <TextObject Name="Text14" Width="37.8" Height="18.9" Border.Lines="Left, Right, Bottom" Text="[Row#]" VertAlign="Center" Font="Tahoma, 9pt"/>
+      <TextObject Name="Text19" Left="170.1" Width="177.66" Height="18.9" Border.Lines="Right, Bottom" Text="[Users.Surname]" Format="Date" Format.Format="D" VertAlign="Center" Font="Tahoma, 9pt"/>
+      <TextObject Name="Text21" Left="347.85" Width="177.66" Height="18.9" Border.Lines="Right, Bottom" Text="[Users.Name]" Format="Date" Format.Format="D" VertAlign="Center" Font="Tahoma, 9pt"/>
+      <TextObject Name="Text23" Left="525.42" Width="177.66" Height="18.9" Border.Lines="Right, Bottom" Text="[Users.Patronymic]" Format="Date" Format.Format="D" VertAlign="Center" Font="Tahoma, 9pt"/>
+      <TextObject Name="Text25" Left="703.08" Width="207.9" Height="18.9" Border.Lines="Right, Bottom" Text="[Users.Email]" Format="Date" Format.Format="D" VertAlign="Center" Font="Tahoma, 9pt"/>
+      <TextObject Name="Text28" Left="910.98" Width="136.08" Height="18.9" Border.Lines="Right, Bottom" Text="[Users.CreationTime]" Format="Date" Format.Format="D" HorzAlign="Center" VertAlign="Center" Font="Tahoma, 9pt"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="106.6" Width="1047.06" Height="56.7" Fill.Color="WhiteSmoke" CanGrow="true">
+      <TextObject Name="Text10" Left="954.45" Top="9.45" Width="94.5" Height="28.35" Text="[PageN]" HorzAlign="Right" VertAlign="Center" Font="Tahoma, 8pt"/>
+    </PageFooterBand>
+  </ReportPage>
+</Report>

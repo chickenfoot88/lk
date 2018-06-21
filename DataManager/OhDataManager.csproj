@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{834262E1-5972-44BD-8C93-8388FAA6FD0D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OhDataManager</RootNamespace>
+    <AssemblyName>OhDataManager</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AbstractDm\DmPersonalAccount.cs" />
+    <Compile Include="Entities\Base\IBaseOhEntity.cs" />
+    <Compile Include="Entities\Base\IBaseEntity.cs" />
+    <Compile Include="Entities\Base\BaseOhEntity.cs" />
+    <Compile Include="Entities\Base\BaseEntity.cs" />
+    <Compile Include="Entities\ImportHelper\ImportAccrual.cs" />
+    <Compile Include="Entities\ImportHelper\ImportMeterReading.cs" />
+    <Compile Include="Entities\ImportHelper\ImportHousingCharacteristic.cs" />
+    <Compile Include="Entities\ImportHelper\IBaseImportHelper.cs" />
+    <Compile Include="Entities\ImportHelper\ImportSocialPayment.cs" />
+    <Compile Include="Entities\ImportHelper\ImportPaymentRequisite.cs" />
+    <Compile Include="Entities\ImportHelper\ImportPayment.cs" />
+    <Compile Include="Entities\Main\Intf\IMeterReading.cs" />
+    <Compile Include="Entities\Main\HouseMeterReading.cs" />
+    <Compile Include="Entities\Main\Intf\IManagmentOrganization.cs" />
+    <Compile Include="Entities\Main\HouseNotification.cs" />
+    <Compile Include="Entities\Main\Notification.cs" />
+    <Compile Include="Entities\Main\PersonalAccountPaymentRequisite.cs" />
+    <Compile Include="Entities\Main\MeterService.cs" />
+    <Compile Include="Entities\Main\PersonalAccountSocialPayment.cs" />
+    <Compile Include="Entities\Main\PersonalAccountMeterReading.cs" />
+    <Compile Include="Entities\Main\Intf\IHouseAccrual.cs" />
+    <Compile Include="Entities\Main\HouseAccrual.cs" />
+    <Compile Include="Entities\Main\AddressSpace.cs" />
+    <Compile Include="Entities\Main\Intf\ISupplier.cs" />
+    <Compile Include="Entities\Main\PersonalAccountPayment.cs" />
+    <Compile Include="Entities\Main\ManagmentOrganization.cs" />
+    <Compile Include="Entities\Main\Supplier.cs" />
+    <Compile Include="Entities\Main\Service.cs" />
+    <Compile Include="Entities\Main\House.cs" />
+    <Compile Include="Entities\Main\Intf\IBillInfo.cs" />
+    <Compile Include="Entities\Main\Intf\IService.cs" />
+    <Compile Include="Entities\Main\Intf\IHouse.cs" />
+    <Compile Include="Entities\Main\Intf\IAddressSpace.cs" />
+    <Compile Include="Entities\Main\PersonalAccountAccrual.cs" />
+    <Compile Include="Entities\Main\Intf\IPersonalAccount.cs" />
+    <Compile Include="Entities\Main\PersonalAccount.cs" />
+    <Compile Include="Entities\Main\CalculationMonth.cs" />
+    <Compile Include="Entities\System\DictClaimKind.cs" />
+    <Compile Include="Entities\System\DictClaimStatusTransfer.cs" />
+    <Compile Include="Entities\System\DictClaimType.cs" />
+    <Compile Include="Entities\System\OrganizationSubdivision.cs" />
+    <Compile Include="Entities\System\Organization.cs" />
+    <Compile Include="Entities\ChartItem.cs" />
+    <Compile Include="Entities\Main\UniPay.cs" />
+    <Compile Include="Entities\System\ExchangeFile.cs" />
+    <Compile Include="Entities\System\ExportedFile.cs" />
+    <Compile Include="Entities\System\ExportResult.cs" />
+    <Compile Include="Entities\System\ImportedFile.cs" />
+    <Compile Include="Enums\EPersonalAccountState.cs" />
+    <Compile Include="Enums\EInformationSource.cs" />
+    <Compile Include="Enums\EPrivatiziedType.cs" />
+    <Compile Include="Enums\EExportType.cs" />
+    <Compile Include="Enums\ELoadStatus.cs" />
+    <Compile Include="Enums\EImportType.cs" />
+    <Compile Include="Enums\EClaimStatus.cs" />
+    <Compile Include="Enums\EUnloadStatus.cs" />
+    <Compile Include="Enums\EComfortableType.cs" />
+    <Compile Include="Extensions\Extensions.cs" />
+    <Compile Include="IDataManager.cs" />
+    <Compile Include="Entities\DataManagerAttribute.cs" />
+    <Compile Include="Oh\OhPersonalAccount.cs" />
+    <Compile Include="DataManagersFactory.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Utils\OhUtils.csproj">
+      <Project>{0855712e-b89c-4fef-8408-d93c9fcfe9a4}</Project>
+      <Name>OhUtils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

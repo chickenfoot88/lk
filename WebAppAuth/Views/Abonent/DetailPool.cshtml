@@ -1,0 +1,49 @@
+﻿@Model OhDataManager.Entities.abonent.Pool
+
+
+<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Редактирование опроса</h4>
+    </div>
+    <div class="modal-body">
+        <div class="col-md-12">
+
+            <div class="box">
+
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-2 control-label">Тема опроса:</div>
+                        <div class="col-md-10">
+                            <input id="rname" type="text" class="form-control input-sm" value="@Html.Raw(string.IsNullOrEmpty(@Model[0].Name) ? "" : @Model[0].Name)">
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-2 control-label">Комментарий:</div>
+                        <div class="col-md-10">
+                            <textarea id="rcomment" type="textarea" class="form-control input-sm" rows="4">@Html.Raw(string.IsNullOrEmpty(@Model[0].Note) ? "" : @Model[0].Note)</textarea>
+                            <input id="rid" type="hidden" value="@Model[0].Id">
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-4 control-label">Дата завершения голосования: </div>
+                        <div class="col-md-3">
+                            <input id="rdate" type="date" class="form-control input-sm" value="@Html.Raw((@Model[0].DateFinish == null) ? "" : @Model[0].DateFinish.ToString("yyyy-MM-dd"))">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+        <button type="button" class="btn uk-button-color sendForm" data-dismiss="modal" onclick="CreateOrEditPool(2)">Сохранить</button>
+    </div>
+</div>
+
+
+

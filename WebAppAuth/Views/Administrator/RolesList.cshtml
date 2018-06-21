@@ -1,0 +1,41 @@
+﻿@model IEnumerable<WebAppAuth.Models.Role>
+
+    @{
+        Layout = "~/Views/Administrator/_Layout.cshtml";
+    }
+    @{
+        ViewBag.Title = "Список ролей";
+    }
+
+<div class="row">
+
+    <div class="col-md-12">
+
+        <div class="box box-success">
+
+            <div class="box-header">
+
+                @Html.ActionLink("Создать новую роль", "CreateRole", "", new {@class = "btn btn-warning"})
+
+            </div>
+
+            <div class="box-body">
+
+
+                @foreach (var role in Model)
+                {
+                    <div class="button-block">
+                        <h3>@role.Name</h3>
+                        <span onclick="return confirm('Вы действительно хотите удалить роль?')">
+                      <a href="/Administrator/DeleteRole?RoleName=@role.Name" class="btn btn-danger">Удалить</a>
+                    </span>
+                        @Html.ActionLink("Изменить", "EditRole", "", new {roleName = @role.Name, @class = "btn btn-primary"})
+                    </div>
+                }
+
+            </div>
+        </div>
+
+
+    </div>
+</div>

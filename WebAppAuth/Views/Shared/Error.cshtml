@@ -1,0 +1,14 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    ViewBag.Title = "Ошибка";
+}
+
+<h2>
+    В процессе выполнения произошла ошибка
+</h2>
+<h3>@Model.Exception.Message</h3>
+@if (Model.Exception.InnerException != null)
+{
+    <h4>Внутренняя ошибка: @Model.Exception.InnerException.Message</h4>
+}

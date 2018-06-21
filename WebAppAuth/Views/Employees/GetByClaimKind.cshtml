@@ -1,0 +1,5 @@
+﻿
+@Html.DropDownList("EmployeeId",
+           ViewBag.EmployeeId as IEnumerable<SelectListItem>,
+           optionLabel: "Выберите ответственного",
+           htmlAttributes: new { id = "employeeList", @class = "form-control select2", required = "required" })

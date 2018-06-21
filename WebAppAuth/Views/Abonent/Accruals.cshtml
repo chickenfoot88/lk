@@ -1,0 +1,113 @@
+﻿@model IEnumerable<OhDataManager.Entities.Main.PersonalAccountAccrual>
+
+  @{
+    Layout = "~/Views/Abonent/_Layout.cshtml";
+    ViewBag.Title = "Счета";
+
+    var grid = new WebGrid(Model, rowsPerPage: 50, canPage: false);
+  }
+
+<div class="wrapper min1200">
+
+  <section class="content-header">
+    <div class="content-title">
+        <h1>@ViewBag.Title</h1>
+    </div>
+  </section>
+
+  <section class="content">
+
+    <div class="box box-success">
+
+      <div class="box-header with-border">
+
+        <h3 class="box-title">Список начислений</h3>
+
+      </div>
+
+      <div class="box-body">
+
+        <div class="row">
+
+          <div class="col-md-3 control-label">
+
+            <label>Месяцы</label>
+
+            @using (Html.BeginForm("Accruals", "Abonent"))
+            {
+
+                  @Html.DropDownList("CalculationDateSelectList", ViewData["CalculationDateSelectList"] as SelectList, new {@class = "form-control select2", @onchange = "this.form.submit();"})
+
+            }
+
+          </div>
+
+        </div>
+
+        <div class="row">
+
+          <div class="col-md-12">
+
+            @grid.GetHtml(
+              fillEmptyRows: false,
+              htmlAttributes: new {id = "examplecharge"},
+              tableStyle: "webgrid-table table table-striped table-condensed table-hover table-bordered dataTable",
+              headerStyle: "webgrid-header",
+              footerStyle: "webgrid-footer",
+              alternatingRowStyle: "webgrid-alternating-row",
+              rowStyle: "webgrid-row-style",
+              selectedRowStyle: "webgrid-selected-row",
+              mode: WebGridPagerModes.All,
+              firstText: "<< Первая",
+              previousText: "< Предыдущая",
+              nextText: "Следующая >",
+              lastText: "Последняя >>",
+              columns: new[]
+              {
+                grid.Column("", "Услуга", format: @<text>
+                  <div style="text-align: left">@item.ServiceName.ToString()</div></text>),
+                grid.Column("", "Тариф", format: @<text>
+                  <div style="text-align: center">@item.Tariff</div></text>),
+                grid.Column("", "Ед.измер", format: @<text>
+                  <div style="text-align: center">@item.MeasureName</div></text>),
+                grid.Column("", "Расход", format: @<text>
+                  <div style="text-align: right">@item.Consumption.ToString()</div></text>),
+                grid.Column("", "Оплачено", format: @<text>
+                  <div style="text-align: right">@item.SumPayd.ToString("C")</div></text>),
+                grid.Column("", "Вх.сальдо", format: @<text>
+                  <div style="text-align: right">@item.SumInsaldo.ToString("C")</div></text>),
+                grid.Column("", "Начислено", format: @<text>
+                  <div style="text-align: right">@item.AccruedTariffNondelivery.ToString("C")</div></text>),
+                grid.Column("", "Перерасчет", format: @<text>
+                  <div style="text-align: right">@item.Reval.ToString("C")</div></text>),
+                grid.Column("", "Недопоставка", format: @<text>
+                  <div style="text-align: right">@item.SumNondelivery.ToString("C")</div></text>),
+                grid.Column("", "Исх.сальдо", format: @<text>
+                  <div style="text-align: right">@item.SumOutsaldo.ToString("C")</div></text>),
+                grid.Column("", "К оплате", format: @<text>
+                   <div style="text-align: right">@item.AccruedForPayment.ToString("C")</div>
+                   <input type="hidden" name="PaymentCode" value="@item.PaymentCode"/>
+                   <input type="hidden" name="CalculationDate" value="@item.CalculationDate"/>
+                   <input type="hidden" name="OrganizationId" value="@item.OrganizationId"/>
+                </text>)
+              }
+            )
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="box-footer">
+
+        <input id="EnterPay" type="button" class="btn btn-lg btn-success pull-right" value="Оплатить" onclick="location.href = 'https://uslugi.tatarstan.ru/'" @(AppConstants.PaymentAllowed ? "" : "disabled")>
+
+        <input id="PrintPaymentDocument" type="button" style="margin-right: 10px" class="btn btn-lg btn-success pull-right" value="Распечатать" onclick="location.href = '@Url.Action("GetInvoice", "Report")'">
+      </div>
+
+    </div>
+
+  </section>
+
+</div>

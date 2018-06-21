@@ -1,0 +1,47 @@
+﻿
+@{
+    Layout = "~/Views/Administrator/_Layout.cshtml";
+}
+
+@{
+    ViewBag.Title = "Создать роль";
+}
+
+
+<div class="row">
+
+    <div class="col-md-12">
+
+        <div class="box box-success">
+
+            <div class="box-header">
+
+                @Html.ActionLink("Список ролей", "RolesList", "Administrator",null, new {@class = "btn btn-primary"})
+
+            </div>
+
+            <div class="box-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    <div class="form-group">
+                        <label for="RoleName">Наименование роли</label>
+                        <div class="row">
+                            <div class="col-md-4">
+                                @Html.TextBox("RoleName", "", "", new {@class = "form-control"})
+                            </div>
+                            <div class="col-md-2">
+                                <input type="submit" class="btn btn-success" value="Создать">
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+
+
+    </div>
+
+</div>

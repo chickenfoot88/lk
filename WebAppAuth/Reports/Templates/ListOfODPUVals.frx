@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" TextQuality="Regular" ReportInfo.Name="Simple List" ReportInfo.Author="Fast Reports Inc" ReportInfo.Description="Demonstrates simple list report. To create it:&#13;&#10;- go to &quot;Data&quot; menu and select &quot;Choose Report Data...&quot; item to select datasource;&#13;&#10;- go to &quot;Report|Configure Bands...&quot; menu to create the band structure;&#13;&#10;- return to the report page, doubleclick the data band to show its editor;&#13;&#10;- choose the datasource;&#13;&#10;- drag data from the Data Dictionary window to the band." ReportInfo.Created="01/17/2008 03:05:57" ReportInfo.Modified="04/08/2017 15:47:21" ReportInfo.CreatorVersion="2013.3.5.0">
+  <Dictionary>
+    <TableDataSource Name="Users" Alias="Counters" ReferenceName="CountersDomOrd.Counters" DataType="System.Int32" Enabled="true">
+      <Column Name="HouseFullAddress" DataType="System.String"/>
+      <Column Name="ServiceName" DataType="System.String"/>
+      <Column Name="MeterDeviceNumber" DataType="System.String"/>
+      <Column Name="IndicationPrevious" DataType="System.Decimal"/>
+      <Column Name="CalculationApplyingDatePrevious" DataType="System.DateTime"/>
+      <Column Name="Indication" DataType="System.Decimal"/>
+      <Column Name="CalculationApplyingDate" DataType="System.DateTime"/>
+      <Column Name="Consumption" DataType="System.Decimal"/>
+      <Column Name="EnteredDate" DataType="System.DateTime"/>
+    </TableDataSource>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" RawPaperSize="9" FirstPageSource="15" OtherPagesSource="15">
+    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="103.95" CanGrow="true">
+      <TextObject Name="Text1" Top="9.45" Width="1048.95" Height="28.35" Text="Список внесённых показаний ОДПУ" HorzAlign="Center" VertAlign="Center" Font="Tahoma, 16pt, style=Bold"/>
+      <ChildBand Name="Child2" Top="107.95" Width="1047.06" Height="28.35">
+        <TextObject Name="Text17" Width="37.8" Height="28.35" Border.Lines="All" Fill.Color="Silver" Text="№" VertAlign="Center" Font="Tahoma, 9pt, style=Bold"/>
+        <TextObject Name="Text18" Left="37.8" Width="274.05" Height="28.35" Border.Lines="Right, Top, Bottom" Fill.Color="Silver" Text="Адрес" HorzAlign="Center" VertAlign="Center" Font="Tahoma, 9pt, style=Bold"/>
+        <TextObject Name="Text20" Left="311.85" Width="179.55" Height="28.35" Border.Lines="Right, Top, Bottom" Fill.Color="Silver" Text="Услуга" HorzAlign="Center" VertAlign="Center" Font="Tahoma, 9pt, style=Bold"/>
+        <TextObject Name="Text22" Left="491.4" Width="132.3" Height="28.35" Border.Lines="Right, Top, Bottom" Fill.Color="Silver" Text="Номер ПУ" HorzAlign="Center" VertAlign="Center" Font="Tahoma, 9pt, style=Bold"/>
+        <TextObject Name="Text24" Left="623.7" Width="85.05" Height="28.35" Border.Lines="Right, Top, Bottom" Fill.Color="Silver" Text="Пред. показание&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Tahoma, 9pt, style=Bold"/>
+        <TextObject Name="Text26" Left="708.75" Width="85.05" Height="28.35" Border.Lines="Right, Top, Bottom" Fill.Color="Silver" Text="Пред. дата" HorzAlign="Center" VertAlign="Center" Font="Tahoma, 9pt, style=Bold"/>
+        <TextObject Name="Text28" Left="793.8" Width="85.05" Height="28.35" Border.Lines="Right, Top, Bottom" Fill.Color="Silver" Text="Текущее показание&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Tahoma, 9pt, style=Bold"/>
+        <TextObject Name="Text30" Left="878.85" Width="85.05" Height="28.35" Border.Lines="Right, Top, Bottom" Fill.Color="Silver" Text="Текущая дата&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Tahoma, 9pt, style=Bold"/>
+        <TextObject Name="Text32" Left="963.9" Width="85.05" Height="28.35" Border.Lines="Right, Top, Bottom" Fill.Color="Silver" Text="Расход&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Tahoma, 9pt, style=Bold"/>
+      </ChildBand>
+    </ReportTitleBand>
+    <DataBand Name="Data1" Top="140.3" Width="1047.06" Height="39" CanGrow="true" DataSource="Users">
+      <TextObject Name="Text14" Width="37.8" Height="37.8" Border.Lines="Left, Right, Bottom" Text="[Row#]" VertAlign="Center" Font="Tahoma, 9pt"/>
+      <TextObject Name="Text19" Left="37.8" Width="274.05" Height="37.8" Border.Lines="Right, Bottom" Text="[Counters.HouseFullAddress]" VertAlign="Center" Font="Tahoma, 9pt"/>
+      <TextObject Name="Text21" Left="311.85" Width="179.55" Height="37.8" Border.Lines="Right, Bottom" Text="[Counters.ServiceName]" Font="Tahoma, 9pt"/>
+      <TextObject Name="Text23" Left="491.4" Width="132.3" Height="37.8" Border.Lines="Right, Bottom" Text="[Counters.MeterDeviceNumber]" HorzAlign="Center" VertAlign="Center" Font="Tahoma, 9pt"/>
+      <TextObject Name="Text25" Left="623.7" Width="85.05" Height="37.8" Border.Lines="Right, Bottom" Text="[Counters.IndicationPrevious]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="3" Format.DecimalSeparator="." Format.GroupSeparator=" " Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" Font="Tahoma, 9pt"/>
+      <TextObject Name="Text27" Left="708.75" Width="85.05" Height="37.8" Border.Lines="Right, Bottom" Text="[Counters.CalculationApplyingDatePrevious]" Format="Date" Format.Format="dd.MM.yyyy" HorzAlign="Center" VertAlign="Center" Font="Tahoma, 9pt"/>
+      <TextObject Name="Text29" Left="793.8" Width="85.05" Height="37.8" Border.Lines="Right, Bottom" Text="[Counters.Indication]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="3" Format.DecimalSeparator="." Format.GroupSeparator=" " Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" Font="Tahoma, 9pt"/>
+      <TextObject Name="Text31" Left="878.85" Width="85.05" Height="37.8" Border.Lines="Right, Bottom" Text="[Counters.CalculationApplyingDate]" Format="Date" Format.Format="dd.MM.yyyy" HorzAlign="Center" VertAlign="Center" Font="Tahoma, 9pt"/>
+      <TextObject Name="Text33" Left="963.9" Top="0.2" Width="85.05" Height="37.8" Border.Lines="Right, Bottom" Text="[Counters.Consumption]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="3" Format.DecimalSeparator="." Format.GroupSeparator=" " Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" Font="Tahoma, 9pt"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="183.3" Width="1047.06" Height="56.7" Fill.Color="WhiteSmoke" CanGrow="true">
+      <TextObject Name="Text10" Left="954.45" Width="94.5" Height="28.35" Text="[PageN]" HorzAlign="Right" VertAlign="Center" Font="Tahoma, 8pt"/>
+    </PageFooterBand>
+  </ReportPage>
+</Report>

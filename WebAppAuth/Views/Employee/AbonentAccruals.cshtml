@@ -1,0 +1,87 @@
+﻿@model IEnumerable<OhDataManager.Entities.Main.PersonalAccountAccrual>
+    @{
+        Layout = "~/Views/Employee/_LayoutAbonent.cshtml";
+        ViewBag.Title = "Счета";
+        var grid = new WebGrid(Model, rowsPerPage: 50, canPage: false);
+    }
+
+<body class="hold-transition layout-top-nav">
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+
+                    <div class="box-header">
+                        <h3 class="box-title">Список начислений</h3>
+                        <!--input id="PrintPaymentDocument" type="button" style="margin-right: 10px" class="col-md-2 btn uk-button-color rect secondary pull-right"
+                               value="Печать" 
+                               onclick="location.href = '@Url.Action("PrintPaymentDocument", "Abonent", new { @ViewBag.PaymentCode, @ViewBag.CalculationMonth})'"-->
+                    </div>
+
+                    <div style="margin-right: 0; margin-top: 0" class="col-xs-3 control-label pull-right">
+                        @using (Html.BeginForm("AbonentAccruals", "Employee", new { @ViewBag.PaymentCode }))
+                        {
+                            <div class="col-md-7 pull-right">
+                                @Html.DropDownList("CalculationDateSelectList", ViewData["CalculationDateSelectList"] as SelectList, new {@class = "form-control", @onchange = "this.form.submit();"})
+                            </div>
+                        }
+
+                    </div>
+                    <br>
+
+                    @grid.GetHtml(
+                        fillEmptyRows: false,
+                        htmlAttributes: new {id = "examplecharge"},
+                        tableStyle: "webgrid-table table table-striped table-condensed table-hover",
+                        headerStyle: "webgrid-header",
+                        footerStyle: "webgrid-footer",
+                        alternatingRowStyle: "webgrid-alternating-row",
+                        rowStyle: "webgrid-row-style",
+                        selectedRowStyle: "webgrid-selected-row",
+                        mode: WebGridPagerModes.All,
+                        firstText: "<< Первая",
+                        previousText: "< Предыдущая",
+                        nextText: "Следующая >",
+                        lastText: "Последняя >>",
+                        columns: new[]
+                        {
+                            grid.Column("", "Услуга", format: @<text>
+                                                                  <div style="text-align: left">@item.ServiceName.ToString()</div></text>),
+
+                            grid.Column("", "Тариф", format: @<text>
+                                                                 <div style="text-align: center">@item.Tariff</div></text>),
+                            grid.Column("", "Ед.измер", format: @<text>
+                                                                    <div style="text-align: center">@item.MeasureName</div></text>),
+                            grid.Column("", "Расход", format: @<text>
+                                                                  <div style="text-align: right">@item.Consumption.ToString()</div></text>),
+                            grid.Column("", "Оплачено", format: @<text>
+                                                                    <div style="text-align: right">@item.SumPayd.ToString("C")</div></text>),
+                            grid.Column("", "Вх.сальдо", format: @<text>
+                                                                     <div style="text-align: right">@item.SumInsaldo.ToString("C")</div></text>),
+                            grid.Column("", "Начислено", format: @<text>
+                                                                     <div style="text-align: right">@item.AccruedTariffNondelivery.ToString("C")</div></text>),
+                            grid.Column("", "Перерасчет", format: @<text>
+                                                                      <div style="text-align: right">@item.Reval.ToString("C")</div></text>),
+                            grid.Column("", "Недопоставка", format: @<text>
+                                                                        <div style="text-align: right">@item.SumNondelivery.ToString("C")</div></text>),
+                            grid.Column("", "Исх.сальдо", format: @<text>
+                                                                      <div style="text-align: right">@item.SumOutsaldo.ToString("C")</div></text>),
+                            grid.Column("", "К оплате", format: @<text>
+                                                                    <div style="text-align: right">@item.AccruedForPayment.ToString("C")</div>
+                                                                    <input type="hidden" name="PaymentCode" value="@item.PaymentCode"/>
+                                                                    <input type="hidden" name="CalculationDate" value="@item.CalculationDate"/>
+                                                                    <input type="hidden" name="OrganizationId" value="@item.OrganizationId"/>
+                                                                 </text>)
+                        }
+                        )
+                </div>
+
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+</section>
+</body>

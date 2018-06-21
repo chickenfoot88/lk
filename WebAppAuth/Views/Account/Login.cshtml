@@ -1,0 +1,107 @@
+﻿@using WebAppAuth.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Войти в личный кабинет";
+    var manualFullPath = @Url.Content("~") + "Content/skins/"+ AppConstants.UiStyleName + "/manual.pdf";
+}
+
+<section class="wrapper">
+
+    <section class="login-box">
+
+        <div class="login-logo">
+            <img src="~/Content/skins/@(AppConstants.UiStyleName)/logo.png">
+        </div>
+
+        <div class="box box-primary">
+
+            <div class="login-box-body">
+
+                <p class="login-box-msg">@ViewBag.Title</p>
+
+                @using (Html.BeginForm("Login", "Account",
+                    new {ViewBag.ReturnUrl},
+                    FormMethod.Post,
+                    new {@class = "form-validate", role = "form", @autocomplete = "off"}))
+
+                {
+
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-group has-feedback">
+
+                        @Html.TextBoxFor(m => m.Email,
+                            new {@type = "email", @id = "inputEmail3", @class = "form-control required", @placeholder = "Email", @name = "emailLogin"})
+                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                        @Html.ValidationMessageFor(m => m.Email, "", new {@class = "error"})
+
+                    </div>
+
+                    <div class="form-group has-feedback">
+
+                        @Html.PasswordFor(m => m.Password,
+                            new {@type = "password", @id = "inputPassword3", @class = "form-control required", @placeholder = "Пароль", @name = "passwordLogin"})
+                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                        @Html.ValidationMessageFor(m => m.Password, "", new {@class = "error"})
+                        @Html.ValidationSummary(true, "", new {@class = "error"})
+
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-xs-12">
+
+                                <a href="#">Забыли пароль?</a>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+
+                        <div class="row">
+
+                            <div class="col-xs-8">
+
+                                <div class="checkbox icheck">
+
+                                    @Html.CheckBoxFor(m => m.RememberMe)
+                                    @Html.LabelFor(m => m.RememberMe)
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-xs-4">
+                                <button type="submit" class="btn btn-primary btn-block btn-flat">Войти</button>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                }
+
+            </div>
+            <div class="login-box-links login-box-body">
+
+                <a href="@manualFullPath" target="_blank">
+                    <i class="fa fa-download" aria-hidden="true"></i>Скачать инструкцию
+                </a>
+                <br>
+                <a href="@Url.Action("Register")">
+                    <i class="fa fa-user-plus" aria-hidden="true"></i>Зарегистрироваться
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+</section>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

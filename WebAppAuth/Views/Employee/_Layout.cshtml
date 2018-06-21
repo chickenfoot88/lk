@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link rel="icon" type="image/png" href="~/Content/skins/@(AppConstants.UiStyleName)/logo.png"/>
+    <!--[if IE]>
+        <link rel="shortcut icon" href="~/Content/skins/@(AppConstants.UiStyleName)/logo.png" type="image/vnd.microsoft.icon"/>
+    <![endif]-->
+
+    <!-- Libs Styles -->
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="~/libs/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/libs/fontawesome/css/font-awesome.min.css">
+    <!-- Select lib Styles-->
+    <link rel="stylesheet" href="~/libs/select/css/select2.min.css">
+    <!-- Mmenu lib Styles-->
+    <link rel="stylesheet" href="~/libs/mmenu/css/jquery.mmenu.all.css">
+    <!-- AdminLTE Styles-->
+    <link rel="stylesheet" href="~/libs/adminlte/css/adminlte.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/libs/datatables/dataTables.bootstrap.css">
+    <!-- Data Range Picker -->
+    <link rel="stylesheet" href="~/libs/daterangepicker/daterangepicker.css">
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="~/libs/iCheck/all.css">
+    <!--Hamburger styles-->
+    <link rel="stylesheet" href="~/libs/hamburger/css/hamburgers.min.css">
+
+    <!-- Custom Style -->
+    <!-- Fonts -->
+    <link rel="stylesheet" href="~/Content/css/fonts.css">
+    <!--Custom styles-->
+    <link rel="stylesheet" href="~/Content/skins/@(AppConstants.UiStyleName)/css/main.css">
+    <!--Media styles-->
+    <link rel="stylesheet" href="~/Content/skins/@(AppConstants.UiStyleName)/css/media.css">
+    <!--Custom Menu styles-->
+    <link rel="stylesheet" href="~/Content/skins/@(AppConstants.UiStyleName)/css/_mmenu.css">
+
+    @WebReportGlobals.Scripts()
+    @WebReportGlobals.Styles()
+
+    <style type="text/css">
+        #callback_user_phone, #feedback_user_phone {
+            display: none !important;
+        }
+
+    </style>
+    <link rel="shortcut icon" href="~/Content/skins/@(AppConstants.UiStyleName)/logo.png">
+
+</head>
+
+<body class="tm-isblog">
+
+<div id="my-page">
+
+    <div id="BaseUrl" data-baseurl="@(Url.Content("~") == "/" ? "http://localhost:2788" : Url.Content("~"))"></div>
+
+    <div class="navbar">
+
+        <button class="hamburger hamburger--collapse hidden-md hidden-lg" type="button">
+            <span class="hamburger-box">
+          <span class="hamburger-inner"></span>
+        </span>
+        </button>
+
+        <div class="logo">
+            <a href="@AppConstants.PublicSiteUrl">
+                <img src="~/Content/skins/@(AppConstants.UiStyleName)/logo.png">
+            </a>
+        </div>
+
+        <nav class="top-menu hidden-xs hidden-sm">
+
+            <ul class="horizontal">
+                <li> @Html.ActionLink("Главная", "Index", "Employee")</li>
+
+                @if (AppConstants.ClaimsModuleAllowed)
+                {
+                    <li> @Html.ActionLink("Заявки", "AbonentClaims", "Employee")</li>
+                }
+
+                @if (ViewContext.HttpContext.User.IsInRole(AppConstants.RoleEmployee))
+                {
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="menu" aria-haspopup="true" aria-expanded="false"
+                           href="#">Жилищный фонд<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li> @Html.ActionLink("Лицевые счета", "PersonalAccountsInfo", "Employee", null, new {@class = "scroll"})</li>
+                            <li> @Html.ActionLink("Приборы учета", "Counters", "Employee", null, new {@class = "scroll"})</li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="menu" aria-haspopup="true" aria-expanded="false"
+                           href="#">Обмен данными<span class="caret"></span></a>
+                        <ul class="dropdown-menu uk-nav uk-nav-navbar">
+                            <li> @Html.ActionLink("Загрузка данных", "DataImport", "Employee", null, new {@class = "scroll"})</li>
+                            <li> @Html.ActionLink("Выгрузка данных", "DataExport", "Employee", null, new {@class = "scroll"})</li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="menu" aria-haspopup="true" aria-expanded="false"
+                           href="#">Отчеты<span class="caret"></span></a>
+                        <ul class="dropdown-menu uk-nav uk-nav-navbar">
+                            <li> @Html.ActionLink("Абоненты", "ReportAbonents", "Employee", null, new {@class = "scroll"})</li>
+                            @*<li> @Html.ActionLink("Показания ИПУ", "ReportIPUVals", "Employee", null, new {@class = "scroll"})</li>*@
+                            @*<li> @Html.ActionLink("Показания ОДПУ", "ReportODPUVals", "Employee",null, new { @class = "scroll" })</li>*@
+                            <li> @Html.ActionLink("Оплаты", "ReportPayments", "Employee", null, new {@class = "scroll"})</li>
+
+                            @if (AppConstants.ClaimsModuleAllowed)
+                            {
+                                <li> @Html.ActionLink("Заявки", "ReportOfClaims", "Employee", null, new {@class = "scroll"})</li>
+                            }
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="menu" aria-haspopup="true" aria-expanded="false"
+                           href="#">Уведомления<span class="caret"></span></a>
+                        <ul class="dropdown-menu uk-nav uk-nav-navbar">
+                            <li> @Html.ActionLink("Уведомления абонентов", "Index", "AbonentNotifications", null, new {@class = "scroll"})</li>
+                        </ul>
+                    </li>
+                }
+
+                <li>@Html.Partial("_LoginPartial")</li>
+            </ul>
+
+        </nav>
+
+    </div>
+
+    @RenderBody()
+
+    @if (IsSectionDefined("Footer"))
+    {
+        <footer>
+            @RenderSection("Footer")
+        </footer>
+    }
+
+
+</div>
+
+  <!-- Libs Scripts -->
+  <!-- Jquery -->
+  <script src="~/libs/jquery/jquery-3.2.1.min.js"></script>
+  <!-- Bootstrap -->
+  <script src="~/libs/bootstrap/js/bootstrap.min.js"></script>
+  <!-- DataTables -->
+  <script src="~/libs/datatables/jquery.dataTables.js"></script>
+  <script src="~/libs/datatables/dataTables.bootstrap.js"></script>
+  <!-- Moment JS -->
+  <script src="~/libs/moment/moment.js"></script>
+  <!-- Data Range Picker -->
+  <script src="~/libs/daterangepicker/daterangepicker.js"></script>
+  <!-- SlimScroll -->
+  <script src="~/libs/slimScroll/jquery.slimscroll.js"></script>
+  <!-- FastClick -->
+  <script src="~/libs/fastclick/fastclick.js"></script>
+  <!-- iCheck 1.0.1 -->
+  <script src="~/libs/iCheck/icheck.min.js"></script>
+  <!-- Mmenu -->
+  <script src="~/libs/mmenu/js/jquery.mmenu.all.js"></script>
+  <!-- Select script -->
+  <script src="~/libs/select/js/select2.full.min.js"></script>
+  <script src="~/libs/select/js/ru.js"></script>
+  <!-- Input Mask -->
+  <script src="~/libs/inputmask/js/jquery.inputmask.bundle.min.js"></script>
+  <!-- Jquery Validation-->
+  <script src="~/libs/jquery.validation/js/jquery.validate.min.js"></script>
+  <script src="~/libs/jquery.validation/js/messages_ru.min.js"></script>
+  <script src="~/libs/jquery.validation/js/additional-methods.min.js"></script>
+  <!-- Admin LTE -->
+  <script src="~/libs/adminlte/js/adminlte.min.js"></script>
+
+  <!-- Custom Scripts -->
+  <!-- Page Script -->
+  <script src="~/Scripts/employee.js"></script>
+  <!-- Custom JS -->
+  <script src="~/Scripts/custom.js"></script>
+  <script src="~/Scripts/auth.js"></script>
+
+  @RenderSection("scripts", required: false)
+
+</body>
+</html>

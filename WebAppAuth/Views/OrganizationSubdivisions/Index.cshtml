@@ -1,0 +1,76 @@
+﻿@model IEnumerable<OhDataManager.Entities.System.OrganizationSubdivision>
+
+  @{
+    ViewBag.Title = "Подразделения";
+    Layout = "~/Views/Administrator/_Layout.cshtml";
+  }
+
+
+@Html.ActionLink("Добавить", "Create", new {}, new { @class = "btn margin-bottom btn-success btn-lg"})
+
+<div class="box">
+  <div class="box-header"></div>
+  <div class="box-body">
+    <table class="table table-bordered table-hover dataTable">
+      <tr>
+        <th>
+          @Html.DisplayNameFor(model => model.Organization.FullName)
+        </th>
+        <th>
+          @Html.DisplayNameFor(model => model.FullName)
+        </th>
+        <th>
+          @Html.DisplayNameFor(model => model.OrganizationSubdivisionExternalId)
+        </th>
+        <th>
+          @Html.DisplayNameFor(model => model.CreationTime)
+        </th>
+        <th>
+          @Html.DisplayNameFor(model => model.ChangedTime)
+        </th>
+        <th></th>
+      </tr>
+
+      @foreach (var item in Model) {
+        <tr>
+          <td>
+            @Html.DisplayFor(modelItem => item.Organization.FullName)
+          </td>
+          <td>
+            @Html.DisplayFor(modelItem => item.FullName)
+          </td>
+          <td>
+            @Html.DisplayFor(modelItem => item.OrganizationSubdivisionExternalId)
+          </td>
+          <td>
+            @Html.DisplayFor(modelItem => item.CreationTime)
+          </td>
+          <td>
+            @Html.DisplayFor(modelItem => item.ChangedTime)
+          </td>
+    
+          <td class="icons-cell-3">
+
+            <a class="" href="@Url.Action( "Edit", "OrganizationSubdivisions", new {id = item.Id})">
+              <i class="fa fa-pencil" aria-hidden="true">
+              </i>
+            </a>
+
+            <a class="" href="@Url.Action( "Details", "OrganizationSubdivisions", new {id = item.Id})">
+              <i class="fa fa-cog" aria-hidden="true">
+              </i>
+            </a>
+
+            <a class="" href="@Url.Action( "Delete", "OrganizationSubdivisions", new {id = item.Id})">
+              <i class="fa fa-trash" aria-hidden="true">
+              </i>
+            </a>
+
+          </td>
+
+        </tr>
+      }
+
+    </table>
+  </div>
+</div>

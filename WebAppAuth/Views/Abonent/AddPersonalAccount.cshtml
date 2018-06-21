@@ -1,0 +1,71 @@
+﻿@model OhDataManager.Entities.Main.PersonalAccount
+
+@{
+    ViewBag.Title = "Добавить лицевой счет";
+}
+
+<div class="content-wrapepr">
+  <section class="content-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3">
+          <h1>Пожалуйста, заполните форму</h1>
+        </div>
+      <div class="col-md-2">
+        <ul class="">
+          @Html.Partial("_LoginPartial", new { @class = "btn btn-default"})
+        </ul>
+      </div>
+      </div>
+    </div>
+  </section>
+  <section class="content">
+    <div class="register-box register-form">
+
+      @using (Html.BeginForm("AddPersonalAccount", "Abonent", FormMethod.Post, new { @class = "", role = "form" }))
+      {
+
+        <div class="box box-success">
+
+          <div class="box-header with-border">
+            <h3 class="box-title">@ViewBag.Title</h3>
+          </div>
+
+          <div class="box-body">
+
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-barcode"></i></span>
+                @Html.TextBoxFor(p => p.PaymentCode, new { @class = "form-control", @placeholder = "Введите платежный код", autofocus="autofocus"})
+              </div>
+                @if (ViewBag.Result != null) {
+                  <span class="field-validation-error text-danger">Указанные лицевой счет не найден. <br> Попробуйте ввести его повторно.</span>
+                }
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                @Html.TextBoxFor(p => p.ApartmentOwnerFullName, new { @class = "form-control", @placeholder = "Фамилия собственника"})
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-building"></i></span>
+                @Html.TextBoxFor(p => p.ApartmentNumber, new { @class = "form-control", @placeholder = "Номер квартиры" })
+              </div>
+            </div>
+            <div class="form-group">
+              <input type="submit" value="Добавить" class="btn btn-success pull-right" />
+            </div>
+
+          </div>
+
+        </div>
+
+      }
+
+    </div>
+  </section>
+</div>

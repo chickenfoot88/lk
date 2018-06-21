@@ -1,0 +1,210 @@
+﻿@model OhDataManager.Entities.Main.PersonalAccount
+
+@{
+    Layout = "~/Views/Abonent/_Layout.cshtml";
+    ViewBag.Title = "Оплата";
+}
+
+<div class="wrapper">
+
+  <section class="content-header">
+    <div class="content-title">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2"><h1>@ViewBag.Title</h1></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container">
+
+    <form id="formx" action="javascript:void(null);" onsubmit="call()" method="post">
+
+      <div class="row">
+
+        <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
+
+          <div class="box box-primary">
+
+            <div class="box-header with-border">
+                <h3 class="box-title">Информация о плательщике</h3>
+            </div>
+
+            <div class="box-body">
+
+              <div class="row">
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="LastName">Фамилия *</label>
+                    <input id="LastName" type="text" name="LastName" class="form-control input-sm" value="@ViewBag.Fam" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="FirstName">Имя *</label>
+                    <input id="FirstName" type="text" name="FirstName" class="form-control input-sm" value="@ViewBag.Ima" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="MiddleName">Отчество *</label>
+                    <input id="MiddleName" type="text" name="MiddleName" class="form-control input-sm" value="@ViewBag.Otch" required>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="Inn">ИНН</label>
+                    <input type="text" id="Inn" name="Inn" class="form-control input-sm" value="" placeholder="000000000000">
+                  </div>
+                  <div class="form-group">
+                    <label for="address">Адрес *</label>
+                    <input id="address" type="text" name="Address" class="form-control input-sm" value="@Model.ApartmentFullAddress" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="Email">E-mail:</label>
+                    <input id="Email" type="text" name="Email" class="form-control input-sm" value="@ViewBag.Email">
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="col-md-4 col-md-offset-2">
+
+          <div class="box box-warning">
+
+            <div class="box-header with-border">
+                <h3 class="box-title">Информация о платеже</h3>
+            </div>
+
+            <div class="box-body">
+
+              <div class="form-group">
+                <label>Сумма платежа:</label>
+                <div class="input-group">
+                  <input id="charge" style="text-align: right" type="number" class="form-control input-sm" pattern="\d+(\.\d{2})?" onkeyup="total_charge.value = parseFloat(this.value) * (100 - commission.value)/100" value="@ViewBag.Accrued.Replace(" ", "")" required>
+                  <span class="input-group-addon">руб.</span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Комиссия:</label>
+                <div class="input-group">
+                  <input id="commission" style="text-align: right" type="text" class="form-control input-sm" value="0" readonly>
+                  <span class="input-group-addon">руб.</span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Сумма к оплате:</label>
+                  <div class="input-group">
+                    <input id="total_charge" style="text-align: right" type="number" name="Subtotal_P" class="form-control input-sm" value="@ViewBag.Accrued.Replace(" ", "")" readonly>
+                    <span class="input-group-addon">руб.</span>
+                  </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-md-4">
+
+          <div class="box box-success">
+            <div class="box-header with-border">
+                <h3 class="box-title">Оплата</h3>
+            </div>
+
+              <div class="box-body">
+
+                  <div class="form-group">
+                    <label for="orgName">Наименование:</label>
+                    <input id="orgName" type="text" class="form-control input-sm" value="@Model.ManagmentOrganizationName" readonly>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="code">Код УК/ТСЖ/РЦ:</label>
+                    <input id="code" type="text" class="form-control input-sm" value="" readonly>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="accured">Сумма к оплате:</label>
+                      <div class="input-group">
+                        <input id="accured" style="text-align: right" type="text" class="form-control input-sm" id="Accrued" value="@ViewBag.Accrued" readonly>
+                        <span class="input-group-addon">руб.</span>
+                      </div>
+                  </div>
+
+              </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-8 col-md-offset-2">
+
+          <input type="submit" id="Pay" class="btn btn-lg btn-success pull-right" value="Оплатить">
+          <input type="button" class="btn btn-lg btn-success pull-right" value="Назад" onclick="history.back()" style="margin-right: 10px">
+          <input type="hidden" name="Customer_IDP" value="@Model.PaymentCode">
+        </div>
+      </div>
+
+      </div>
+
+    </form>
+
+  </section>
+
+</div>
+
+<script>
+
+  function call() {
+
+    // создать объект для формы
+    var msg = $('#formx').serialize();
+
+    $.ajax({
+      url: '@Url.Action("Pay", "Abonent")',
+      type: 'POST',
+      data: msg,
+      success:
+      function(postedData) {
+
+        var SendForm = document.getElementById('SendForm');
+
+        if (!SendForm) {
+            // временную форму создаем, если нет
+            SendForm = document.createElement("form");
+            SendForm.id = 'SendForm';
+            SendForm.style.display = "none";
+            SendForm.method = "POST";
+            document.body.appendChild(SendForm);
+        }
+
+        SendForm.action = "https://wpay.uniteller.ru/pay/";
+        postedData = JSON.parse(postedData);
+
+        // заполнить форму данными из объекта
+        var html = [];
+        for (var key in postedData) {
+            var value = String(postedData[key]).replace(/"/g, "&quot;");
+
+          // в старых IE нельзя указать name после создания input
+          // поэтому используем innerHTML вместо DOM-методов
+        html.push("<input type='hidden' name=\"" + key + "\" value=\"" + value + "\">");
+
+        }
+
+        SendForm.innerHTML = html.join('');
+
+        SendForm.submit();
+      }
+    });
+
+  };
+
+</script>

@@ -1,0 +1,109 @@
+﻿@model WebAppAuth.Entities.Employee
+
+@{
+    ViewBag.Title = "Сотрудник";
+    Layout = "~/Views/Administrator/_Layout.cshtml";
+}
+
+<div class="box box-primary">
+
+  <div class="box-header with-border">
+    <div class="row">
+      <div class="col-xs-2">
+        @Html.ActionLink(
+          "Вернуться к списку",
+          "Index",
+          new {},
+          new { @class = "btn btn-block btn-primary" })
+      </div>
+      <div class="col-xs-2">
+        @Html.ActionLink(
+          "Редактировать",
+          "Edit",
+          new {id = Model.Id},
+          new { @class = "btn btn-block btn-warning" })
+      </div>
+    </div>
+  </div>
+
+  <div class="box-body">
+
+    <dl class="dl-horizontal notification-details-list">
+
+      <dt>
+        @Html.DisplayNameFor(model => model.ApplicationUser.Email):
+      </dt>
+
+      <dd>
+        @Html.DisplayFor(model => model.ApplicationUser.Email)
+      </dd>
+
+      <dt>
+        @Html.DisplayNameFor(model => model.Organization.FullName):
+      </dt>
+
+      <dd>
+        @Html.DisplayFor(model => model.Organization.FullName)
+      </dd>
+
+      <dt>
+        @Html.DisplayNameFor(model => model.Surname):
+      </dt>
+
+      <dd>
+        @Html.DisplayFor(model => model.Surname)
+      </dd>
+
+      <dt>
+        @Html.DisplayNameFor(model => model.Name):
+      </dt>
+
+      <dd>
+          @Html.DisplayFor(model => model.Name)
+      </dd>
+
+      <dt>
+        @Html.DisplayNameFor(model => model.DisplayName):
+      </dt>
+
+      <dd>
+        @Html.DisplayFor(model => model.DisplayName)
+      </dd>
+
+      <dt>
+        @Html.DisplayNameFor(model => model.Patronymic):
+      </dt>
+
+      <dd>
+        @Html.DisplayFor(model => model.Patronymic)
+      </dd>
+
+      <dt>
+        @Html.DisplayNameFor(model => model.PhoneNumber):
+      </dt>
+
+      <dd>
+        @Html.DisplayFor(model => model.PhoneNumber)
+      </dd>
+
+      <dt>
+        @Html.DisplayNameFor(model => model.CreationTime):
+      </dt>
+
+      <dd>
+        @Html.DisplayFor(model => model.CreationTime)
+      </dd>
+
+      <dt>
+        @Html.DisplayNameFor(model => model.ChangedTime):
+      </dt>
+
+      <dd>
+        @Html.DisplayFor(model => model.ChangedTime)
+      </dd>
+
+    </dl>
+
+  </div>
+
+</div>

@@ -1,0 +1,67 @@
+@media (max-width:1280px) {
+
+  .top-menu {
+    padding-left: 17%;
+    text-align: left;
+  }
+
+  .top-menu ul li a {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+}
+
+@media (max-width:1200px) {
+
+  .top-menu {
+    text-align: left;
+  }
+
+  .top-menu ul li a {
+    font-size: 18px;
+    padding: 25px 10px;
+  }
+
+  .navbar .logo a img {
+    width: 105px;
+  }
+
+}
+
+@media (max-width:992px) {
+
+  .navbar .logo {
+    float: right;
+    padding-right: 50px;
+  }
+
+  #avatar_form input[name="Surname"] {
+    margin-bottom: 10px;
+  }
+
+}
+
+@media (max-width:768px) {
+
+  #avatar_form input[name="Surname"] {
+    margin-bottom: 10px;
+  }
+
+}
+
+@media (max-width:480px) {
+
+  h1 {
+    font-size: 26px;
+  }
+
+}
+
+@media (max-width:320px) {
+
+  .content {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}

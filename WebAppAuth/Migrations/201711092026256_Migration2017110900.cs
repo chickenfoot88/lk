@@ -1,0 +1,156 @@
+namespace WebAppAuth.Migrations
+{
+    using System;
+    using System.Data.Entity.Migrations;
+    
+    public partial class Migration2017110900 : DbMigration
+    {
+        public override void Up()
+        {
+            DropPrimaryKey("import.importaccrual");
+            AlterColumn("main.HouseAccrual", "Consumption", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "ConsumptionHouseByApartments", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "ConsumptionHouseByApartmentsImd", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "ConsumptionHouseByApartmentsNorm", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "ConsumptionHouseByNonResidential", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "ConsumptionLift", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "AccruedTariff", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "AccruedTariffNondelivery", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "SumNondelivery", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "ConsumptionNondelivery", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "Reval", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "SumBalanceDelta", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "AccruedForPayment", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "SumPayd", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "SumOutsaldo", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "SumInsaldo", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "SumTariffChn", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "SumInsaldoChn", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "SumOutsaldoChn", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "RevalChn", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "SumBalanceDeltaChn", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "AccruedForPaymentChn", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "SumPaydChn", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "AccruedBySocNorm", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.HouseMeterReading", "Consumption", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("import.importaccrual", "ConsumptionHouseByApartments", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("import.importaccrual", "ConsumptionHouseByApartmentsImd", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("import.importaccrual", "ConsumptionHouseByApartmentsNorm", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("import.importaccrual", "ConsumptionHouseByNonResidential", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("import.importaccrual", "ConsumptionLift", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("import.importaccrual", "SumTariffChn", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("import.importaccrual", "SumInsaldoChn", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("import.importaccrual", "SumOutsaldoChn", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("import.importaccrual", "RevalChn", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("import.importaccrual", "SumBalanceDeltaChn", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("import.importaccrual", "AccruedForPaymentChn", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("import.importaccrual", "SumPaydChn", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("import.importaccrual", "AccruedBySocNorm", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("import.importaccrual", "SupplierName", c => c.String(nullable: false, maxLength: 128));
+            AlterColumn("import.importmeterreading", "Consumption", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "Consumption", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "ConsumptionHouseByApartments", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "ConsumptionHouseByApartmentsImd", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "ConsumptionHouseByApartmentsNorm", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "ConsumptionHouseByNonResidential", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "ConsumptionLift", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "AccruedTariff", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "AccruedTariffNondelivery", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "SumNondelivery", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "ConsumptionNondelivery", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "Reval", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "SumBalanceDelta", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "AccruedForPayment", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "SumPayd", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "SumOutsaldo", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "SumInsaldo", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "SumTariffChn", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "SumInsaldoChn", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "SumOutsaldoChn", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "RevalChn", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "SumBalanceDeltaChn", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "AccruedForPaymentChn", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "SumPaydChn", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "AccruedBySocNorm", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "Tariff", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "NondeliveryDaysCount", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "ServiceDeliveryDays", c => c.Decimal(precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountMeterReading", "Consumption", c => c.Decimal(precision: 18, scale: 2));
+            AddPrimaryKey("import.importaccrual", new[] { "SectionId", "CalculationDate", "OrganizationCode", "PaymentCode", "ServiceName", "MeasureName", "SupplierName" });
+        }
+        
+        public override void Down()
+        {
+            DropPrimaryKey("import.importaccrual");
+            AlterColumn("main.PersonalAccountMeterReading", "Consumption", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "ServiceDeliveryDays", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "NondeliveryDaysCount", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "Tariff", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "AccruedBySocNorm", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "SumPaydChn", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "AccruedForPaymentChn", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "SumBalanceDeltaChn", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "RevalChn", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "SumOutsaldoChn", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "SumInsaldoChn", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "SumTariffChn", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "SumInsaldo", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "SumOutsaldo", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "SumPayd", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "AccruedForPayment", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "SumBalanceDelta", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "Reval", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "ConsumptionNondelivery", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "SumNondelivery", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "AccruedTariffNondelivery", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "AccruedTariff", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "ConsumptionLift", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "ConsumptionHouseByNonResidential", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "ConsumptionHouseByApartmentsNorm", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "ConsumptionHouseByApartmentsImd", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "ConsumptionHouseByApartments", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.PersonalAccountAccrual", "Consumption", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("import.importmeterreading", "Consumption", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("import.importaccrual", "SupplierName", c => c.String());
+            AlterColumn("import.importaccrual", "AccruedBySocNorm", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("import.importaccrual", "SumPaydChn", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("import.importaccrual", "AccruedForPaymentChn", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("import.importaccrual", "SumBalanceDeltaChn", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("import.importaccrual", "RevalChn", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("import.importaccrual", "SumOutsaldoChn", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("import.importaccrual", "SumInsaldoChn", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("import.importaccrual", "SumTariffChn", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("import.importaccrual", "ConsumptionLift", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("import.importaccrual", "ConsumptionHouseByNonResidential", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("import.importaccrual", "ConsumptionHouseByApartmentsNorm", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("import.importaccrual", "ConsumptionHouseByApartmentsImd", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("import.importaccrual", "ConsumptionHouseByApartments", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.HouseMeterReading", "Consumption", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "AccruedBySocNorm", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "SumPaydChn", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "AccruedForPaymentChn", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "SumBalanceDeltaChn", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "RevalChn", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "SumOutsaldoChn", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "SumInsaldoChn", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "SumTariffChn", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "SumInsaldo", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "SumOutsaldo", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "SumPayd", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "AccruedForPayment", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "SumBalanceDelta", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "Reval", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "ConsumptionNondelivery", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "SumNondelivery", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "AccruedTariffNondelivery", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "AccruedTariff", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "ConsumptionLift", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "ConsumptionHouseByNonResidential", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "ConsumptionHouseByApartmentsNorm", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "ConsumptionHouseByApartmentsImd", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "ConsumptionHouseByApartments", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AlterColumn("main.HouseAccrual", "Consumption", c => c.Decimal(nullable: false, precision: 18, scale: 2));
+            AddPrimaryKey("import.importaccrual", new[] { "SectionId", "CalculationDate", "OrganizationCode", "PaymentCode", "ServiceName", "MeasureName" });
+        }
+    }
+}

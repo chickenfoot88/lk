@@ -1,0 +1,155 @@
+﻿@model IEnumerable<OhDataManager.Entities.Main.PersonalAccountMeterReading>
+    @{
+        Layout = "~/Views/Employee/_Layout.cshtml";
+    }
+    @{
+
+        var grid = new WebGrid(Model, canPage: false, canSort: false, rowsPerPage: 10);
+        var grid2 = new WebGrid(@ViewBag.SecondModel, canPage: false, canSort: false, rowsPerPage: 10);
+
+        ViewBag.Title = "Личный кабинет сотрудника";
+    }
+    <section class="container">
+        <hr />
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Custom Tabs -->
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tab_1" data-toggle="tab">Показания ИПУ</a></li>
+                        <li><a href="#tab_2" data-toggle="tab">Показания ОДПУ</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="tab_1" class="tab-pane active box ">
+
+                            <div class="row">
+
+                                @using (Html.BeginForm("Deposition", "Employee"))
+                                {
+                                    <div class="col-md-offset-6 col-md-3">
+                                        @Html.DropDownList("Houses", ViewData["Houses"] as SelectList, "Выберите из списка...", new { @class = "form-control", @onchange = "this.form.submit();" })
+                                    </div>
+
+                                    <div class="col-md-3 ">
+                                        @Html.DropDownList("KvarServices", ViewData["KvarServices"] as SelectList, "Выберите из списка...", new { @class = "form-control", @onchange = "this.form.submit();" })
+                                    </div>
+                                }
+
+                            </div>
+                            <div class="box-header">
+                                <br>
+                                <div class=" box-header">
+                                    <input id="SaveValCnt" type="button" class="col-md-2 btn uk-button-color rect secondary pull-right" value="Сохранить" disabled>
+                                    <input id="EnterValCnt" type="button" style="margin-right: 10px" class="col-md-2 btn uk-button-color rect secondary pull-right" value="Ввести значения">
+                                </div>
+                                @grid.GetHtml(
+                    fillEmptyRows: false,
+                             htmlAttributes: new { id = "countersord" },
+                    tableStyle: "webgrid-table table table-striped table-condensed table-hover",
+                    headerStyle: "webgrid-header",
+                    footerStyle: "webgrid-footer",
+                    alternatingRowStyle: "webgrid-alternating-row",
+                    rowStyle: "webgrid-row-style",
+                    selectedRowStyle: "webgrid-selected-row",
+                    columns: new[]
+                    {   grid.Column("Pkod", "Номер ЛС", format: @<text>
+                                        <div style="text-align: left">@item.Pkod</div></text>),
+                        grid.Column("Service", "Услуга", format: @<text>
+                                    <div style="text-align: left">@item.Service</div></text>),
+                        grid.Column("NumCnt", "Заводской номер", format: @<text>
+                                    <div style="text-align: center">@item.NumCnt</div></text>),
+                        grid.Column("DatUchetPred", "Дата снятия", format: @<text>
+                                    <div style="text-align: center">@item.DatUchetPred.ToString("d MMM yyyy")</div></text>),
+                        grid.Column("ValCntPred", "Пред.показания", format: @<text>
+                                    <div style="text-align: right">@item.ValCntPred.ToString("0.0000")</div></text>),
+                        grid.Column("DatUchet", "Дата снятия", format: @<text>
+                                    @if (item.DatVVod.ToString("dd.MM.yyyy") == "01.01.0001")
+                                    {
+                                        if (@item.DatUchet.ToString("dd.MM.yyyy") == "01.01.0001")
+                                        {<div style="text-align: center">""</div>}
+                                        else
+                                        {<div style="text-align: center">@item.DatUchet.ToString("d MMM yyyy")</div>}
+                                    }
+                                    else
+                                    { <div style="text-align: center">@item.DatVVod.ToString("d MMM yyyy")</div>}
+                        </text>),
+                        grid.Column("ValCnt", "Текущее показание", format: @<text>
+                                    <input style="text-align: right" name="InputValCnt" type="number" step="0.02" class="form-control input-sm control-label" value="@item.ValCnt.ToString("0.0000")" readonly>
+                                    <input type="hidden" name="Pkod" value="@item.Pkod" />
+                                    <input type="hidden" name="NzpCounter" value="@item.NzpCounter" />
+                                    <input type="hidden" name="DatUchet" value="@item.DatUchet" />
+                        </text>),
+                        grid.Column("Расход", format: @<text>
+                                    <div style="text-align: right">
+                                        @Html.Raw((item.ValCnt - item.ValCntPred) > 0 ? (item.ValCnt - item.ValCntPred).ToString("0.0000") : 0)
+                                    </div></text>)
+                    })
+                            </div>
+                        </div>
+                        <div id="tab_2" class="tab-pane box">
+
+                            <div class="row">
+
+                                @using (Html.BeginForm("Deposition", "Employee"))
+                                {
+                                    <div class="col-md-offset-9 col-md-3">
+                                        @Html.DropDownList("Houses", ViewData["Houses"] as SelectList, "Выберите из списка...", new { @class = "form-control", @onchange = "this.form.submit();" })
+                                    </div>
+
+                                }
+
+                            </div>
+                            <div class="box-header">
+                                <br>
+                                <div class=" box-header">
+                                    <input id="SaveDomValCnt" type="button" class="col-md-2 btn uk-button-color rect secondary pull-right" value="Сохранить" disabled>
+                                    <input id="EnterDomValCnt" type="button" style="margin-right: 10px" class="col-md-2 btn uk-button-color rect secondary pull-right" value="Ввести значения">
+                                </div>
+                                @grid2.GetHtml(
+                    fillEmptyRows: false,
+                             htmlAttributes: new { id = "countersord" },
+                    tableStyle: "webgrid-table table table-striped table-condensed table-hover",
+                    headerStyle: "webgrid-header",
+                    footerStyle: "webgrid-footer",
+                    alternatingRowStyle: "webgrid-alternating-row",
+                    rowStyle: "webgrid-row-style",
+                    selectedRowStyle: "webgrid-selected-row",
+                    columns: new[]
+                    {
+                        grid.Column("Service", "Услуга", format: @<text>
+                            <div style="text-align: left">@item.Service</div></text>),
+                        grid.Column("NumCnt", "Заводской номер", format: @<text>
+                                    <div style="text-align: center">@item.NumCnt</div></text>),
+                        grid.Column("DatUchetPred", "Дата снятия", format: @<text>
+                                    <div style="text-align: center">@item.DatUchetPred.ToString("d MMM yyyy")</div></text>),
+                        grid.Column("ValCntPred", "Пред.показания", format: @<text>
+                                    <div style="text-align: right">@item.ValCntPred.ToString("0.0000")</div></text>),
+                        grid.Column("DatUchet", "Дата снятия", format: @<text>
+                                    @if (item.DatVVod.ToString("dd.MM.yyyy") == "01.01.0001")
+                                    {
+                                        if (@item.DatUchet.ToString("dd.MM.yyyy") == "01.01.0001")
+                                        {<div style="text-align: center">""</div>}
+                                        else
+                                        {<div style="text-align: center">@item.DatUchet.ToString("d MMM yyyy")</div>}
+                                    }
+                                    else
+                                    { <div style="text-align: center">@item.DatVVod.ToString("d MMM yyyy")</div>}
+                        </text>),
+                        grid.Column("ValCnt", "Текущее показание", format: @<text>
+                                    <input style="text-align: right" name="InputDomValCnt" type="number" step="0.02" class="form-control input-sm control-label" value="@item.ValCnt.ToString("0.0000")" readonly>
+                                    <input type="hidden" name="NzpDomCounter" value="@item.NzpCounter" />
+                                    <input type="hidden" name="DatDomUchet" value="@item.DatUchet" />
+                        </text>),
+                        grid.Column("Расход", format: @<text>
+                                    <div style="text-align: right">
+                                        @Html.Raw((item.ValCnt - item.ValCntPred) > 0 ? (item.ValCnt - item.ValCntPred).ToString("0.0000") : 0)
+                                    </div></text>)
+                    })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    

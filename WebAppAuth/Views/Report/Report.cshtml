@@ -1,0 +1,203 @@
+﻿
+@{
+  Layout = null;
+}
+
+
+<script src="~/Scripts/report.js"></script>
+
+@WebReportGlobals.Scripts()
+@WebReportGlobals.Styles()
+
+<section class="content">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+
+          @if (ViewBag.TypeFilter == 1)
+          {
+            using (Html.BeginForm("ReportAbonents", "Employee"))
+            {
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="reservation">Дата регистрации:</label>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            <input type="text" class="form-control" id="reservation" name="reservation" value='@ViewBag.Reservation'>
+                          </div>
+                        </div>
+                        <div class="col-md-1">
+                          <button name="action" class="btn btn-success" value="">Применить</button>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            }
+          }
+          else
+            if (ViewBag.TypeFilter == 2) {
+
+              using (Html.BeginForm("ReportIPUVals", "Employee")) {
+
+                <div class="col-md-3">
+                  <label for="reservation">Период:</label>
+
+                  <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                    <input type="text" class="form-control" id="reservation" name="reservation" value='@ViewBag.Reservation'>
+                  </div>
+
+                </div>
+
+                <div class="col-md-3">
+                  <label for="address">Адрес:</label>
+                    @SelectExtensions.DropDownList(Html, "Houses", ViewData["Houses"] as SelectList, "Адрес не выбран", new { @id = "address", @class = "form-control select2", @onchange = "this.form.submit();" })
+                </div>
+
+                <div class="col-md-3">
+                  <label for="apartment">Квартира:</label>
+                    @SelectExtensions.DropDownList(Html, "Kvars", ViewData["Kvars"] as SelectList, "Квартира не выбрана", new {@id = "apartment", @class = "form-control select2", @onchange = "this.form.submit();" })
+                </div>
+
+                <div class="col-md-1">
+
+                    <label for="allvals">С учетом выгруженных показаний</label>
+
+                    @if (ViewBag.AllVals != null) {
+
+                      if (ViewBag.AllVals == false) {
+
+                        @Html.CheckBox("allvals", false, new { Value = true })
+
+                      } else {
+
+                      @Html.CheckBox("allvals", true, new { Value = true })
+
+                      }
+
+                    } else {
+
+                      @Html.CheckBox("allvals", false, new { Value = false })
+
+                    }
+
+                </div>
+
+                <button name="action" class="btn btn-success">Применить</button>
+
+              }
+
+            } else if (ViewBag.TypeFilter == 3) {
+
+              using (Html.BeginForm("ReportODPUVals", "Employee")) {
+
+                <div class="col-md-3">
+
+                  <div class="form-group">
+                    <label for="">Период:</label>
+                      <div class="input-group">
+                          <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+
+                          <input type="text" class="form-control" id="reservation" name="reservation" value='@ViewBag.Reservation'>
+
+                      </div>
+                  </div>
+                  <label>Период:</label>
+                </div>
+
+                <div style="margin-top: 25px" class="col-md-3">
+                  @SelectExtensions.DropDownList(Html, "Houses", ViewData["Houses"] as SelectList, "Выберите из списка...", new { @class = "form-control", @onchange = "this.form.submit();" })
+                </div>
+
+                <div class="col-md-1">
+                    <label>С учетом</label>
+                    @if (ViewBag.AllVals != null)
+                    {
+                        if (ViewBag.AllVals == false) {
+                            @Html.CheckBox("allvals", false, new { Value = true })
+                    }
+                    else {
+                            @Html.CheckBox("allvals", true, new { Value = true })
+                        }
+                    }
+                    else
+                    {
+                        @Html.CheckBox("allvals", false, new { Value = false })
+                    }
+                </div>
+
+                <button name="action" style="margin-top: 25px" class="col-md-2 btn uk-button-color rect secondary pull-right" value="add">Применить</button>
+
+
+              }
+            } else if (ViewBag.TypeFilter == 4){
+              using (Html.BeginForm("ReportPayments", "Employee"))
+              {
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="reservation">Период:</label>
+                        <div class="row">
+                          <div class="col-md-4">
+                            <div class="input-group">
+                              <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                              <input type="text" class="form-control" id="reservation" name="reservation" value='@ViewBag.Reservation'>
+                            </div>
+                          </div>
+                          <div class="col-md-1">
+                            <button name="action" class="btn btn-success" value="">Применить</button>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              }
+          }
+          else
+            if (ViewBag.TypeFilter == 5)
+          {
+
+              using (Html.BeginForm("ReportOfClaims", "Employee"))
+              {
+
+                <div class="col-md-3">
+                    <label for="reservation">Период:</label>
+
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                        <input type="text" class="form-control" id="reservation" name="reservation" value='@ViewBag.Reservation'>
+                    </div>
+
+                </div>
+
+                <div class="col-md-3">
+                    <label for="address">Тип заявки:</label>
+                    @Html.DropDownList("ClaimKind", ViewData["ClaimKind"] as SelectList, "Тип не выбран", new { @class = "form-control select2", @onchange = "this.form.submit();" })
+                </div>
+
+                  <div class="col-md-3">
+                      <label for="apartment">Статус заявки:</label>
+                      @Html.DropDownList("ClaimState", ViewData["ClaimState"] as SelectList, "Статус не выбран", new { @class = "form-control select2", @onchange = "this.form.submit();"})
+                  </div>
+
+                <button name="action" class="btn btn-success">Применить</button>
+
+              }
+
+          }
+
+          <div class="row">
+            <div class="col-md-12">
+              @ViewBag.WebReport.GetHtml();
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>

@@ -1,0 +1,184 @@
+﻿@model OhDataManager.Entities.Main.PersonalAccount
+
+<div class="modal-content">
+
+  <div class="modal-header">
+
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h3 class="modal-title" id="myModalLabel">Лицевой счет   @Model.PaymentCode</h3>
+
+  </div>
+
+  <div class="modal-body">
+
+    <form class="form-horizontal">
+      <div class="box box-warning">
+
+        <div class="box-header with-border">
+          <h4 class="box-title">Информация по лицевому счету</h4>
+        </div>
+
+        <div class="box-body">
+
+          <div class="form-group">
+            <div class="col-xs-2 control-label">Платежный код:</div>
+            <div class="col-xs-2">
+              <input type="text" class="form-control input-fontsm" value="@Model.PaymentCode" readonly>
+            </div>
+            <div class="col-md-offset-2 col-xs-3 control-label">Количество комнат:</div>
+            <div class="col-xs-2">
+              <div class="col-xs-9">
+                <input type="text" class="form-control input-fontsm control-label" value="@Model.CountRooms" readonly>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-xs-2 control-label">Организация:</div>
+            <div class="col-xs-4">
+              <input type="text" class="form-control input-fontsm" value="@Model.ManagmentOrganizationName" readonly>
+            </div>
+            <div class="col-xs-3 control-label">Количество жильцов:</div>
+            <div class="col-xs-2">
+              <div class="col-xs-9">
+                <input type="text" class="form-control input-fontsm control-label" value="@Model.CountResidents" readonly>
+              </div>
+              <div style="margin-left:-20px" class="col-md-3 control-label">чел.</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-xs-2 control-label">Квартиросъемщик:</div>
+            <div class="col-xs-4">
+              <input type="text" class="form-control input-fontsm " value="@Model.ApartmentOwnerFullName" readonly>
+            </div>
+
+            <div class="col-xs-3 control-label">Общая площадь:</div>
+            <div class="col-xs-2">
+              <div class="col-xs-9">
+                <input type="text" class="form-control input-fontsm control-label" value="@Model.SquareApartment" readonly>
+              </div>
+              <div style="margin-left:-20px" class="col-md-3 control-label">кв.метр</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-xs-2 control-label">Телефон:</div>
+            <div class="col-xs-4">
+              <input type="text" class="form-control input-fontsm" value="" readonly>
+            </div>
+
+            <div class="col-xs-3 control-label">Отапливаемая площадь:</div>
+            <div class="col-xs-2">
+              <div class="col-xs-9">
+                <input type="text" class="form-control input-fontsm control-label" value="@Model.SquareApartmentHeating" readonly>
+              </div>
+              <div style="margin-left:-20px" class="col-md-3 control-label">кв.метр</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-xs-2 control-label">Адрес:</div>
+            <div class="col-xs-4">
+              <input type="text" class="form-control input-fontsm" value="@Model.ApartmentFullAddress" readonly>
+            </div>
+            <div class="col-xs-3 control-label">Жилая площадь:</div>
+            <div class="col-xs-2">
+              <div class="col-xs-9">
+                <input type="text" class="form-control input-fontsm control-label" value="@Model.SquareApartmentLiving" readonly>
+              </div>
+              <div style="margin-left:-20px" class="col-md-3 control-label">кв.метр</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-xs-2 control-label">Подъезд:</div>
+            <div class="col-xs-1">
+              <input type="text" class="form-control input-fontsm" value="@Model.PorchNumber" readonly>
+            </div>
+            <div class="col-xs-1 control-label">Этаж:</div>
+            <div class="col-xs-1">
+              <input type="text" class="form-control input-fontsm" value="@Model.FloorNumber" readonly>
+            </div>
+            <div class="col-md-offset-1 col-xs-3 control-label">Приватизировано:</div>
+            <div class="col-xs-2">
+              <div class="col-xs-9">
+                <input type="text" class="form-control input-fontsm control-label" value="@Model.PrivatiziedTypeText" readonly />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="box box-warning">
+        <div class="box-header with-border">
+          <h4 class="box-title">Информация по последнему счету</h4>
+        </div>
+        <div class="box-body">
+          <div class="form-group">
+            <div class="col-md-3 control-label">Начислено за @ViewBag.CurrentCalculationMonth </div>
+            <div class="col-md-2">
+              <input style="text-align:right" type="text" class="form-control input-fontsm control-label" value="@ViewBag.AccruedSumTotal" readonly>
+            </div>
+            <div style="margin-left:-40px" class="col-md-1 control-label">руб.</div>
+            <input type="button" class="col-md-offset-1 col-md-2 btn btn-success pull-left " value="Начисления" onclick="window.open('@Url.Action("AbonentAccruals", "Employee", new { @Model.Id})')">
+          </div>
+          <div class="form-group">
+            <div class="col-md-3 control-label">в т.ч. долг</div>
+            <div class="col-md-2">
+              <input style="text-align:right" type="text" class="form-control input-fontsm control-label" value="@ViewBag.InsaldoSumTotal" readonly>
+            </div>
+            <div style="margin-left:-40px" class="col-md-1 control-label">руб.</div>
+            <input type="button" class="col-md-offset-1 col-md-2 btn btn btn-success pull-left " value="Оплаты" onclick="window.open('@Url.Action("AbonentPayments", "Employee", new {  @Model.Id})')">
+          </div>
+          <div class="form-group">
+            <div class="col-md-3 control-label">Последний платеж</div>
+            <div class="col-md-2">
+              <input style="text-align:right" type="text" class="form-control input-fontsm control-label" value="@ViewBag.PaydSumTotal" readonly>
+
+            </div>
+            <div style="margin-left:-40px" class="col-md-1 control-label">руб.</div>
+            <input type="button" class="col-md-offset-1 col-md-2 btn btn btn-success pull-left " value="Приборы учёта" onclick="window.open('@Url.Action("AbonentCounters", "Employee", new {  @Model.Id})')">
+          </div>
+
+        </div>
+      </div>
+      <div class="box box-warning">
+        <div class="box-header with-border">
+          <h4 class="box-title">Информация по дому</h4>
+        </div>
+        <div class="box-body">
+          <div class="form-group">
+            <div class="col-md-3 control-label">Площадь дома:</div>
+            <div class="col-md-2">
+              <input style="text-align:right" type="text" class="form-control input-fontsm control-label" value="@Model.SquareHouse" readonly>
+            </div>
+            <div style="margin-left:-20px" class="col-md-1 control-label">кв.метр</div>
+            <div class="col-md-3 control-label">Отапливаемая площадь:</div>
+            <div class="col-md-2">
+              <input style="text-align:right" type="text" class="form-control input-fontsm control-label" value="@Model.SquareHouseHeating" readonly>
+            </div>
+            <div style="margin-left:-20px" class="col-md-1 control-label">кв.метр</div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-md-3 control-label">Площадь МОП:</div>
+            <div class="col-md-2">
+              <input style="text-align:right" type="text" class="form-control input-fontsm control-label" value="@Model.SquareHouseMop" readonly>
+            </div>
+            <div style="margin-left:-20px" class="col-md-1 control-label">кв.метр</div>
+            <div class="col-md-3 control-label">Количество квартир:</div>
+            <div class="col-md-2">
+              <input style="text-align:right" type="text" class="form-control input-fontsm control-label" value="1" readonly>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+  </div>
+
+  <div class="modal-footer">
+
+    <button type="button" class="btn btn-primary" data-dismiss="modal">Закрыть</button>
+
+  </div>
+
+</div>

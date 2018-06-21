@@ -1,0 +1,216 @@
+﻿@using OhDataManager.Enums
+@model IEnumerable<WebAppAuth.Entities.AbonentClaim>
+@{
+    Layout = "~/Views/Employee/_Layout.cshtml";
+    var grid = new WebGrid(Model, canPage: false, canSort: false);
+    ViewBag.Title = "Заявки абонентов";
+
+    string selectedClaimStatusInfo;
+    if (ViewBag.SelectedStatus != null)
+    {
+        selectedClaimStatusInfo = "Заявки со статусом '" + ViewBag.SelectedStatusName + "'";
+    }
+    else
+    {
+        selectedClaimStatusInfo = "Все заявки";
+    }
+}
+  <div class="wrapper min1200">
+
+    <section class="content-header">
+      <h1>@ViewBag.Title</h1>
+    </section>
+
+      <section class="content">
+
+          <div class="row">
+
+              <div class="claims-tab-wrapper">
+
+                  <div class="col-md-2 col-sm-2">
+                      @if (ViewBag.CanAddClaim)
+                      {
+                          <a type="button" class="btn btn-block margin-bottom btn-success btn-lg" data-toggle="modal" data-target="#createClaim">
+                              Создать заявку
+                          </a>
+                      }
+                      <div class="box box-solid">
+
+                          <div class="box-header with-border">
+
+                              <h3 class="box-title">Статусы заявок</h3>
+
+                          </div>
+
+                          <div class="box-body no-padding">
+
+                              <ul class="nav nav-pills nav-stacked claims-tabs">
+                                  <li class="tab">
+                                      <a href="@Url.Action("AbonentClaims")">
+                                          <i class="fa fa-dropbox"></i> Все
+                                      </a>
+                                  </li>
+                                  <li class="tab">
+                                      <a href="@Url.Action("AbonentClaims", new {claimStatus = EClaimStatus.Created})">
+                                          <i class="fa fa-inbox"></i> Новые
+                                      </a>
+                                  </li>
+                                  <li class="tab">
+                                      <a href="@Url.Action("AbonentClaims", new {claimStatus = EClaimStatus.InProcess})">
+                                          <i class="fa fa-envelope-o"></i> В работе
+                                      </a>
+                                  </li>
+                                  <li class="tab">
+                                      <a href="@Url.Action("AbonentClaims", new {claimStatus = EClaimStatus.Completed})">
+                                          <i class="fa fa-file-text-o"></i> Исполненные
+                                      </a>
+                                  </li>
+                                  <li class="tab">
+                                      <a href="@Url.Action("AbonentClaims", new {claimStatus = EClaimStatus.Refinement})">
+                                          <i class="fa fa-question"></i> На уточнении
+                                      </a>
+                                  </li>
+                                  <li class="tab">
+                                      <a href="@Url.Action("AbonentClaims", new {claimStatus = EClaimStatus.Closed})">
+                                          <i class="fa fa-check"></i> Закрытые
+                                      </a>
+                                  </li>
+                              </ul>
+
+                          </div>
+
+                      </div>
+
+                  </div>
+
+                  <div class="col-xs-10">
+                      <div class="claims-content">
+                          <div class="claims-tab-content">
+
+                              <div class="claims-tab-item">
+                                  <div class="box box-warning">
+
+                                      <div class="box-header with-border">
+                                          <h3 class="box-title">@selectedClaimStatusInfo</h3>
+                                      </div>
+
+                                      <div class="box-body">
+                                          <div class="row">
+                                              @using (Html.BeginForm("AbonentClaims", "Employee", new {claimStatus = ViewBag.SelectedStatus}))
+                                              {
+
+                                                  <div class="col-md-1">
+                                                      <label>Номер</label>
+                                                      @Html.TextBox("ClaimId",
+                                                          null,
+                                                          new
+                                                          {
+                                                              @class = "form-control"
+                                                          })
+                                                  </div>
+
+
+                                                  <div class="col-xs-3">
+                                                      <label>Дом</label>
+                                                      @Html.DropDownList("Houses",
+                                                          ViewData["Houses"] as SelectList,
+                                                          "Выберите дом",
+                                                          new
+                                                          {
+                                                              @class = "form-control select2",
+                                                              @onchange = "this.form.submit();"
+                                                          })
+                                                  </div>
+
+                                                  <div class="col-xs-3">
+                                                      <label>Лицевой счет</label>
+                                                      @Html.DropDownList("PersonalAccounts",
+                                                          ViewData["PersonalAccounts"] as SelectList,
+                                                          "Выберите лицевой счет",
+                                                          new
+                                                          {
+                                                              @class = "form-control select2",
+                                                              @onchange = "this.form.submit();"
+                                                          })
+                                                  </div>
+                                              }
+                                          </div>
+
+                                          @grid.GetHtml(
+                                              fillEmptyRows: false,
+                                              htmlAttributes: new {id = "abonentClaimsDataTable"},
+                                              tableStyle: "table table-bordered table-hover dataTable",
+                                              headerStyle: "webgrid-header",
+                                              footerStyle: "webgrid-footer",
+                                              alternatingRowStyle: "webgrid-alternating-row",
+                                              rowStyle: "webgrid-row-style",
+                                              selectedRowStyle: "webgrid-selected-row",
+                                              mode: WebGridPagerModes.All, //paging to grid
+                                              columns: new[]
+                                              {
+                                                  grid.Column(canSort: false, format: @<text>
+                                                    <a class="edit-claim-btn" href="@Url.Action("AbonentClaimEdit", "Employee", new {id = item.Id})">
+                                                        <i class="fa fa-pencil" aria-hidden="true">
+                                                        </i>
+                                                    </a>
+                                                 </text>),
+
+                                                  grid.Column("Number", "Номер", format: @<text>
+                                                   <div style="text-align: center">@item.Id</div></text>),
+
+                                                  grid.Column("ClaimStatusText", "Статус", format: @<text>
+                                                   <div style="text-align: center">@item.ClaimStatusText</div></text>),
+
+                                                  grid.Column("Employee", "Исполнитель", format: @<text>
+                                                   <div style="text-align: left">@(@item.Employee != null ? item.Employee.DisplayName : "")</div></text>),
+
+                                                  grid.Column("Comment", "Вид заявки", format: @<text>
+                                                   <div style="text-align: left">@item.DictClaimKind.Name</div></text>),
+
+                                                  grid.Column("Employee", "Адрес", format: @<text>
+                                                   <div style="text-align: left">@item.ApartmentFullAddress</div></text>),
+
+                                                  grid.Column("Comment", "Текст заявки", format: @<text>
+                                                   <div style="text-align: left" class="claim-description-cell">@item.Description</div></text>),
+
+                                                  grid.Column("CreationTime", "Дата создания", format: @<text>
+                                                   <div style="text-align: center">@item.CreationTime.ToString("dd.MM.yyyy HH:mm:ss")</div></text>),
+
+                                                  grid.Column("CreationTime", "Дата закрытия", format: @<text>
+                                                               <div style="text-align: center">@(@item.CompleteDate != null ? item.CompleteDate.ToString("dd.MM.yyyy HH:mm:ss") : "")</div></text>),
+
+                                                  grid.Column(canSort: false, format: @<text>
+                                                    <a class="edit-claim-btn" target = "_blank" href="@Url.Action("PrintingJobOrder", "Employee", new { claimId = item.id })">
+                                                    <i class="fa fa-print" aria-hidden="true">
+                                                                                              </i>
+                                                                                          </a>
+                                                </text>),
+
+                                              })
+
+                                      </div>
+
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+
+      <!-- Claim Create Modal -->
+      <div class="modal fade" id="createClaim" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="false">
+          <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <h3 class="modal-title" id="myModalLabel">Подать заявку</h3>
+                  </div>
+                  <div class="modal-body"></div>
+              </div>
+              <div class="preloader"></div>
+          </div>
+      </div>
+
+  </div>

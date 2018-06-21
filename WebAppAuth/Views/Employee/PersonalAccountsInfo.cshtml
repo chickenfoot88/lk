@@ -1,0 +1,100 @@
+﻿@model IEnumerable<OhDataManager.Entities.Main.PersonalAccount>
+@{
+    Layout = "~/Views/Employee/_Layout.cshtml";
+}
+@{
+
+    var grid = new WebGrid(Model, canPage: false, canSort: false);
+    ViewBag.Title = "Лицевые счета абонентов";
+}
+
+<div class="wrapper min1200">
+
+  <section class="content-header">
+    <div class="content-title">
+      <h1>@ViewBag.Title</h1>
+    </div>
+  </section>
+
+  <section class="content">
+
+    <div class="box box-success">
+      <div class="box-header with-border">
+        @using (Html.BeginForm("PersonalAccountsInfo", "Employee"))
+        {
+          <div class="row">
+            <div class="col-md-3">
+              <label>Адреса абонентов</label>
+              @Html.DropDownList("House",
+              ViewData["House"] as SelectList,
+              "Адрес не выбран",
+              new { @class = "form-control select2", @onchange = "this.form.submit();" })
+            </div>
+            <div class="col-md-4 pull-right">
+              <div class="form-group row">
+                <label class="col-xs-4 col-xs-offset-4 col-form-label">Расчетный месяц</label>
+                <div class="col-xs-4">
+                  <input type="text" class="form-control input-fontsm control-label" value="@ViewData["CalculationMonth"]" readonly>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+      <div class="box-body">
+
+        @grid.GetHtml(
+        fillEmptyRows: false,
+        htmlAttributes: new { id = "personalAccountsDataTable" },
+        tableStyle: "webgrid-table table table-striped table-condensed table-hover table-bordered dataTable",
+        headerStyle: "webgrid-header",
+        footerStyle: "webgrid-footer",
+        alternatingRowStyle: "webgrid-alternating-row",
+        rowStyle: "webgrid-row-style",
+        selectedRowStyle: "webgrid-selected-row",
+        mode: WebGridPagerModes.All, //paging to grid
+
+        firstText: "<< Первая",
+        previousText: "< Предыдущая",
+        nextText: "Следующая >",
+        lastText: "Последняя >>",
+        columns: new[]
+
+        {
+          grid.Column(format: @<text>
+            <div style="text-align: center">@(item.WebGrid.Rows.IndexOf(item) + 1)</div>
+          </text>),
+          grid.Column("PaymentCode", "Номер ЛС",format: @<text>
+            <div style="text-align: left">@item.PaymentCode</div>
+          </text>),
+          grid.Column("HouseFullAddress", "Адрес",format: @<text>
+            <div style="text-align: left">@item.HouseFullAddress</div>
+          </text>),
+          grid.Column("PorchNumber", "Подъезд",format: @<text>
+            <div style="text-align: center">@Html.Raw((@item.PorchNumber==null || item.PorchNumber.ToString() == "0") ? "-" : @item.PorchNumber.ToString())</div>
+          </text>),
+          grid.Column("ApartmentNumber", "Квартира",format: @<text>
+            <div style="text-align: center">@item.ApartmentNumber</div>
+          </text>),
+          grid.Column("RoomNumber", "Комната",format: @<text>
+            <div style="text-align: center">@item.RoomNumber</div>
+          </text>),
+          grid.Column("ApartmentOwnerFullName", "ФИО",format: @<text>
+            <div style="text-align: left">@item.ApartmentOwnerFullName</div>
+          </text>),
+          grid.Column(format: @<text>
+            <div style="text-align: center">
+              @Html.ActionLink("подробнее", "PersonalAccountDetails", "Employee", new { @item.Id }, new { @class = "compItem btn btn-primary" })
+            </div>
+          </text>)
+
+        })
+      </div>
+    </div>
+
+    <div id="modDialog" class="modal fade">
+      <div id="dialogContent" class="modal-dialog modal-lg"></div>
+    </div>
+
+  </section>
+</div>

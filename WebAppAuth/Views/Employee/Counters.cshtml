@@ -1,0 +1,160 @@
+﻿@model IEnumerable<OhDataManager.Entities.Main.HouseMeterReading>
+  @{
+      Layout = "~/Views/Employee/_Layout.cshtml";
+  }
+  @{
+
+      var grid = new WebGrid(Model, canPage: false, canSort: false);
+      var grid2 = new WebGrid(@ViewBag.SecondModel, canPage: false, canSort: false, rowsPerPage: 10);
+      ViewBag.Title = "Приборы учета";
+  }
+
+<section class="wrapper min1200">
+
+  <section class="content-header">
+    <div class="content-title"><h1>@ViewBag.Title</h1></div>
+  </section>
+
+  <section class="content">
+    <div class="nav-tabs-custom">
+      <ul class="nav nav-tabs">
+          <li><a href="#tab_1" data-toggle="tab">Общедомовые</a></li>
+          <li class="active"><a href="#tab_2" data-toggle="tab">Индивидуальные</a></li>
+      </ul>
+      <div class="tab-content">
+
+        <div class="tab-pane" id="tab_1">
+
+          <div class="row">
+
+            @using (Html.BeginForm("Counters", "Employee"))
+            {
+              <div class="col-xs-3">
+                  @Html.DropDownList("Houses", ViewData["Houses"] as SelectList, "Адрес не выбран", new {@class = "form-control select2", @onchange = "this.form.submit();"})
+              </div>
+
+              <div class="col-xs-3">
+                  @Html.DropDownList("Services", ViewData["Services"] as SelectList, "Услуга не выбрана", new {@class = "form-control select2", @onchange = "this.form.submit();"})
+              </div>
+            }
+            @*<input id="PrintDomValues" type="button" class="col-md-1 btn gray-button rect secondary pull-left" value="Печать">
+              <input id="SaveDomValues" type="button" class="col-md-1 btn gray-button rect secondary pull-left" value="Сохранить">*@
+
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-12">
+
+              @grid.GetHtml(
+
+                fillEmptyRows: false,
+                htmlAttributes: new { id = "countersdom" },
+                tableStyle: "webgrid-table table table-condensed table-hover table-bordered dataTable",
+                headerStyle: "webgrid-header",
+                footerStyle: "webgrid-footer",
+                alternatingRowStyle: "webgrid-alternating-row",
+                rowStyle: "webgrid-row-style",
+                selectedRowStyle: "webgrid-selected-row",
+                mode: WebGridPagerModes.All, //paging to grid
+
+                firstText: "<< Первая",
+                previousText: "< Предыдущая",
+                nextText: "Следующая >",
+                lastText: "Последняя >>",
+                columns: new[] {
+
+                  grid.Column("Service", "Услуга", format: @<text>@item.ServiceName</text>),
+                  grid.Column("NumCnt", "Заводской номер", format: @<text>@item.MeterDeviceNumber</text>),
+                  grid.Column("ValCntPred", "Пред.показания", format: @<text>@item.IndicationPrevious</text>),
+                  grid.Column("DatUchet", "Дата снятия", format: @<text>
+                    @if (@item.CalculationApplyingDatePrevious != null)
+                      {
+                        @item.CalculationApplyingDatePrevious.ToString("d MMM yyyy")
+                      }
+                  </text>),
+                  grid.Column("ValCnt", "Текущее показание", format: @<text>@item.Indication</text>),
+                  grid.Column("DatProvNext", "Дата следующей поверки", format: @<text>
+                    @if (@item.VerificationDateNext != null)
+                      {
+                        @item.VerificationDateNext.ToString("d MMM yyyy")
+                      }
+                  </text>)
+
+                }
+
+              )
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="tab-pane active" id="tab_2">
+          <div class="row">
+            @using (Html.BeginForm("Counters", "Employee"))
+            {
+              <div class="col-xs-3">
+                @Html.DropDownList("Houses", ViewData["Houses"] as SelectList, "Адрес не выбран", new {@class = "form-control select2", @onchange = "this.form.submit();"})
+              </div>
+
+              <div class="col-xs-3">
+                @Html.DropDownList("Kvars", ViewData["Kvars"] as SelectList, "Квартира не выбрана", new {@class = "form-control select2", @onchange = "this.form.submit();"})
+              </div>
+
+              <div class="col-xs-3">
+                @Html.DropDownList("KvarServices", ViewData["KvarServices"] as SelectList, "Услуга не выбрана", new {@class = "form-control select2", @onchange = "this.form.submit();"})
+              </div>
+            }
+            @*<input type="button" class="col-md-1 btn gray-button rect secondary pull-left" value="Печать" onclick="location.href">
+            <input type="button" class="col-md-1 btn gray-button rect secondary pull-left" value="Сохранить" onclick="location.href">*@
+
+            <div class="col-md-12">
+
+              @grid2.GetHtml(
+
+                fillEmptyRows: false,
+                htmlAttributes: new { id = "countersls" },
+                tableStyle: "webgrid-table table table-condensed table-hover table-bordered dataTable",
+                headerStyle: "webgrid-header",
+                footerStyle: "webgrid-footer",
+                alternatingRowStyle: "webgrid-alternating-row",
+                rowStyle: "webgrid-row-style",
+                selectedRowStyle: "webgrid-selected-row",
+                mode: WebGridPagerModes.All, //paging to grid
+
+                firstText: "<< Первая",
+                previousText: "< Предыдущая",
+                nextText: "Следующая >",
+                lastText: "Последняя >>",
+                columns: new[] {
+
+                  grid.Column("ApartmentFullAddress", "Адрес", format: @<text>@item.ApartmentFullAddress</text>),
+                  grid.Column("Service", "Услуга", format: @<text>@item.ServiceName</text>),
+                  grid.Column("NumCnt", "Заводской номер", format: @<text>@item.MeterDeviceNumber</text>),
+                  grid.Column("ValCntPred", "Пред.показания", format: @<text>@item.IndicationPrevious</text>),
+                  grid.Column("DatUchet", "Дата снятия", format: @<text>
+                    @if (@item.CalculationApplyingDatePrevious != null)
+                      {
+                        @item.CalculationApplyingDatePrevious.ToString("d MMM yyyy")
+                      }
+                  </text>),
+                  grid.Column("ValCnt", "Текущее показание", format: @<text>@item.Indication</text>),
+                  grid.Column("DatProvNext", "Дата следующей поверки", format: @<text>
+                    @if (@item.VerificationDateNext != null)
+                        {
+                          @item.VerificationDateNext.ToString("d MMM yyyy")
+                        }
+                  </text>)
+                }
+              )
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</section>

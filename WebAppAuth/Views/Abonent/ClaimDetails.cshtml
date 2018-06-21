@@ -1,0 +1,228 @@
+﻿@using System.Web.Mvc.Html
+@using System.Web.UI.WebControls
+@using OhDataManager.Enums
+@model WebAppAuth.Models.ClaimViewModel
+
+@{
+    ViewBag.Title = "Детали заявки";
+    Layout = "~/Views/Abonent/_Layout.cshtml";
+    var rating = new List<ListItem>
+    {
+        new ListItem {Text = "1", Value = "1"},
+        new ListItem {Text = "2", Value = "2"},
+        new ListItem {Text = "3", Value = "3"},
+        new ListItem {Text = "4", Value = "4"},
+        new ListItem {Text = "5", Value = "5"}
+    };
+
+}
+
+<section class="wrapper min1200">
+
+<section class="content-header">
+    <div class="content-title">
+        <h1>@ViewBag.Title</h1>
+    </div>
+</section>
+
+<section class="content">
+
+    <div class="row">
+
+        <div class="co-xs-12 col-sm-12 col-md-7">
+
+            <div class="box box-warning claim-details">
+
+                <div class="box-header">
+                    <h4 class="box-title">@ViewBag.Title № @Model.Id</h4>
+                </div>
+
+                <div class="box-body">
+
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr>
+                            <td><b>@Html.DisplayNameFor(model => model.DictClaimKind.Name)</b></td>
+                            <td>@Html.DisplayFor(model => model.DictClaimKind.Name)</td>
+                        </tr>
+                        <tr>
+                            <td><b>@Html.DisplayNameFor(model => model.Id)</b></td>
+                            <td>@Html.DisplayFor(model => model.Id)</td>
+                        </tr>
+                        <tr>
+                            <td><b>@Html.DisplayNameFor(model => model.ApartmentFullAddress)</b></td>
+                            <td>@Html.DisplayFor(model => model.ApartmentFullAddress)</td>
+                        </tr>
+                        <tr>
+                            <td><b>@Html.DisplayNameFor(model => model.Description)</b></td>
+                            <td>@Html.DisplayFor(model => model.Description)</td>
+                        </tr>
+                        <tr>
+                            <td><b>@Html.DisplayNameFor(model => model.ContactPhoneNumber)</b></td>
+                            <td>@Html.DisplayFor(model => model.ContactPhoneNumber)</td>
+                        </tr>
+                        <tr>
+                            <td><b>@Html.DisplayNameFor(model => model.ClaimStatus)</b></td>
+                            <td>@Html.DisplayFor(model => model.ClaimStatusText)</td>
+                        </tr>
+                        <tr>
+                            <td><b>@Html.DisplayNameFor(model => model.CompleteDate)</b></td>
+                            <td>@Html.DisplayFor(model => model.CompleteDate)</td>
+                        </tr>
+                        <tr>
+                            <td><b>@Html.DisplayNameFor(model => model.Accepted)</b></td>
+                            <td>@Html.DisplayFor(model => model.Accepted)</td>
+                        </tr>
+                        <tr>
+                            <td><b>@Html.DisplayNameFor(model => model.Rating)</b></td>
+                            <td>@Html.DisplayFor(model => model.Rating)</td>
+                        </tr>
+
+                        @if (@Model.ClosedByEmployee != null)
+                        {
+                            <tr>
+                                <th>@Html.LabelFor(model => model.ClosedByEmployee, htmlAttributes: new {@class = "control-label"})</th>
+                                <td>
+                                    @Html.DisplayTextFor(model => model.ClosedByEmployee.DisplayName)
+                                    @Html.ValidationMessageFor(model => model.ClosedByEmployee.DisplayName, "", new {@class = "text-danger"})
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+                            <td><b>@Html.DisplayNameFor(model => model.CreationTime)</b></td>
+                            <td>@Html.DisplayFor(model => model.CreationTime)</td>
+                        </tr>
+                        <tr>
+                            <td><b>@Html.DisplayNameFor(model => model.ChangedTime)</b></td>
+                            <td>@Html.DisplayFor(model => model.ChangedTime)</td>
+                        </tr>
+                        @if (@Model.ImportedFileId != null)
+                        {
+                            <tr>
+                                <td><b>@Html.LabelFor(model => model.ImportedFile)</b></td>
+                                <td>@Html.ActionLink("Скачать", "Index", "PublicDownload", new {Id = @Model.ImportedFileId}, new {})</td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+
+            @if (Model.ClaimStatus == EClaimStatus.Completed && !Model.Accepted)
+            {
+                using (Html.BeginForm("CloseClaim", "Abonent"))
+                {
+
+                    <div class="row">
+
+                        <div class="col-xs-12">
+
+                            <label>Оценка заявки:</label>
+
+                            <div class="row">
+
+                                <div class="col-xs-2">
+                                    @Html.DropDownList("Rating", new SelectList(rating, "Value", "Text"), null, htmlAttributes: new {@class = "form-control"})
+                                    <input type="hidden" name="AbonentClaimId" value="@Model.Id"/>
+                                </div>
+
+                                <div class="col-xs-4">
+                                    <button type="submit" class="btn btn-success">Закрыть заявку</button>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                }
+            }
+
+        </div>
+
+        <div class="co-xs-12 col-sm-12 col-md-5">
+
+            @using (Html.BeginForm("CommentClaim", "Abonent"))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="box box-warning direct-chat direct-chat-primary">
+
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Комментарии</h3>
+                    </div>
+
+                    <div class="box-body">
+
+                        <div class="direct-chat-messages">
+
+                            @foreach (var comment in Model.CommentList)
+                            {
+                                if (comment.InformationSource == EInformationSource.Employee)
+                                {
+                                    <div class="direct-chat-msg">
+
+                                        <div class="direct-chat-info clearfix">
+                                            <span class="direct-chat-name pull-left">@comment.Employee.DisplayName</span>
+                                            <span class="direct-chat-timestamp pull-right">@comment.CreationTime.ToString("F")</span>
+                                        </div>
+                                        <img class="direct-chat-img" src="~/Content/images/cabinet/no_photo_big.png" alt="Фото сотрудника">
+                                        <div class="direct-chat-text">
+                                            @comment.Comment
+                                        </div>
+
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="direct-chat-msg right">
+
+                                        <div class="direct-chat-info clearfix">
+                                            <span class="direct-chat-name pull-right">@comment.Creator.Name</span>
+                                            <span class="direct-chat-timestamp pull-left">@comment.CreationTime.ToString("F")</span>
+                                        </div>
+                                        <img class="direct-chat-img" src="~/Content/images/cabinet/no_photo_big.png" alt="Фото абонента">
+                                        <div class="direct-chat-text">@comment.Comment</div>
+
+                                    </div>
+                                }
+                            }
+
+                        </div>
+
+                    </div>
+
+                    <div class="box-footer">
+
+                        <div class="input-group">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <textarea cols="40" rows="5" name="comment" placeholder="Ваш комментарий..." class="form-control"></textarea>
+                                </div>
+                                <div class="col-xs-12">
+                                    <span class="input-group-btn">
+                          <input type="hidden" name="AbonentClaimId" value="@Model.Id" />
+                          <button type="submit" class="btn btn-success btn-flat pull-right">Отправить</button>
+                        </span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">@Html.ActionLink("Вернуться к списку заявок", "Claims", null, new {@class = "btn btn-primary pull-right"})</div>
+                </div>
+
+            }
+
+        </div>
+
+    </div>
+
+</section>
+</section>

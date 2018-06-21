@@ -1,0 +1,41 @@
+﻿@model IEnumerable<OhDataManager.Entities.Main.PersonalAccountAccrual>
+    @{
+        Layout = "~/Views/Director/_Layout.cshtml";
+        ViewBag.Title = "Коммунальные услуги";
+    }
+
+<div class="box">
+
+  <div class="box-header with-border">
+
+    <div class="row">
+      <div class="col-md-3">
+        <select class="form-control select2" name="service">
+          <option value="default">Все услуги</option>
+          <option value="service1">Услуга 1</option>
+          <option value="service2">Услуга 2</option>
+          <option value="service3">Услуга 3</option>
+          <option value="service4">Услуга 4</option>
+          <option value="service5">Услуга 5</option>
+        </select>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="box-body">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="chart-wrapper">
+          <p>Расходы по инвидуальным приборам учета и нормативам</p>
+          <canvas class="chart-services-individual" height="100px"></canvas>
+        </div>
+        <div class="chart-wrapper">
+          <p>Расходы по общедомовым приборам учета</p>
+          <canvas class="chart-services-common" height="100px"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

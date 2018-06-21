@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" TextQuality="Regular" StartReportEvent="_StartReport" ReportInfo.Name="Simple List" ReportInfo.Author="Fast Reports Inc" ReportInfo.Description="Demonstrates simple list report. To create it:&#13;&#10;- go to &quot;Data&quot; menu and select &quot;Choose Report Data...&quot; item to select datasource;&#13;&#10;- go to &quot;Report|Configure Bands...&quot; menu to create the band structure;&#13;&#10;- return to the report page, doubleclick the data band to show its editor;&#13;&#10;- choose the datasource;&#13;&#10;- drag data from the Data Dictionary window to the band." ReportInfo.Created="01/17/2008 03:05:57" ReportInfo.Modified="11/15/2017 19:29:56" ReportInfo.CreatorVersion="1.7.35.0">
+  <ScriptText>using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
+using System.Drawing;
+using System.Data;
+using FastReport;
+using FastReport.Data;
+using FastReport.Dialog;
+using FastReport.Barcode;
+using FastReport.Table;
+using FastReport.Utils;
+
+namespace FastReport
+{
+  public class ReportScript
+  { 
+    private void _StartReport(object sender, EventArgs e)
+    { 
+    }
+  }
+}
+
+</ScriptText>
+  <Dictionary>
+    <TableDataSource Name="Claims" ReferenceName="ReportOfClaims.Claims" DataType="System.Int32" Enabled="true">
+      <Column Name="Id" DataType="System.String"/>
+      <Column Name="DictClaimKindName" DataType="System.String"/>
+      <Column Name="CreationTime" DataType="System.DateTime"/>
+      <Column Name="Abonent" DataType="System.String"/>
+      <Column Name="ApartmentFullAddress" DataType="System.String"/>
+      <Column Name="Employee" DataType="System.String"/>
+      <Column Name="CompleteDate" DataType="System.String"/>
+      <Column Name="ClaimStatusText" DataType="System.String"/>
+    </TableDataSource>
+    <TableDataSource Name="ClaimsCount" ReferenceName="ReportOfClaims.ClaimsCount" DataType="System.Int32" Enabled="true">
+      <Column Name="ClaimStatusText" DataType="System.String"/>
+      <Column Name="Count" DataType="System.Int32"/>
+    </TableDataSource>
+  </Dictionary>
+  <ReportPage Name="Page1" RawPaperSize="9" LeftMargin="30" TopMargin="20" RightMargin="20" BottomMargin="20" FirstPageSource="15" OtherPagesSource="15">
+    <ReportTitleBand Name="ReportTitle1" Width="604.8" Height="746.55" CanGrow="true">
+      <TextObject Name="Text1" Width="604.8" Height="37.8" Text="Заказчик ООО «УК [Organization]» г.Казань  &lt;u&gt;[ClaimDate]&lt;/u&gt;" HorzAlign="Justify" VertAlign="Center" Font="Times New Roman, 12pt" HtmlTags="true"/>
+      <TextObject Name="Text2" Top="37.8" Width="604.8" Height="37.8" Text="НАРЯД ЗАКАЗ № &lt;u&gt;[NumberClaim]&lt;/u&gt;" HorzAlign="Justify" VertAlign="Center" Font="Times New Roman, 12pt" HtmlTags="true"/>
+      <TextObject Name="Text3" Top="75.6" Width="604.8" Height="37.8" Text="Наименование объекта" HorzAlign="Justify" VertAlign="Center" Font="Times New Roman, 12pt"/>
+      <TextObject Name="Text4" Top="113.4" Width="604.8" Height="37.8" CanGrow="true" CanShrink="true" Text="Жилой дом № &lt;u&gt;[HouseNumber]&lt;/u&gt; по улице &lt;u&gt;[Street]&lt;/u&gt; кв. &lt;u&gt;[ApartmentNumber]&lt;/u&gt;" HorzAlign="Justify" VertAlign="Center" Font="Times New Roman, 12pt" HtmlTags="true"/>
+      <TextObject Name="Text5" Top="151.2" Width="604.8" Height="37.8" Text="Помещение дома ____________________________ (подвал, этаж, технический этаж)" HorzAlign="Justify" VertAlign="Bottom" Font="Times New Roman, 12pt"/>
+      <TextObject Name="Text6" Top="189" Width="604.8" Height="18.9" Text="(нужное подчеркнуть или написать другое)" HorzAlign="Justify" Font="Times New Roman, 12pt"/>
+      <TextObject Name="Text7" Top="207.9" Width="604.8" Height="37.8" Text="Вид работы &lt;u&gt;[TypeClaim]&lt;/u&gt; (ВК, ЦО, ЭО, ОС)" HorzAlign="Justify" VertAlign="Bottom" Font="Times New Roman, 12pt" HtmlTags="true"/>
+      <TextObject Name="Text8" Top="245.7" Width="604.8" Height="75.6" CanGrow="true" GrowToBottom="true" Text="Комментарий к заявке: [Description]" HorzAlign="Justify" Font="Times New Roman, 12pt"/>
+      <TableObject Name="Table1" Top="321.3" Width="601.02" Height="272.16">
+        <TableColumn Name="Column1" Width="37.8"/>
+        <TableColumn Name="Column2" Width="94.5"/>
+        <TableColumn Name="Column3" Width="151.2"/>
+        <TableColumn Name="Column4" Width="86.94"/>
+        <TableColumn Name="Column5"/>
+        <TableColumn Name="Column6"/>
+        <TableColumn Name="Column7" Width="98.28"/>
+        <TableRow Name="Row1" Height="37.8">
+          <TableCell Name="Cell1" Border.Lines="All" Text="№ п/п" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 12pt" RowSpan="2"/>
+          <TableCell Name="Cell2" Border.Lines="All" Text="Шифр работы" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 12pt" RowSpan="2"/>
+          <TableCell Name="Cell3" Border.Lines="All" Text="Описание работы" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 12pt" RowSpan="2"/>
+          <TableCell Name="Cell4" Border.Lines="All" Text="Единица измерения" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 12pt" RowSpan="2"/>
+          <TableCell Name="Cell5" Border.Lines="All" Text="Задание" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 12pt" ColSpan="2"/>
+          <TableCell Name="Cell61" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell62" Border.Lines="All" Text="Примечание" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 12pt" RowSpan="2"/>
+        </TableRow>
+        <TableRow Name="Row2" Height="45.36">
+          <TableCell Name="Cell6" Border.Lines="All" HorzAlign="Center" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell7" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell8" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell9" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell10" Border.Lines="All" Text="Объем" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell63" Border.Lines="All" Text="Нормо-часы" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell64" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 12pt"/>
+        </TableRow>
+        <TableRow Name="Row3">
+          <TableCell Name="Cell11" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell12" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell13" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell14" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell15" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell65" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell66" Border.Lines="All" Font="Times New Roman, 12pt"/>
+        </TableRow>
+        <TableRow Name="Row4">
+          <TableCell Name="Cell16" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell17" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell18" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell19" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell20" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell67" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell68" Border.Lines="All" Font="Times New Roman, 12pt"/>
+        </TableRow>
+        <TableRow Name="Row5">
+          <TableCell Name="Cell21" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell22" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell23" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell24" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell25" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell69" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell70" Border.Lines="All" Font="Times New Roman, 12pt"/>
+        </TableRow>
+        <TableRow Name="Row6">
+          <TableCell Name="Cell26" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell27" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell28" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell29" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell30" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell71" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell72" Border.Lines="All" Font="Times New Roman, 12pt"/>
+        </TableRow>
+        <TableRow Name="Row7">
+          <TableCell Name="Cell31" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell32" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell33" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell34" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell35" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell73" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell74" Border.Lines="All" Font="Times New Roman, 12pt"/>
+        </TableRow>
+        <TableRow Name="Row8">
+          <TableCell Name="Cell36" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell37" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell38" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell39" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell40" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell75" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell76" Border.Lines="All" Font="Times New Roman, 12pt"/>
+        </TableRow>
+        <TableRow Name="Row9">
+          <TableCell Name="Cell41" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell42" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell43" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell44" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell45" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell77" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell78" Border.Lines="All" Font="Times New Roman, 12pt"/>
+        </TableRow>
+        <TableRow Name="Row10">
+          <TableCell Name="Cell46" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell47" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell48" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell49" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell50" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell79" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell80" Border.Lines="All" Font="Times New Roman, 12pt"/>
+        </TableRow>
+        <TableRow Name="Row11">
+          <TableCell Name="Cell51" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell52" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell53" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell54" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell55" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell81" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell82" Border.Lines="All" Font="Times New Roman, 12pt"/>
+        </TableRow>
+        <TableRow Name="Row12">
+          <TableCell Name="Cell56" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell57" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell58" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell59" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell60" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell83" Border.Lines="All" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell84" Border.Lines="All" Font="Times New Roman, 12pt"/>
+        </TableRow>
+      </TableObject>
+      <TextObject Name="Text10" Top="595.35" Width="151.2" Height="37.8" Text="Наряд заказ выдал:" VertAlign="Center" Font="Times New Roman, 12pt"/>
+      <TextObject Name="Text11" Top="633.15" Width="217.35" Height="37.8" Text="Наряд заказ принял: Рабочий" VertAlign="Center" Font="Times New Roman, 12pt"/>
+      <TextObject Name="Text12" Top="670.95" Width="226.8" Height="37.8" Text="Выполнение работы проверил:" VertAlign="Center" Font="Times New Roman, 12pt"/>
+      <TextObject Name="Text13" Top="708.75" Width="264.6" Height="37.8" Text="В письменном ответе не нуждаюсь" VertAlign="Center" Font="Times New Roman, 12pt"/>
+      <TextObject Name="Text14" Left="151.2" Top="595.35" Width="444.15" Height="37.8" Text="&lt;u&gt;[Responsible]&lt;/u&gt;/__________________/" VertAlign="Center" Font="Times New Roman, 12pt" HtmlTags="true"/>
+      <TextObject Name="Text15" Left="226.8" Top="670.95" Width="444.15" Height="37.8" Text="&lt;u&gt;[Responsible]&lt;/u&gt;/__________________/" VertAlign="Center" Font="Times New Roman, 12pt" HtmlTags="true"/>
+      <TextObject Name="Text16" Left="217.35" Top="633.15" Width="444.15" Height="37.8" Text="__________________ /__________________/" VertAlign="Center" Font="Times New Roman, 12pt" HtmlTags="true"/>
+      <TextObject Name="Text17" Left="264.6" Top="708.75" Width="444.15" Height="37.8" Text="__________________ /__________________/" VertAlign="Center" Font="Times New Roman, 12pt" HtmlTags="true"/>
+    </ReportTitleBand>
+  </ReportPage>
+</Report>

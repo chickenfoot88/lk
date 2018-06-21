@@ -1,0 +1,370 @@
+﻿@using System.Web.UI.WebControls
+@using OhDataManager.Enums
+@model WebAppAuth.Models.ClaimViewModel
+
+@{
+    ViewBag.Title = "Редактирование заявки";
+    Layout = "~/Views/Employee/_Layout.cshtml";
+    var rating = new List<ListItem>
+    {
+        new ListItem {Text = "1", Value = "1"},
+        new ListItem {Text = "2", Value = "2"},
+        new ListItem {Text = "3", Value = "3"},
+        new ListItem {Text = "4", Value = "4"},
+        new ListItem {Text = "5", Value = "5"}
+    };
+
+}
+<section class="wrapper min1200">
+
+<section class="content-header">
+    <div class="content-title">
+        <h1>@ViewBag.Title</h1>
+    </div>
+</section>
+
+<section class="content">
+
+<div class="row">
+
+<div class="col-xs-12 col-sm-12 col-md-7">
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="box box-warning claim-details">
+
+        <div class="box-header">
+            <h5 class="box-title">Заявка <b>№ @Model.Id</b>, адрес: <b>@Model.ApartmentFullAddress </b></h5>
+            @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+            @Html.HiddenFor(model => model.Id)
+        </div>
+
+        <div class="box-body">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <tbody>
+                    <tr>
+                        <th>@Html.LabelFor(model => model.ContactPhoneNumber, htmlAttributes: new {@class = "control-label"})</th>
+                        <td>
+                            @(ViewBag.CurrentUserIsAuthor ?
+                                  Html.EditorFor(model => model.ContactPhoneNumber,
+                                      new
+                                      {
+                                          htmlAttributes =
+                                              new
+                                              {
+                                                  @class = "form-control required",
+                                                  type = "text",
+                                                  required = "required",
+                                                  min = "0",
+                                                  placeholder = "Контактный телефон..."
+                                              }
+                                      }) :
+                                  Html.DisplayTextFor(model => model.ContactPhoneNumber))
+                            @Html.ValidationMessageFor(model => model.ContactPhoneNumber, "", new {@class = "text-danger"})
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>@Html.LabelFor(model => model.ClaimStatus, htmlAttributes: new {@class = "control-label"})</th>
+                        <td>
+                            @Html.EnumDropDownListFor(model => model.ClaimStatus, htmlAttributes: new {@class = "form-control select2"})
+                            @Html.ValidationMessageFor(model => model.ClaimStatus, "", new {@class = "text-danger"})
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <th>
+                            @Html.LabelFor(model => model.EmployeeId, "Исполнитель", htmlAttributes: new {@class = "control-label"})
+                        </th>
+                        <td>
+                            @*только диспетчер и автор могут менять исполнителя*@
+                            @if (ViewBag.CurrentUserIsEmployee || ViewBag.CurrentUserIsAuthor)
+                            {
+                                @Html.DropDownListFor(model => model.EmployeeId,
+                                    ViewData["EmployeeId"] as SelectList,
+                                    "Выберите исполнителя..",
+                                    htmlAttributes: new {@class = "form-control select2"})
+                                @Html.ValidationMessageFor(model => model.EmployeeId, "", new {@class = "text-danger"})
+                            }
+                            else
+                            {
+
+                                @Html.DisplayFor(model => model.Employee.DisplayName)
+                                @Html.ValidationMessageFor(model => model.Employee, "", new {@class = "text-danger"})
+
+                            }
+                        </td>
+                    </tr>
+
+
+
+                    <tr>
+                        <th>
+                            @Html.LabelFor(model => model.DictClaimKindId, htmlAttributes: new {@class = "control-label"})
+                        </th>
+                        <td>
+                            @*только диспетчер и автор могут менять тип заявки*@
+                            @if (ViewBag.CurrentUserIsAuthor)
+                            {
+                                @Html.DropDownListFor(model => model.DictClaimKindId,
+                                    ViewData["DictClaimKindId"] as SelectList,
+                                    "Выберите вид..",
+                                    htmlAttributes: new {@class = "form-control select2"})
+                                @Html.ValidationMessageFor(model => model.DictClaimKindId, "", new {@class = "text-danger"})
+                            }
+                            else
+                            {
+
+                                @Html.DisplayFor(model => model.DictClaimKindName)
+                                @Html.ValidationMessageFor(model => model.DictClaimKindId, "", new {@class = "text-danger"})
+
+                            }
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>@Html.LabelFor(model => model.Cost, htmlAttributes: new {@class = "control-label"})</th>
+                        <td>
+                            @(ViewBag.CurrentUserIsAuthor
+                                  ? Html.EditorFor(model => model.Cost,
+                                      new
+                                      {
+                                          htmlAttributes =
+                                              new
+                                              {
+                                                  @class = "form-control",
+                                                  rows = "10",
+                                                  placeholder = "Стоимость..."
+                                              }
+                                      })
+                                  : Html.DisplayTextFor(model => model.Cost))
+
+                            @Html.ValidationMessageFor(model => model.Cost, "", new {@class = "text-danger"})
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>@Html.LabelFor(model => model.Description, htmlAttributes: new {@class = "control-label"})</th>
+                        <td>
+                            @(ViewBag.CurrentUserIsAuthor
+                                  ? Html.EditorFor(model => model.Description,
+                                      new
+                                      {
+                                          htmlAttributes =
+                                              new
+                                              {
+                                                  @class = "form-control",
+                                                  rows = "10",
+                                                  required = "required",
+                                                  placeholder = "Текст заявки..."
+                                              }
+                                      })
+                                  : Html.DisplayTextFor(model => model.Description))
+
+                            @Html.ValidationMessageFor(model => model.Description, "", new {@class = "text-danger"})
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>@Html.LabelFor(model => model.CreationTime, htmlAttributes: new {@class = "control-label"})</th>
+                        <td>
+                            @Html.DisplayTextFor(model => model.CreationTime)
+                            @Html.ValidationMessageFor(model => model.CreationTime, "", new {@class = "text-danger"})
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>@Html.LabelFor(model => model.ChangedTime, htmlAttributes: new {@class = "control-label"})</th>
+                        <td>
+                            @Html.DisplayTextFor(model => model.ChangedTime)
+                            @Html.ValidationMessageFor(model => model.ChangedTime, "", new {@class = "text-danger"})
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>@Html.LabelFor(model => model.CompleteDate, htmlAttributes: new {@class = "control-label"})</th>
+                        <td>
+                            @Html.DisplayTextFor(model => model.CompleteDate)
+                            @Html.ValidationMessageFor(model => model.CompleteDate, "", new {@class = "text-danger"})
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>@Html.LabelFor(model => model.Accepted, htmlAttributes: new {@class = "control-label"})</th>
+                        <td>
+                            @Html.DisplayFor(model => model.Accepted)
+                            @Html.ValidationMessageFor(model => model.Accepted, "", new {@class = "text-danger"})
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>@Html.LabelFor(model => model.Rating, htmlAttributes: new {@class = "control-label"})</th>
+                        <td>
+                            @Html.DisplayFor(model => model.Rating)
+                            @Html.ValidationMessageFor(model => model.Rating, "", new {@class = "text-danger"})
+                        </td>
+                    </tr>
+
+                    @if (@Model.ClosedByEmployee != null)
+                    {
+                        <tr>
+                            <th>@Html.LabelFor(model => model.ClosedByEmployee, htmlAttributes: new {@class = "control-label"})</th>
+                            <td>
+                                @Html.DisplayTextFor(model => model.ClosedByEmployee.DisplayName)
+                                @Html.ValidationMessageFor(model => model.ClosedByEmployee.DisplayName, "", new {@class = "text-danger"})
+                            </td>
+                        </tr>
+                    }
+
+                    @if (@Model.ImportedFileId != null)
+                    {
+                        <tr>
+                            <th><b>@Html.LabelFor(model => model.ImportedFile)</b></th>
+                            <td>@Html.ActionLink("Скачать", "Index", "Download",
+                                    new {Id = @Model.ImportedFileId},
+                                    new {@class = "btn btn-flat btn-primary"})</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+
+    <div class="box-footer">
+        @Html.ActionLink("Удалить", "AbonentClaimDelete", "Employee",
+                 new { id = @Model.Id},
+                 new
+                 {
+                     onclick = "return confirm('Вы действительно хотите удалить заявку?')",
+                     @class = "btn btn-danger btn-lg pull-left"
+                 })
+
+        <input type="submit" value="Сохранить" class="btn btn-success btn-lg pull-right"/>
+        @Html.ActionLink("Печать", "PrintingJobOrder", "Employee",
+            new {claimId = @Model.Id},
+            new
+            {
+                @class = "btn btn-success btn-lg pull-right",
+                @target = "_blank",
+                @style = "margin-right: 20px;"
+            })
+    </div>
+    </div>
+}
+
+
+@if (ViewBag.ClaimCanClosed)
+{
+    using (Html.BeginForm("CloseClaim", "Employee"))
+    {
+
+        <div class="row">
+
+            <div class="col-xs-12">
+
+                <label>Оценка заявки:</label>
+
+                <div class="row">
+
+                    <div class="col-xs-2">
+                        @Html.DropDownList("Rating",
+                            new SelectList(rating, "Value", "Text"),
+                            null,
+                            htmlAttributes: new {@class = "form-control"})
+                        <input type="hidden" name="AbonentClaimId" value="@Model.Id"/>
+                    </div>
+
+                    <div class="col-xs-4">
+                        <button type="submit" class="btn btn-success">Закрыть заявку</button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    }
+}
+
+</div>
+
+<div class="co-xs-12 col-sm-12 col-md-5">
+
+    @using (Html.BeginForm("CommentAbonentClaim", "Employee"))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="box box-success direct-chat direct-chat-primary">
+
+            <div class="box-header with-border">
+                <h3 class="box-title">Комментарии</h3>
+            </div>
+
+            <div class="box-body">
+
+                <div class="direct-chat-messages">
+                    @foreach (var comment in Model.CommentList)
+                    {
+                        if (comment.InformationSource == EInformationSource.Abonent)
+                        {
+                            <div class="direct-chat-msg">
+
+                                <div class="direct-chat-info clearfix">
+                                    <span class="direct-chat-name pull-right">@comment.Creator.Name</span>
+                                    <span class="direct-chat-timestamp pull-left">@comment.CreationTime.ToString("F")</span>
+                                </div>
+                                <img class="direct-chat-img" src="~/Content/images/cabinet/no_photo_big.png" alt="Фото абонента">
+                                <div class="direct-chat-text">@comment.Comment</div>
+
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="direct-chat-msg right">
+
+                                <div class="direct-chat-info clearfix">
+                                    <span class="direct-chat-name pull-left">@comment.Employee.DisplayName</span>
+                                    <span class="direct-chat-timestamp pull-right">@comment.CreationTime.ToString("F")</span>
+                                </div>
+                                <img class="direct-chat-img" src="~/Content/images/cabinet/no_photo_big.png" alt="Фото сотрудника">
+                                <div class="direct-chat-text">@comment.Comment</div>
+
+                            </div>
+                        }
+                    }
+                </div>
+
+            </div>
+
+            <div class="box-footer">
+
+                <div class="input-group">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <textarea cols="40" rows="5" name="comment" placeholder="Ваш комментарий..." class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <span class="input-group-btn">
+                      <input type="hidden" name="AbonentClaimId" value="@Model.Id" />
+                      <button type="submit" class="btn btn-success btn-flat pull-right">Отправить</button>
+                    </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">@Html.ActionLink("Вернуться к списку заявок",
+                                       "AbonentClaims",
+                                       null,
+                                       new {@class = "btn btn-primary pull-right"})</div>
+        </div>
+    }
+</div>
+</div>
+</section>
+</section>

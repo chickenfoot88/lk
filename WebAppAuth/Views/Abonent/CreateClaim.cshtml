@@ -1,0 +1,66 @@
+﻿@using System.Web.UI.WebControls
+@model WebAppAuth.Models.ClaimViewModel
+
+ @{
+    Layout = "~/Views/Abonent/_Layout.cshtml";
+    ViewBag.Title = "Добавить заявку";
+  }
+
+    @using (Html.BeginForm("CreateClaim", "Abonent", FormMethod.Post,
+            new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+          @*<div class="form-group">
+            @Html.LabelFor(model => model.DictClaimTypeId, "DictClaimTypeId", htmlAttributes: new { @class = "control-label" })
+
+              @Html.DropDownList("DictClaimTypeId", null, htmlAttributes: new { @class = "form-control",
+              @onchange = "this.form.submit();"
+
+              })
+
+              @Html.ValidationMessageFor(model => model.DictClaimTypeId, "", new { @class = "text-danger" })
+
+            </div>*@
+
+            <div class="form-group">
+
+              @Html.DropDownList("DictClaimKindId", null, optionLabel: "Выберите вид", htmlAttributes: new {@class = "form-control select2", required = "required"})
+              @Html.ValidationMessageFor(model => model.DictClaimKindId, "", new {@class = "text-danger"})
+
+            </div>
+
+            <div class="form-group">
+
+              @Html.EditorFor(model => model.ContactPhoneNumber, new {htmlAttributes = new {@class = "form-control required", type="text", required = "required", min = "0", placeholder="Ваш телефон..."}})
+              @Html.ValidationMessageFor(model => model.ContactPhoneNumber, "", new {@class = "text-danger"})
+
+            </div>
+
+            <div class="form-group">
+
+              @Html.TextAreaFor(model => model.Description, new {@class = "form-control", rows = "10", required = "required", placeholder="Ваша заявка..."})
+              @Html.ValidationMessageFor(model => model.Description, "", new {@class = "text-danger"})
+
+            </div>
+
+
+        <div class="form-group">
+
+          <div class="trigger-btn-block">
+            <input type="file" class="inputfile-btn hidden" name="inputFile" id="inputFile" onchange="this.form.submit();"/>
+            <label for="inputFile" class="btn btn-default">Прикрепить файл</label>
+            <span class="help-block">Выберите файл. Если файлов несколько - добавьте в архив и загрузите архив.</span>
+          </div>
+
+
+        </div>
+
+        <div class="row">
+          <hr>
+          <div class="col-md-12">
+            <input type="submit" value="Создать заявку" class="btn btn-success secondary pull-right"/>
+          </div>
+        </div>
+
+    }

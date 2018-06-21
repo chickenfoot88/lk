@@ -1,0 +1,184 @@
+﻿@{
+    Layout = "~/Views/Administrator/_Layout.cshtml";
+}
+@{
+    ViewBag.Title = "Администрирование пользовательских ролей";
+}
+
+<div class="row">
+
+    <div class="col-md-12">
+
+        <div class="box">
+
+            <div class="box-header with-border">
+                
+                @if (ViewBag.ResultMessage != null)
+                {
+                    <p style="color: red;">
+                        @ViewBag.ResultMessage
+                    </p>
+                }
+
+            </div>
+
+            <div class="box-body">
+
+                <a href="@Url.Action("CreateUser")"><i class="fa fa-user-plus" aria-hidden="true"></i>Добавить пользователя</a>
+                <br>
+                <a href="@Url.Action("GetUsersList")"><i class="fa fa-search" aria-hidden="true"></i>Получить список пользователей</a>
+
+                @if (ViewBag.Users != null)
+                {
+                    <h3>Список пользователей:</h3>
+
+                    WebGrid usersGrid = new WebGrid(ViewBag.Users, rowsPerPage: 5, canPage: false);
+                    @usersGrid.GetHtml(
+                        mode: WebGridPagerModes.Numeric,
+                        htmlAttributes: new {id = "usersList"},
+                        tableStyle: "table table-bordered table-hover dataTable",
+                        columns: new[]
+                        {
+                            usersGrid.Column("Email", "Email"),
+                            usersGrid.Column("CreationTime", "Дата регистрации")
+                        })
+
+                }
+
+                <hr class="full-width">
+
+                <h3>Получить роли пользователя</h3>
+
+                @using (Html.BeginForm("GetRolesForUser", "Administrator"))
+
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
+
+                        <label for="RoleName">Email</label>
+
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                @Html.TextBox("UserName", "", "", new {@class = "form-control"})
+                            </div>
+
+                            <div class="col-md-2">
+                                <input type="submit" class="btn btn-warning" value="Получить роли пользователя">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                }
+
+                @if (ViewBag.RolesForThisUser != null)
+
+                {
+
+                    <h4>Роли пользователя: </h4>
+                    <ol>
+                        @foreach (string role in ViewBag.RolesForThisUser)
+                        {
+                            <li>@role</li>
+                        }
+                    </ol>
+
+                }
+
+                <hr class="full-width">
+
+                <h3>Добавить пользователю роль</h3>
+
+                @using (Html.BeginForm("RoleAddToUser", "Administrator"))
+
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+
+                    <div class="form-group">
+
+                        <div class="row">
+
+                            <div class="col-md-4">
+
+                                <label for="RoleName">Email</label>
+                                @Html.TextBox("UserName", "", "", new {@class = "form-control"})
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <label for="RoleName">Роль</label>
+
+                                <div class="row">
+
+                                    <div class="col-md-8">
+                                        @Html.DropDownList("RoleName", (IEnumerable<SelectListItem>) ViewBag.Roles, "Роль не выбрана", new {@class = "select2"})
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <input type="submit" class="btn btn-warning" value="Сохранить">
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                }
+
+                <hr class="full-width">
+
+                <h3>Удалить пользователю роль</h3>
+
+                @using (Html.BeginForm("DeleteRoleForUser", "Administrator"))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+
+                    <div class="form-group">
+
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <label for="RoleName">Email</label>
+                                @Html.TextBox("UserName", "", "", new {@class = "form-control"})
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <label for="RoleName">Роль</label>
+
+                                <div class="row">
+
+                                    <div class="col-md-8">
+                                        @Html.DropDownList("RoleName", (IEnumerable<SelectListItem>) ViewBag.Roles, "Роль не выбрана", new {@class = "select2"})
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <input type="submit" class="btn btn-warning" value="Удалить">
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                }
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+</div>

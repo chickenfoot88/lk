@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OhUtils", "Utils\OhUtils.csproj", "{0855712E-B89C-4FEF-8408-D93C9FCFE9A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OhDataManager", "DataManager\OhDataManager.csproj", "{834262E1-5972-44BD-8C93-8388FAA6FD0D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppAuth", "WebAppAuth\WebAppAuth.csproj", "{1C27FDE2-3117-44F1-93BE-A05E6F572C1E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DependencyResolver", "DependencyResolver\DependencyResolver.csproj", "{B1BF3B08-F228-4D1F-A404-E11BBA573166}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0855712E-B89C-4FEF-8408-D93C9FCFE9A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0855712E-B89C-4FEF-8408-D93C9FCFE9A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0855712E-B89C-4FEF-8408-D93C9FCFE9A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0855712E-B89C-4FEF-8408-D93C9FCFE9A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{834262E1-5972-44BD-8C93-8388FAA6FD0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{834262E1-5972-44BD-8C93-8388FAA6FD0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{834262E1-5972-44BD-8C93-8388FAA6FD0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{834262E1-5972-44BD-8C93-8388FAA6FD0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C27FDE2-3117-44F1-93BE-A05E6F572C1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C27FDE2-3117-44F1-93BE-A05E6F572C1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C27FDE2-3117-44F1-93BE-A05E6F572C1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C27FDE2-3117-44F1-93BE-A05E6F572C1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1BF3B08-F228-4D1F-A404-E11BBA573166}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1BF3B08-F228-4D1F-A404-E11BBA573166}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1BF3B08-F228-4D1F-A404-E11BBA573166}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1BF3B08-F228-4D1F-A404-E11BBA573166}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

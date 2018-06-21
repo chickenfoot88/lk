@@ -1,0 +1,82 @@
+﻿@model IEnumerable<OhDataManager.Entities.Main.PersonalAccountPayment>
+    @{
+        Layout = "~/Views/Abonent/_Layout.cshtml";
+        ViewBag.Title = "Платежи";
+        var grid = new WebGrid(Model, canSort: false, canPage: false);
+    }
+
+<div class="wrapper min1200">
+
+  <section class="content-header">
+    <div class="content-title">
+        <h1>@ViewBag.Title</h1>
+    </div>
+  </section>
+
+  <section class="content min968">
+
+    <div class="box box-success">
+
+      <div class="box-header">
+        <h3 class="box-title">Список платежей</h3>
+      </div>
+
+      <div class="box-body">
+
+        @grid.GetHtml(fillEmptyRows: false,
+        htmlAttributes: new {id = "examplepayment"},
+        tableStyle: "webgrid-table table table-condensed table-hover table-bordered dataTable",
+        headerStyle: "webgrid-header",
+        footerStyle: "webgrid-footer",
+        alternatingRowStyle: "webgrid-alternating-row",
+        rowStyle: "webgrid-row-style",
+        selectedRowStyle: "webgrid-selected-row",
+          mode: WebGridPagerModes.All, //paging to grid
+
+        firstText: "<< Первая",
+        previousText: "< Предыдущая",
+        nextText: "Следующая >",
+        lastText: "Последняя >>",
+
+        columns: new[]
+
+          {
+           grid.Column("CalculationDate", "Расчетный месяц", format: @<text>
+
+           @item.CalculationDate.ToString("d MMM yyyy")</text>),
+
+           grid.Column("DateTimeVvod", "Дата платежа", format: @<text>
+
+             @Html.Raw((@item.PaymentDate.ToString("dd.MM.yyyy") == "01.01.0001") ? "" : @item.PaymentDate.ToString("d MMM yyyy"))
+
+           </text>),
+
+           grid.Column("DateTimeUchet", "Дата учёта", format: @<text>
+
+             @Html.Raw((@item.CalculationApplyingDate.ToString("dd.MM.yyyy") == "01.01.0001") ? "" : @item.CalculationApplyingDate.ToString("d MMM yyyy"))
+
+           </text>),
+
+           grid.Column("DateTimeEpd", "За какой месяц оплачено", format: @<text>
+
+             @Html.Raw((@item.PaydCalculationMonth.ToString("dd.MM.yyyy") == "01.01.0001") ? "" : @item.PaydCalculationMonth.ToString("d MMM yyyy"))
+
+           </text>),
+
+           grid.Column("PlatPlace", "Место платежа", format: @<text>@item.PaymentPlacement.ToString()</text>),
+
+           grid.Column("SumPay", "Сумма платежа", format: @<text>@item.SumPayment.ToString("C")</text>)
+          }
+        )
+
+      </div>
+
+      <div class="box-footer">
+        <input id="EnterPay" type="button" class="btn btn-lg btn-success pull-right" value="Оплатить" onclick="location.href = 'https://uslugi.tatarstan.ru/'" @(AppConstants.PaymentAllowed ? "" : "disabled")>
+      </div>
+
+    </div>
+
+  </section>
+
+</div>

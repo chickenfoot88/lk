@@ -1,0 +1,5 @@
+﻿
+@Html.DropDownList("PersonalAccountId",
+           ViewBag.PersonalAccountId as IEnumerable<SelectListItem>,
+           optionLabel: "Выберите квартиру",
+           htmlAttributes: new { id = "personalAccountList", @class = "form-control select2", required = "required" })

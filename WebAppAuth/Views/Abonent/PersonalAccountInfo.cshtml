@@ -1,0 +1,149 @@
+﻿@model OhDataManager.Entities.Main.PersonalAccount
+
+@{
+    Layout = "~/Views/Abonent/_Layout.cshtml";
+}
+
+@{
+    ViewBag.Title = "Лицевой счет";
+}
+
+<div class="wrapper">
+
+  <section class="content-header">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <h1>@ViewBag.Title</h1>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="content">
+
+    <div class="container">
+
+      <div class="row">
+
+        <div class="col-xs-12 col-sm-12 col-md-6">
+
+          <div class="box box-success box-solid">
+            <div class="box-header with-border">
+              <h3 class="box-title">Информация по лицевому счету</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+              </div>
+            </div>
+            <div class="box-body no-padding">
+              <ul class="list-group list-group-unbordered">
+                <li class="list-group-item">
+                  <b>Платежный код:</b> <span class="pull-right">@Model.PaymentCode</span>
+                  <div class="clearfix"></div>
+                </li>
+                <li class="list-group-item">
+                  <b>Организация:</b> <span class="pull-right">@Model.ManagmentOrganizationName</span>
+                    <div class="clearfix"></div>
+                </li>
+                <li class="list-group-item">
+                  <b>Квартиросъемщик:</b> <span class="pull-right">@Model.ApartmentOwnerFullName</span>
+                  <div class="clearfix"></div>
+                </li>
+                <li class="list-group-item">
+                  <b>Телефон:</b> <span class="pull-right">Не указан</span>
+                  <div class="clearfix"></div>
+                </li>
+                <li class="list-group-item">
+                  <b>Адрес:</b> <span class="pull-right">@Model.ApartmentFullAddress</span>
+                  <div class="clearfix"></div>
+                </li>
+                <li class="list-group-item">
+                  <b>Подъезд:</b> <span class="pull-right">@Model.PorchNumber</span>
+                  <div class="clearfix"></div>
+                </li>
+                <li class="list-group-item">
+                  <b>Этаж:</b> <span class="pull-right">@Model.FloorNumber</span>
+                  <div class="clearfix"></div>
+                </li>
+                <li class="list-group-item">
+                  <b>Количество комнат:</b> <span class="pull-right">@Model.CountRooms</span>
+                  <div class="clearfix"></div>
+                </li>
+                <li class="list-group-item">
+                  <b>Количество жильцов:</b> <span class="pull-right">@Model.CountResidents</span>
+                    <div class="clearfix"></div>
+                </li>
+                <li class="list-group-item">
+                  <b>Общая площадь (кв.метр):</b> <span class="pull-right">@Model.SquareApartment</span>
+                  <div class="clearfix"></div>
+
+                </li>
+                <li class="list-group-item">
+                  <b>Отапливаемая площадь (кв.метр):</b> <span class="pull-right">@Model.SquareApartmentHeating</span>
+                  <div class="clearfix"></div>
+                </li>
+                <li class="list-group-item">
+                  <b>Жилая площадь (кв.метр):</b> <span class="pull-right">@Model.SquareApartmentLiving</span>
+                  <div class="clearfix"></div>
+                </li>
+                <li class="list-group-item">
+                  <b>Приватизировано:</b> <span class="pull-right">@Model.PrivatiziedTypeText</span>
+                  <div class="clearfix"></div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-6">
+
+          <div class="box box-primary box-solid">
+
+            <div class="box-header with-border">
+
+              <h3 class="box-title">Информация по дому</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+              </div>
+
+            </div>
+
+            <div class="box-body no-padding">
+              <ul class="list-group list-group-unbordered">
+                <li class="list-group-item">
+                  <b>Площадь дома (кв.метр):</b> <span class="pull-right">@Model.SquareHouse</span>
+                  <div class="clearfix"></div>
+                </li>
+                <li class="list-group-item">
+                  <b>Отапливаемая площадь (кв.метр):</b> <span class="pull-right">@Model.SquareHouseHeating</span>
+                    <div class="clearfix"></div>
+                </li>
+                <li class="list-group-item">
+                  <b>Площадь МОП (кв.метр):</b> <span class="pull-right">@Model.SquareHouseMop</span>
+                  <div class="clearfix"></div>
+                </li>
+                <li class="list-group-item">
+                  <b>Количество квартир:</b> <span class="pull-right">Не указано</span>
+                  <div class="clearfix"></div>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</div>

@@ -1,0 +1,200 @@
+﻿@using OhDataManager.Enums
+@model IEnumerable<WebAppAuth.Entities.AbonentClaim>
+    @{
+        Layout = "~/Views/Abonent/_Layout.cshtml";
+        var grid = new WebGrid(Model, canPage: false, canSort: false);
+        ViewBag.Title = "Мои заявки";
+
+        string selectedClaimStatusInfo;
+        if (ViewBag.SelectedStatus != null)
+        {
+            selectedClaimStatusInfo =  "Заявки со статусом '" + ViewBag.SelectedStatusName + "'";
+        }
+        else
+        {
+            selectedClaimStatusInfo = "Все заявки";
+        }
+    }
+
+<div class="wrapper min1200">
+
+    <section class="content-header">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1>@ViewBag.Title</h1>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="content">
+
+        <div class="row">
+
+            <div class="claims-tab-wrapper">
+
+                <div class="col-xs-2 col-sm-2 col-md-2">
+
+                    <a type="button" class="btn btn-block margin-bottom btn-success btn-lg" data-toggle="modal" data-target="#createClaim">
+                        Подать заявку
+                    </a>
+
+                    <div class="box box-solid">
+
+                        <div class="box-header with-border">
+
+                            <h3 class="box-title">Статусы заявок</h3>
+
+                        </div>
+
+                        <div class="box-body no-padding">
+
+                            <ul class="nav nav-pills nav-stacked claims-tabs">
+                                <li class="tab">
+                                    <a href="@Url.Action("Claims")">
+                                        <i class="fa fa-dropbox"></i> Все
+                                    </a>
+                                </li>
+                                <li class="tab">
+                                    <a href="@Url.Action("Claims", new {claimStatus = EClaimStatus.Created})">
+                                        <i class="fa fa-inbox"></i> Новые
+                                    </a>
+                                </li>
+                                <li class="tab">
+                                    <a href="@Url.Action("Claims", new {claimStatus = EClaimStatus.InProcess})">
+                                        <i class="fa fa-envelope-o"></i> В работе
+                                    </a>
+                                </li>
+                                <li class="tab">
+                                    <a href="@Url.Action("Claims", new {claimStatus = EClaimStatus.Completed})">
+                                        <i class="fa fa-file-text-o"></i> Исполненные
+                                    </a>
+                                </li>
+                                <li class="tab">
+                                    <a href="@Url.Action("Claims", new {claimStatus = EClaimStatus.Refinement})">
+                                        <i class="fa fa-question"></i> На уточнении
+                                    </a>
+                                </li>
+                                <li class="tab">
+                                    <a href="@Url.Action("Claims", new {claimStatus = EClaimStatus.Closed})">
+                                        <i class="fa fa-check"></i> Закрытые
+                                    </a>
+                                </li>
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-xs-10">
+
+                    <div class="claims-content">
+
+                        <div class="box box-warning">
+
+                            <div class="box-header with-border">
+                                <h3 class="box-title">@selectedClaimStatusInfo</h3>
+                            </div>
+
+                            <div class="box-body claims-box">
+
+                                <div class="row">
+
+                                    <div class="col-md-4">
+                                        @using (Html.BeginForm("Claims", "Abonent", new {claimStatus = ViewBag.SelectedStatus}))
+                                        {
+                                            <div class="form-group">
+                                                <label>Вид заявки</label>
+                                                @Html.DropDownList("ClaimKinds",
+                                                    ViewData["ClaimKinds"] as SelectList,
+                                                    "Все заявки",
+                                                    new
+                                                    {
+                                                        @class = "form-control select2",
+                                                        @onchange = "this.form.submit();"
+                                                    })
+                                            </div>
+                                        }
+                                    </div>
+
+                                    <div class="col-md-12">
+
+                                        @grid.GetHtml(
+                                            fillEmptyRows: false,
+                                            htmlAttributes: new {id = "claimsDataTable"},
+                                            tableStyle: "table table-bordered table-hover dataTable",
+                                            headerStyle: "webgrid-header",
+                                            footerStyle: "webgrid-footer",
+                                            alternatingRowStyle: "webgrid-alternating-row",
+                                            rowStyle: "webgrid-row-style",
+                                            selectedRowStyle: "webgrid-selected-row",
+                                            mode: WebGridPagerModes.All, //paging to grid
+
+                                            firstText: "<< Первая",
+                                            previousText: "<",
+                                            nextText: ">",
+                                            lastText: "Последняя >>",
+                                            columns: new[]
+
+                                            {
+                                                grid.Column("Number", "Номер", format: @<text>
+                                                                                           <div style="text-align: center">@item.Id</div></text>),
+                                                grid.Column("Comment", "Вид заявки", format: @<text>
+                                                                                                       <div style="text-align: left">@item.DictClaimKind.Name</div></text>),
+                                                grid.Column("Comment", "Описание", format: @<text>
+                                                                                               <div style="text-align: left" class="claim-description-cell">@item.Description</div></text>),
+                                                grid.Column("Employee", "Исполнитель", format: @<text>
+                                                                                                   <div style="text-align: left">@(@item.Employee != null ? item.Employee.DisplayName : "")</div></text>),
+                                                grid.Column("CreationTime", "Дата создания", format: @<text>
+                                                                                                         <div style="text-align: center">@item.CreationTime.ToString("dd.MM.yyyy HH:mm:ss")</div></text>),
+                                                grid.Column("CreationTime", "Дата закрытия", format: @<text>
+                                                                                                         <div style="text-align: center">@(@item.CompleteDate != null ? item.CompleteDate.ToString("dd.MM.yyyy HH:mm:ss") : "")</div></text>),
+                                                grid.Column("ClaimStatusText", "Статус", format: @<text>
+                                                                                                     <div style="text-align: left">@item.ClaimStatusText</div></text>),
+                                                grid.Column(format: @<text>
+                                                                        <div style="text-align: center">
+                                                                            @Html.ActionLink("подробнее", "ClaimDetails", new {id = item.Id}, new {@class = "btn btn-primary"})
+                                                                        </div>
+                                                                     </text>)
+                                            })
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="preloader preloader-white"></div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Claim Create Modal -->
+    <div class="modal fade" id="createClaim" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h3 class="modal-title" id="myModalLabel">Подать заявку</h3>
+                </div>
+                <div class="modal-body"></div>
+            </div>
+            <div class="preloader"></div>
+        </div>
+    </div>
+
+</div>

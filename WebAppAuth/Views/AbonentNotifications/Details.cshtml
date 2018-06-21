@@ -1,0 +1,83 @@
+﻿@model WebAppAuth.Models.AbonentNotificationModel
+
+@{
+    ViewBag.Title = "Уведомление";
+    Layout = "~/Views/Employee/_Layout.cshtml";
+}
+
+<div class="wrapper min1200">
+
+  <section class="content-header">
+      <div class="content-title">
+          <h1>@ViewBag.Title</h1>
+      </div>
+  </section>
+
+  <section class="content">
+
+    <div class="box box-warning">
+
+      <div class="box-header with-border">
+        <div class="row">
+          <div class="col-xs-2">
+            @Html.ActionLink(
+              "Вернуться к списку",
+              "Index",
+              new {},
+              new { @class = "btn btn-block btn-primary" })
+          </div>
+          <div class="col-xs-2">
+            @Html.ActionLink(
+              "Редактировать",
+              "Edit",
+              new {id = Model.Id},
+              new { @class = "btn btn-block btn-warning" })
+          </div>
+        </div>
+      </div>
+
+      <div class="box-body">
+
+        <dl class="dl-horizontal notification-details-list">
+
+          <dt>
+              @Html.DisplayNameFor(model => model.Title)
+          </dt>
+
+          <dd>
+              @Html.DisplayFor(model => model.Title)
+          </dd>
+
+          <dt>
+              @Html.DisplayNameFor(model => model.Content)
+          </dt>
+
+          <dd>
+              @Html.DisplayFor(model => model.Content)
+          </dd>
+
+          <dt>
+              @Html.DisplayNameFor(model => model.CreationTime)
+          </dt>
+
+          <dd>
+              @Html.DisplayFor(model => model.CreationTime)
+          </dd>
+
+          <dt>
+              @Html.DisplayNameFor(model => model.ChangedTime)
+          </dt>
+
+          <dd>
+              @Html.DisplayFor(model => model.ChangedTime)
+          </dd>
+
+        </dl>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</div>

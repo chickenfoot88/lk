@@ -1,0 +1,19 @@
+.mm-listview > li:not(.mm-divider)::after {
+  left: 0;
+}
+
+.mm-listview > li > a, .mm-listview > li > span {
+  font-size: 16px;
+}
+
+.mm-menu .active-link > a {
+  background-color: #00A65A;
+  color: #fff;
+}
+
+.mm-menu form a {
+  font-size: 16px;
+  display: block;
+  padding: 10px 10px 10px 20px;
+  color: #000;
+}

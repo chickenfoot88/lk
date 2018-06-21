@@ -1,0 +1,178 @@
+﻿@model WebAppAuth.Models.ClaimViewModel
+
+@{
+    Layout = "~/Views/Employee/_Layout.cshtml";
+    ViewBag.Title = "Создать заявку";
+}
+
+@using (Html.BeginForm("CreateClaim", "Employee", FormMethod.Post,
+                    new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+
+                @Html.DropDownList("DictClaimKindId",
+                    null,
+                    optionLabel: "Выберите вид",
+                    htmlAttributes: new { id = "dictClaimKindList", @class = "form-control select2", required = "required" })
+                @Html.ValidationMessageFor(model => model.DictClaimKindId, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group employeeListForm">
+            @Html.DropDownList("EmployeeId",
+                ViewBag.EmployeeId as IEnumerable<SelectListItem>,
+                optionLabel: "Выберите ответственного",
+                htmlAttributes: new { id = "employeeList", @class = "form-control select2", required = "required" })
+            @Html.ValidationMessageFor(model => model.EmployeeId, "", new { @class = "text-danger" })
+          </div>
+        </div>
+    </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+
+                    @Html.DropDownList("HouseId",
+                    null,
+                    optionLabel: "Выберите дом",
+                    htmlAttributes: new { id = "houseList", @class = "form-control select2", required = "required" })
+                    @Html.ValidationMessageFor(model => model.HouseId, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+
+                    @Html.EditorFor(model => model.ContactPhoneNumber,
+                    new
+                    {
+                        htmlAttributes =
+                            new
+                            {
+                                id = "contactPhoneNumber",
+                                @class = "form-control required",
+                                type = "text",
+                                required = "required",
+                                min = "0",
+                                placeholder = "Контактный телефон..."
+                            }
+                    })
+                    @Html.ValidationMessageFor(model => model.ContactPhoneNumber, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group personalAccountListForm">
+
+                    @Html.DropDownList("PersonalAccountId",
+                    null,
+                    optionLabel: "Выберите квартиру",
+                    htmlAttributes: new { id = "personalAccountList", @class = "form-control select2" })
+                    @Html.ValidationMessageFor(model => model.PersonalAccountId, "", new { @class = "text-danger" })
+
+                </div>
+
+            </div>
+            <div class="col-md-6">
+
+        
+
+
+                <select class="select2 claim-template hidden">
+                    <optgroup label="Заявки по сантехническим работам">
+                        <option value="c1">Топит сверху по стояку</option>
+                        <option value="c2">Подтекает радиатор</option>
+                        <option value="c3">Опломбировка входящих счетчиков</option>
+                        <option value="c4">Нет тепла</option>
+                        <option value="c5">ГВС – течет холодная вода</option>
+                        <option value="c6">Нет ХВС по стояку</option>
+                        <option value="c7">Подтекает с вентиля</option>
+                        <option value="c8">Отключение стояка ХВС (ГВС)</option>
+                        <option value="c9">Отключение стояка отопления</option>
+                        <option value="c10">Опломбировать счетчик отопления</option>
+                        <option value="c11">Засор канализации</option>
+                        <option value="c12">Подтекает возле счетчика</option>
+                        <option value="c13">ГВС и П/сушитель холодные</option>
+                        <option value="c14">Консультация сан.техника</option>
+                        <option value="c15">Контрольное снятие показаний теплосчетчика</option>
+                        <option value="c16">Замерить температуру ГВС</option>
+                        <option value="c17">ГВС – течет холодная вода</option>
+                        <option value="c18">Составить акт о затоплении</option>
+                    </optgroup>
+                    <optgroup label="Заявка по электротехническим работам">
+                        <option value="s1">Опломбировать электросчетчики</option>
+                        <option value="s2">Нет освещения</option>
+                        <option value="s3">Выбивает автомат</option>
+                        <option value="s4">Консультация электрика</option>
+                        <option value="s5">Нет освещения в квартире</option>
+                    </optgroup>
+                    <optgroup label="Текущий ремонт жилых зданий (Кровельные работы)">
+                        <option value="a1">Течет с крыши</option>
+                        <option value="a2">Топит квартиру</option>
+                        <option value="a3">Топит балкон</option>
+                        <option value="a4">Почистить снег с кровли</option>
+                        <option value="a5">Гремит кровля</option>
+                    </optgroup>
+                    <optgroup label="Уборка">
+                        <option value="c1">Плохо убираются в подъезде</option>
+                        <option value="c2">Плохо убирают территорию</option>
+                    </optgroup>
+                    <optgroup label="Слаботочные работы (Домофон)">
+                        <option value="c1">Не работает домофон</option>
+                        <option value="c2">Отрегулировать доводчик</option>
+                        <option value="c3">Установить домофонную трубку</option>
+                        <option value="c4">Подключить домофон</option>
+                        <option value="c5">Не проходит сигнал в квартиру</option>
+                    </optgroup>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+
+            @Html.EditorFor(model => model.Cost, new { htmlAttributes = new { @class = "form-control required", type = "text", min = "0", placeholder = "Стоимость..." } })
+            @Html.ValidationMessageFor(model => model.Cost, "", new { @class = "text-danger" })
+
+        </div>
+
+        <div class="form-group">
+
+            @Html.TextAreaFor(model => model.Description, new { @class = "form-control claim-description", rows = "10", required = "required", placeholder = "Текст заявки..." })
+            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+
+        </div>
+
+        <div class="form-group">
+
+            <label>
+                @Html.CheckBox("printJobOrderAfterSave")
+                Напечатать заказ-наряд после сохранения
+            </label>
+
+        </div>
+
+        <div class="form-group">
+
+            <div class="trigger-btn-block">
+                <input type="file" class="inputfile-btn hidden" name="inputFile" id="inputFile" onchange="this.form.submit();" />
+                <label for="inputFile" class="btn btn-default">Прикрепить файл</label>
+                <span class="help-block">Выберите файл. Если файлов несколько - добавьте в архив и загрузите архив.</span>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <hr>
+            <div class="col-md-12">
+                <input type="submit" value="Создать заявку" class="btn btn-success secondary pull-right" />
+            </div>
+        </div>
+}

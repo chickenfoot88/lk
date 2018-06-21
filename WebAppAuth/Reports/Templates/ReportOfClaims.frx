@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" TextQuality="Regular" ReportInfo.Name="Simple List" ReportInfo.Author="Fast Reports Inc" ReportInfo.Description="Demonstrates simple list report. To create it:&#13;&#10;- go to &quot;Data&quot; menu and select &quot;Choose Report Data...&quot; item to select datasource;&#13;&#10;- go to &quot;Report|Configure Bands...&quot; menu to create the band structure;&#13;&#10;- return to the report page, doubleclick the data band to show its editor;&#13;&#10;- choose the datasource;&#13;&#10;- drag data from the Data Dictionary window to the band." ReportInfo.Created="01/17/2008 03:05:57" ReportInfo.Modified="11/15/2017 19:28:56" ReportInfo.CreatorVersion="1.7.35.0">
+  <ScriptText>using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
+using System.Drawing;
+using System.Data;
+using FastReport;
+using FastReport.Data;
+using FastReport.Dialog;
+using FastReport.Barcode;
+using FastReport.Table;
+using FastReport.Utils;
+
+namespace FastReport
+{
+  public class ReportScript
+  { 
+  }
+}
+
+</ScriptText>
+  <Dictionary>
+    <TableDataSource Name="Claims" ReferenceName="ReportOfClaims.Claims" DataType="System.Int32" Enabled="true">
+      <Column Name="Id" DataType="System.String"/>
+      <Column Name="DictClaimKindName" DataType="System.String"/>
+      <Column Name="CreationTime" DataType="System.DateTime"/>
+      <Column Name="Abonent" DataType="System.String"/>
+      <Column Name="ApartmentFullAddress" DataType="System.String"/>
+      <Column Name="Employee" DataType="System.String"/>
+      <Column Name="CompleteDate" DataType="System.String"/>
+      <Column Name="ClaimStatusText" DataType="System.String"/>
+    </TableDataSource>
+    <TableDataSource Name="ClaimsCount" ReferenceName="ReportOfClaims.ClaimsCount" DataType="System.Int32" Enabled="true">
+      <Column Name="ClaimStatusText" DataType="System.String"/>
+      <Column Name="Count" DataType="System.Int32"/>
+    </TableDataSource>
+    <Total Name="TotalClaims" Expression="[ClaimsCount.Count]" Evaluator="Data2" PrintOn="DataFooter1"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" RawPaperSize="9" FirstPageSource="15" OtherPagesSource="15">
+    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="56.7" CanGrow="true">
+      <TextObject Name="Text1" Top="9.45" Width="1048.95" Height="28.35" Text="Журнал регистрации заявок" HorzAlign="Center" VertAlign="Center" Font="Tahoma, 16pt, style=Bold"/>
+    </ReportTitleBand>
+    <DataBand Name="Data1" Top="102.5" Width="1047.06" Height="37.8" Border.Lines="Left, Bottom" Border.Width="0.5" CanGrow="true" DataSource="Claims">
+      <TableObject Name="Table2" Width="1042.54" Height="37.8">
+        <TableColumn Name="Column11" Width="37.8"/>
+        <TableColumn Name="Column12" Width="66.91"/>
+        <TableColumn Name="Column13" Width="113.4"/>
+        <TableColumn Name="Column14" Width="151.2"/>
+        <TableColumn Name="Column15" Width="104.71"/>
+        <TableColumn Name="Column16" Width="226.8"/>
+        <TableColumn Name="Column17" Width="113.4"/>
+        <TableColumn Name="Column18" Width="123.61"/>
+        <TableColumn Name="Column19" Width="104.71"/>
+        <TableRow Name="Row2" Height="37.8" AutoSize="true">
+          <TableCell Name="Cell31" Border.Lines="All" Text="[Row#]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell32" Border.Lines="All" Text="[Claims.Id]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell33" Border.Lines="All" Text="[Claims.DictClaimKindName]" VertAlign="Center" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell34" Border.Lines="All" Text="[Claims.Description]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell35" Border.Lines="All" Text="[Claims.CreationTime]" VertAlign="Center" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell36" Border.Lines="All" Text="[Claims.ApartmentFullAddress]" VertAlign="Center" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell37" Border.Lines="All" Text="[Claims.Employee]" VertAlign="Center" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell38" Border.Lines="All" Text="[Claims.CompleteDate]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell39" Border.Lines="All" Text="[Claims.ClaimStatusText]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 12pt"/>
+        </TableRow>
+      </TableObject>
+      <DataHeaderBand Name="DataHeader1" Top="60.7" Width="1047.06" Height="37.8" Guides="37.8">
+        <TableObject Name="Table1" Width="1042.54" Height="37.8">
+          <TableColumn Name="Column1" Width="37.8"/>
+          <TableColumn Name="Column2" Width="66.91"/>
+          <TableColumn Name="Column3" Width="113.4"/>
+          <TableColumn Name="Column4" Width="151.2"/>
+          <TableColumn Name="Column5" Width="104.71"/>
+          <TableColumn Name="Column6" Width="226.8"/>
+          <TableColumn Name="Column7" Width="113.4"/>
+          <TableColumn Name="Column8" Width="123.61"/>
+          <TableColumn Name="Column10" Width="104.71"/>
+          <TableRow Name="Row1" Height="37.8">
+            <TableCell Name="Cell1" Border.Lines="All" Text="№" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 12pt, style=Bold"/>
+            <TableCell Name="Cell2" Border.Lines="All" Text="Номер" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 12pt, style=Bold"/>
+            <TableCell Name="Cell3" Border.Lines="All" Text="Тип заявки" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 12pt, style=Bold"/>
+            <TableCell Name="Cell4" Border.Lines="All" Text="Описание" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 12pt, style=Bold"/>
+            <TableCell Name="Cell5" Border.Lines="All" Text="Создана" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 12pt, style=Bold"/>
+            <TableCell Name="Cell26" Border.Lines="All" Text="Адрес" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 12pt, style=Bold"/>
+            <TableCell Name="Cell27" Border.Lines="All" Text="Исполнитель" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 12pt, style=Bold"/>
+            <TableCell Name="Cell28" Border.Lines="All" Text="Дата закрытия" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 12pt, style=Bold"/>
+            <TableCell Name="Cell30" Border.Lines="All" Text="Статус" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 12pt, style=Bold"/>
+          </TableRow>
+        </TableObject>
+      </DataHeaderBand>
+    </DataBand>
+    <DataBand Name="Data2" Top="186.1" Width="1047.06" Height="26.46" DataSource="ClaimsCount">
+      <TableObject Name="Table3" Width="228.32" Height="26.46">
+        <TableColumn Name="Column20" Width="123.61"/>
+        <TableColumn Name="Column21" Width="104.71"/>
+        <TableRow Name="Row3" Height="26.46">
+          <TableCell Name="Cell40" Border.Lines="All" Text="[ClaimsCount.ClaimStatusText]" VertAlign="Center" Font="Times New Roman, 12pt"/>
+          <TableCell Name="Cell41" Border.Lines="All" Text="[ClaimsCount.Count]" HorzAlign="Right" VertAlign="Center" Font="Times New Roman, 12pt"/>
+        </TableRow>
+      </TableObject>
+      <DataHeaderBand Name="DataHeader2" Top="144.3" Width="1047.06" Height="37.8" CanGrow="true" CanShrink="true" CanBreak="true" StartNewPage="true"/>
+      <DataFooterBand Name="DataFooter1" Top="216.56" Width="1047.06" Height="56.7">
+        <TableObject Name="Table4" Width="228.32" Height="26.46">
+          <TableColumn Name="Column22" Width="123.61"/>
+          <TableColumn Name="Column23" Width="104.71"/>
+          <TableRow Name="Row4" Height="26.46">
+            <TableCell Name="Cell42" Border.Lines="All" Text="Всего:" VertAlign="Center" Font="Times New Roman, 12pt, style=Bold"/>
+            <TableCell Name="Cell43" Border.Lines="All" Text="[TotalClaims]" HorzAlign="Right" VertAlign="Center" Font="Times New Roman, 12pt"/>
+          </TableRow>
+        </TableObject>
+        <TextObject Name="Text3" Top="28.35" Width="359.1" Height="28.35" Text="Сформирован: [Date]" VertAlign="Center" Font="Times New Roman, 12pt"/>
+      </DataFooterBand>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="277.26" Width="1047.06" Height="56.7" Fill.Color="WhiteSmoke" CanGrow="true">
+      <TextObject Name="Text10" Left="954.45" Top="28.35" Width="94.5" Height="28.35" Text="[PageN]" HorzAlign="Right" VertAlign="Center" Font="Tahoma, 8pt"/>
+    </PageFooterBand>
+  </ReportPage>
+</Report>

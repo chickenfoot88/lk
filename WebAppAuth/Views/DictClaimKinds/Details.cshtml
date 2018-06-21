@@ -1,0 +1,92 @@
+﻿@model OhDataManager.Entities.System.DictClaimKind
+
+@{
+  ViewBag.Title = "Вид заявки";
+  Layout = "~/Views/Administrator/_Layout.cshtml";
+  var grid = new WebGrid(ViewBag.Templates, rowsPerPage: 5, canPage: false);
+}
+<div class="box">
+
+  <div class="box-header"></div>
+
+  <div class="box-body">
+    <dl class="dl-horizontal">
+      <dt>
+        @Html.DisplayNameFor(model => model.Name)
+      </dt>
+
+      <dd>
+        @Html.DisplayFor(model => model.Name)
+      </dd>
+
+      <dt>
+        @Html.DisplayNameFor(model => model.Note)
+      </dt>
+
+      <dd>
+        @Html.DisplayFor(model => model.Note)
+      </dd>
+
+      <dt>
+        @Html.DisplayNameFor(model => model.IsVisible)
+      </dt>
+
+      <dd>
+        @Html.DisplayFor(model => model.IsVisible)
+      </dd>
+
+      <dt>
+        @Html.DisplayNameFor(model => model.CreationTime)
+      </dt>
+
+      <dd>
+        @Html.DisplayFor(model => model.CreationTime)
+      </dd>
+
+      <dt>
+        @Html.DisplayNameFor(model => model.ChangedTime)
+      </dt>
+
+      <dd>
+        @Html.DisplayFor(model => model.ChangedTime)
+      </dd>
+
+    </dl>
+  </div>
+
+  <div class="box-footer box-footer-left">
+      @Html.ActionLink("Редактировать", "Edit", new { id = Model.Id }, new {@class = "btn btn-success"})
+    @Html.ActionLink("Назад", "Index", new {}, new {@class = "btn btn-primary"})
+  </div>
+
+
+</div>
+
+<div class="box">
+  <div class="box-header">
+
+  </div>
+
+  <div class="box-body">
+
+    @grid.GetHtml(
+    mode: WebGridPagerModes.Numeric,
+    htmlAttributes: new { id = "template" },
+    tableStyle: "table table-bordered table-hover dataTable",
+    columns: new[]
+    {
+      grid.Column("Template", "Шаблоны"),
+
+      grid.Column(canSort: false, format: @<text>
+        <a class="edit-claim-btn"
+        href="@Url.Action("DeleteTemplate", "DictClaimKinds",
+        //TODO:
+        new {positionId = Model.Id, claimKindId = item.id})">
+        <i class="fa fa-trash" aria-hidden="true">
+        </i>
+      </a>
+    </text>)
+  })
+  
+  </div>
+</div>

@@ -1,0 +1,218 @@
+﻿
+@model WebAppAuth.Entities.Abonent
+
+@{
+  Layout = "~/Views/Abonent/_Layout.cshtml";
+}
+
+@{
+  ViewBag.Title = "Профиль абонента";
+}
+<div class="wrapper">
+
+<section class="content-header">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-md-8 col-md-offset-2">
+                <h1>@ViewBag.Title</h1>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<section class="content">
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-xs-12 col-md-8 col-md-offset-2">
+
+                <form class="form-validate" action="@Url.Action("Edit", "Abonent")" name="avatar_form" method="post" id="avatar_form" enctype="multipart/form-data">
+
+                    <div class="row">
+
+                        <div class="col-sm-7 col-md-7">
+
+                            <div class="box box-success">
+
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">Контактные данные</h3>
+                                </div>
+
+                                <div class="box-body">
+
+                                    <input type="hidden" id="Id" name="Id" value="@Model.Id">
+
+                                    <div class="form-group">
+                                        <!-- <label class="col-xs-4 control-label" for="@nameof(@Model.Surname)">Фамилия </label> -->
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <p>Как Вас зовут?</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6 col-md-6">
+                                                <input type="text" id="@nameof(@Model.Surname)" name="@nameof(@Model.Surname)" class="form-control input-sm" value="@Model.Surname" placeholder="Фамилия">
+                                            </div>
+                                            <div class="col-sm-6 col-md-6">
+                                                <input type="text" id="@nameof(@Model.Name)" name="@nameof(@Model.Name)" class="form-control input-sm" value="@Model.Name" placeholder="Имя">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p>Домашний телефон</p>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-phone"></i>
+                                                    </div>
+                                                    <input type="text" id="@nameof(@Model.HousePhoneNumber)" name="@nameof(@Model.HousePhoneNumber)" class="form-control input-sm tel" value="@Model.HousePhoneNumber" data-inputmask="'mask': '+7(843) 999-99-99'" placeholder="+7(843)___-__-__">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p>Мобильный телефон</p>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-phone"></i>
+                                                    </div>
+                                                    <input type="text" id="@nameof(@Model.MobilePhoneNumber)" name="@nameof(@Model.MobilePhoneNumber)" class="form-control input-sm tel" value="@Model.MobilePhoneNumber" data-inputmask="'mask': '+7(999) 999-99-99'" placeholder="+7(___) ___-__-__">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <hr class="full-width">
+
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p>Электронная почта</p>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-envelope"></i>
+                                                    </div>
+                                                    <input type="text" id="@nameof(@ViewBag.AbonentEmail)" name="@nameof(@ViewBag.AbonentEmail)" disabled="" class="form-control input-sm" value="@ViewBag.AbonentEmail">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-grourp">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p>Номер лицевого счета</p>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-book"></i>
+                                                    </div>
+                                                    <input type="text" id="@nameof(@Model.PaymentCode)" name="@nameof(@Model.PaymentCode)" disabled="" class="form-control input-sm" value="@Model.PaymentCode">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-sm-5 col-md-5">
+
+                            <div class="box box-success">
+
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">Фотография</h3>
+                                </div>
+
+                                <div class="box-body">
+
+                                    @if (@Model.ImageData == null)
+                                    {
+                                        <div class="profile-photo default-photo">
+                                            <img src="~/Content/images/cabinet/no_photo_big.png" class="profile-user-img img-responsive img-circle" alt="Default Photo"/>
+                                        </div>
+                                    }
+
+                                    else
+                                    {
+                                        <div class="profile-photo abonent-photo">
+                                            <img src="@Url.Action("GetImage", "Abonent", new {@Model.Id})" class="profile-user-img img-responsive img-circle" alt="Abonent Photo"/>
+                                            <a href="@Url.Action("DelFile", "Abonent", new {@Model.Id})" class="del-avatar close-btn"></a>
+                                        </div>
+                                    }
+
+                                </div>
+
+                                <div class="box-footer">
+
+                                    <input class="hidden" type="file" id="loadImage" name="loadImage" title="Загрузить фотографию" onchange="this.form.submit();"/>
+
+                                    @if (@Model.ImageData == null)
+                                    {
+                                        <label for="loadImage" class="btn btn-default">Загрузить фотографию</label>
+                                    }
+
+                                    else
+                                    {
+                                        <label for="loadImage" class="btn btn-default">Изменить фотографию</label>
+                                    }
+
+                                </div>
+
+                            </div>
+
+                            <div class="box box-primary">
+
+                                <div class="box-header  with-border">
+                                    <h4 class="box-title">Оповещения</h4>
+                                </div>
+
+                                <div class="box-body">
+
+                                    <ul class="notification-check">
+                                        <li><input id="@nameof(@Model.SmsNotificationAllowed)" name="@nameof(@Model.SmsNotificationAllowed)" value="True" type="checkbox" @(Model.SmsNotificationAllowed ? "checked='checked'" : "")/>
+                                            <label for="@nameof(@Model.SmsNotificationAllowed)" class="">Разрешить SMS оповещение</label>
+                                        </li>
+                                        <li>
+                                            <input id="@nameof(@Model.EmailNotificationAllowed)" name="@nameof(@Model.EmailNotificationAllowed)" value="True" type="checkbox" @(Model.EmailNotificationAllowed ? "checked='checked'" : "")/>
+                                            <label for="@nameof(@Model.EmailNotificationAllowed)" class="">Разрешить e-mail оповещение</label>
+                                        </li>
+                                    </ul>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <input type="submit" class="btn uk-button-color pull-right btn-success" value="Сохранить"/>
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+</div>

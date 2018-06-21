@@ -1,0 +1,71 @@
+﻿
+@model IEnumerable<WebAppAuth.Models.AbonentNotificationModel>
+
+@{
+  Layout = "~/Views/Abonent/_Layout.cshtml";
+}
+
+@{
+  ViewBag.Title = "Уведомления";
+}
+<div class="wrapper">
+
+    <section class="content-header">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-md-8 col-md-offset-2">
+                    <h1>@ViewBag.Title</h1>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="content">
+
+        <div class="container">
+
+            <div class="row">
+            </div>
+            <ul class="timeline">
+
+                @if (!Model.Any())
+                {
+                    <p>
+                       Нет новых уведомлений
+                    </p>
+                }
+                else
+                {
+                    foreach (var item in Model)
+                     {
+                         <!-- timeline time label -->
+                         <li class="time-label">
+                             <span class="bg-green">
+                      @item.CreationTime.ToString("d MMM yy ddd")
+              </span>
+                         </li>
+                         <!-- /.timeline-label -->
+                         <!-- timeline item -->
+                         <li>
+                             <!-- timeline icon -->
+                             <i class="fa fa-envelope bg-blue"></i>
+                             <div class="timeline-item">
+                                 <span class="time"><i class="fa fa-clock-o"></i> @item.CreationTime.ToString("HH:mm")</span>
+
+                                 <h3 class="timeline-header">@item.Title</h3>
+
+                                 <div class="timeline-body">
+                                     @item.Content
+                                 </div>
+                             </div>
+                         </li>
+                         <!-- END timeline item -->
+                     }
+                }
+            </ul>
+        </div>
+    </section>
+</div>
+

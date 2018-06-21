@@ -1,0 +1,83 @@
+﻿@model IEnumerable<OhDataManager.Entities.System.Organization>
+
+@{
+    ViewBag.Title = "Организации";
+    Layout = "~/Views/Administrator/_Layout.cshtml";
+}
+
+<div class="box box-success">
+
+  <div class="box-header">
+
+    <div class="row">
+      <div class="col-xs-2">
+        @Html.ActionLink(
+        "Добавить",
+        "Create",
+        new {},
+        new { @class = "btn btn-block btn-primary" })
+      </div>
+    </div>
+
+  </div>
+
+  <div class="box-body">
+
+    <table class="webgrid-table table table-condensed table-bordered dataTable">
+
+      <tr class="webgrid-header">
+          <th>
+              @Html.DisplayNameFor(model => model.FullName)
+          </th>
+          <th>
+              @Html.DisplayNameFor(model => model.OrganizationExternalId)
+          </th>
+          <th>
+              @Html.DisplayNameFor(model => model.CreationTime)
+          </th>
+          <th colspan="2">
+              @Html.DisplayNameFor(model => model.ChangedTime)
+          </th>
+      </tr>
+
+      @foreach (var item in Model)
+      {
+        <tr>
+          <td>
+              @Html.DisplayFor(modelItem => item.FullName)
+          </td>
+          <td>
+              @Html.DisplayFor(modelItem => item.OrganizationExternalId)
+          </td>
+          <td>
+              @Html.DisplayFor(modelItem => item.CreationTime)
+          </td>
+          <td>
+              @Html.DisplayFor(modelItem => item.ChangedTime)
+          </td>
+          <td>
+            <ul class="table-row-list">
+              <li>
+                @Html.ActionLink(
+                "Изменить",
+                "Edit",
+                new { id = item.Id },
+                new { @class = "btn btn-warning" })
+              </li>
+              <li>
+                @Html.ActionLink(
+                "Подробнее",
+                "Details",
+                new { id = item.Id },
+                new { @class = "btn btn-primary" })
+              </li>
+            </ul>
+          </td>
+        </tr>
+      }
+
+    </table>
+
+  </div>
+
+</div>

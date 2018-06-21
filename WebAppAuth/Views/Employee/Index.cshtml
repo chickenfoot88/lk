@@ -1,0 +1,163 @@
+﻿
+@model WebAppAuth.Entities.Employee
+@{
+    Layout = "~/Views/Employee/_Layout.cshtml";
+    ViewBag.Title = "Профиль сотрудника";
+}
+
+<div class="wrapper">
+
+  <section class="content-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <h1>@ViewBag.Title</h1>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="content">
+
+    <div class="container">
+
+      <div class="row">
+
+        <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
+
+          <form action="@Url.Action("Edit", "Employee")" name="avatar_form" method="post" id="avatar_form" enctype="multipart/form-data">
+
+            <div class="row">
+
+              <div class="col-sm-7 col-md-7">
+
+                <div class="box box-success">
+
+                  <div class="box-header with-border">
+                      <h3 class="box-title">@ViewBag.Title </h3>
+                  </div>
+
+                  <div class="box-body">
+
+                    <input type="hidden" id="Id" name="Id" value="@Model.Id">
+
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                          <p>Как Вас зовут?</p>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                          <input type="text" id="@nameof(@Model.Surname)" name="@nameof(@Model.Surname)" class="form-control input-sm" value="@Model.Surname" required placeholder="Фамилия">
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                          <input type="text" id="@nameof(@Model.Name)" name="@nameof(@Model.Name)" class="form-control input-sm" value="@Model.Name" required placeholder="Имя">
+                        </div>
+                      </div>
+                    </div>
+
+                      <div class="form-group">
+                          <div class="row">
+                              <div class="col-xs-12 col-sm-12 col-md-12">
+                                  <input type="text" id="@nameof(@Model.Patronymic)" name="@nameof(@Model.Patronymic)" class="form-control input-sm" value="@Model.Patronymic" required placeholder="Отчество">
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="form-group">
+                          <div class="row">
+                              <div class="col-xs-12 col-sm-12 col-md-12">
+                                  <p>ФИО и инициалы (для отображения абонентам)</p>
+                              </div>
+                              <div class="col-xs-12 col-sm-6 col-md-6">
+                                  <input type="text" id="@nameof(@Model.DisplayName)" name="@nameof(@Model.DisplayName)" class="form-control input-sm" value="@Model.DisplayName" required>
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="form-group">
+                          <div class="row">
+                              <div class="col-xs-12 col-sm-12 col-md-12">
+                                  <p>Номер телефона (для отображения сотрудникам)</p>
+                              </div>
+                              <div class="col-xs-12 col-sm-6 col-md-6">
+                                  <input type="text" id="@nameof(@Model.PhoneNumber)" name="@nameof(@Model.PhoneNumber)" class="form-control input-sm" value="@Model.PhoneNumber" required>
+                              </div>
+                          </div>
+                      </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div class="col-sm-5 col-md-5">
+
+                <div class="box box-success">
+
+                  <div class="box-header with-border">
+                    <h3 class="box-title">Фотография</h3>
+                  </div>
+
+                  <div class="box-body">
+
+                    @if (@Model.ImageData == null)
+                    {
+                      <div class="profile-photo default-photo">
+                        <img src="~/Content/images/cabinet/no_photo_big.png" class="profile-user-img img-responsive img-circle" alt="Default Photo" />
+                      </div>
+                    }
+
+                    else
+                    {
+                      <div class="profile-photo abonent-photo">
+                        <img src="@Url.Action("GetImage", "Employee", new { @Model.Id })" class="profile-user-img img-responsive img-circle" alt="Abonent Photo" />
+                        <a href="@Url.Action("DelFile", "Employee", new { @Model.Id })" class="del-avatar close-btn"></a>
+                      </div>
+                    }
+
+                  </div>
+
+                  <div class="box-footer">
+
+                    <input class="hidden" type="file" name="loadImage" id="loadImage" title="Изменить фотографию" onchange="this.form.submit();"/>
+
+                    @if (@Model.ImageData == null)
+                    {
+                      <label for="loadImage" class="btn btn-default">Загрузить фотографию</label>
+                    }
+
+                    else
+                    {
+                      <label for="loadImage" class="btn btn-default">Изменить фотографию</label>
+                    }
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="row">
+
+              <div class="col-md-12">
+                <input type="submit" class="btn pull-right btn-success" value="Сохранить"/>
+              </div>
+
+            </div>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</div>
